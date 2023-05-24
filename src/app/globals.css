@@ -16,7 +16,7 @@
   }
 }
 
-body {
+.auth {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -25,3 +25,38 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+input {
+  outline: none !important;
+}
+.auth-btn {
+  background: linear-gradient(
+    93.49deg,
+    #fecb00 59.01%,
+    #d19500 100.52%,
+    #fecb00 109.82%
+  );
+  color: #0c0c0b;
+  font-weight: 500;
+}
+.auth-bg {
+  background-image: url("/auth-bg.png");
+  background-size: cover;
+  width: 50vw;
+  height: 80vh;
+}
+/* #sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: white;
+  width: 220px;
+}
+@media (max-width: 768px) {
+  #sidebar {
+    display: none;
+    width: 100% !important;
+  }
+  #sidebar.open {
+    display: block;
+  }
+} */
