@@ -24,9 +24,7 @@ export default function DashboardLayout({
               </div>
             </div>
           </div>
-          <div className="bg-[#F6F6F9] md:border-l border-[#E6E8F9]">
-            {children}
-          </div>
+          <div className="bg-[#F6F6F9] p-4 min-h-screen">{children}</div>
         </div>
       </div>
     </section>

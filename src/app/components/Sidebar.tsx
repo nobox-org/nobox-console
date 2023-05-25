@@ -7,10 +7,10 @@ import { TbLayoutDashboard } from "react-icons/tb";
 const Sidebar = () => {
   return (
     <div id="sidebar">
-      <aside className="flex flex-col justify-between gap-4 pt-6 h-screen">
+      <aside className="flex flex-col justify-between gap-4 h-screen md:border-r border-[#E6E8F9]">
         <ul className=" text-[#496080] font-light">
-          <div className="w-full flex mb-4 pb-2 justify-between px-4 items-center border-b border-[#E6E8F9]">
-            <div className="md:pl-3 flex gap-2 ">
+          <div className="w-full flex mb-4 pb-2 pt-6 justify-between px-4 items-center border-b border-[#E6E8F9]">
+            <div className="md:px-2 flex gap-2 ">
               <img src="/logo.svg" className="w-full" alt="" />
               <p className="text-[#1C1B1B] text-xl font-medium">Nobox</p>
             </div>
