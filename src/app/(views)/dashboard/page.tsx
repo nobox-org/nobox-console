@@ -91,7 +91,7 @@ export default function Dashboard() {
         </div>
         <h6 className="text-md font-medium mt-5">Get started</h6>
         <div className="flex flex-wrap gap-6 my-4">
-          <div className="md:w-56 bg-white rounded-sm p-4">
+          <div className="w-full md:w-56 bg-white rounded-sm p-4">
             <span className="w-10 h-10 rounded-full my-2 text-primary flex justify-center items-center bg-[#EBF7FF]">
               <BsBoundingBoxCircles className="text-lg font-medium" />
             </span>
@@ -103,7 +103,7 @@ export default function Dashboard() {
               <FaArrowRight />
             </div>
           </div>
-          <div className="md:w-56 bg-white rounded-sm p-4">
+          <div className="w-full md:w-56 bg-white rounded-sm p-4">
             <span className="w-10 h-10 rounded-full my-2 text-primary flex justify-center items-center bg-[#EBF7FF]">
               <BsFileEarmarkCodeFill className="text-lg font-medium" />
             </span>
