@@ -57,7 +57,7 @@ const signUpWithGithub = () => {
       </div>
       <div className="text-white mt-5 text-center">
         New to NoBox?{" "}
-        <Link href={"/auth/signup"} className="text-link font-medium">
+        <Link href={"/auth/signup"} className="pl-2 text-link font-medium">
           Sign Up
         </Link>
       </div>

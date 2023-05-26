@@ -57,7 +57,7 @@ const signUpWithGithub = () => {
       </div>
       <div className="text-white mt-5 text-center">
         Already have an account?{" "}
-        <Link href={"/auth/login"} className="text-link font-medium">
+        <Link href={"/auth/login"} className="pl-2 text-link font-medium">
           Sign In
         </Link>
       </div>

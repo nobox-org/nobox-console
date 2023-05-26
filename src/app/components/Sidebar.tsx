@@ -3,8 +3,10 @@ import { VscFileCode } from "react-icons/vsc";
 import { BsFolder2Open } from "react-icons/bs";
 import { TbLayoutDashboard } from "react-icons/tb";
 import { FaTimes } from "react-icons/fa";
+import { usePathname } from "next/navigation";
 
 const Sidebar = () => {
+  const pathname = usePathname();
   const closeSidebar = () => {
     document.querySelector<HTMLElement>("#sidebar")?.classList.remove("open");
   };
@@ -26,20 +28,32 @@ const Sidebar = () => {
               <FaTimes />
             </div>
             <Link
-              className="flex gap-2 px-2 py-4 items-center hover:bg-[#ECF3FF] hover:text-secondary hover:font-medium"
+              className={
+                pathname == "/dashboard"
+                  ? "bg-[#ECF3FF] text-secondary font-medium flex gap-2 px-2 py-4 items-center"
+                  : "flex gap-2 px-2 py-4 items-center hover:bg-[#ECF3FF] hover:text-secondary hover:font-medium"
+              }
               href="/dashboard"
             >
               <TbLayoutDashboard className="text-2xl" /> Overview{" "}
             </Link>
             <Link
-              className="flex gap-2 px-2 py-4 items-center hover:bg-[#ECF3FF] hover:text-secondary hover:font-medium"
-              href="/projectss"
+              className={
+                pathname == "/dashboard/projects"
+                  ? "bg-[#ECF3FF] text-secondary font-medium flex gap-2 px-2 py-4 items-center"
+                  : "flex gap-2 px-2 py-4 items-center hover:bg-[#ECF3FF] hover:text-secondary hover:font-medium"
+              }
+              href="/dashboard/projects"
             >
               <BsFolder2Open className="text-2xl" /> Projects
             </Link>
             <Link
-              className="flex gap-2 px-2 py-4 items-center hover:bg-[#ECF3FF] hover:text-secondary hover:font-medium"
-              href="/docs"
+              className={
+                pathname == "/dashboard/docs"
+                  ? "bg-[#ECF3FF] text-secondary font-medium flex gap-2 px-2 py-4 items-center"
+                  : "flex gap-2 px-2 py-4 items-center hover:bg-[#ECF3FF] hover:text-secondary hover:font-medium"
+              }
+              href="/dashboard/docs"
             >
               <VscFileCode className="text-2xl" /> Docs{" "}
             </Link>
