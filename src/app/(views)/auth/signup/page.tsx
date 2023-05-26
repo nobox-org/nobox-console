@@ -12,7 +12,7 @@ const signUpWithGithub = () => {
           <FaGithub className="text-lg" /> Continue with GitHub
         </button>
         <Link
-          href={"//auth/signup-with-email"}
+          href={"/auth/signup-with-email"}
           className="text-link justify-center flex font-light items-center gap-1"
         >
           Continue with Email <FaArrowRight className="font-thin" />
