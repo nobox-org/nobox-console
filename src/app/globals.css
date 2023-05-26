@@ -38,12 +38,7 @@ input {
   color: #0c0c0b;
   font-weight: 500;
 }
-.auth-bg {
-  background-image: url("/auth-bg.png");
-  background-size: cover;
-  width: 50vw;
-  height: 80vh;
-}
+
 .welcome-bg {
   background-image: url("/welcome-bg.svg");
   background-size: cover;
@@ -67,5 +62,13 @@ input {
   }
   #sidebar.open {
     display: block;
+  }
+}
+@media (min-width: 768px) {
+  .auth-bg {
+    background-image: url("/auth-bg.png");
+    background-size: cover;
+    width: 50vw;
+    height: 80vh;
   }
 }
