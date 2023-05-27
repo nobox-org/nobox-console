@@ -1,5 +1,5 @@
-import "./globals.css";
 import localFont from 'next/font/local';
+import './styles/globals.scss'
 
 const Euclid = localFont({
   src: [
