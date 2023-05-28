@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { FaArrowLeft, FaArrowRight, FaGithub } from "react-icons/fa";
-const signUpWithGithub = () => {
+const signIn = () => {
   return (
     <div>
       <div className="bg-white px-5 py-10">
@@ -65,4 +65,4 @@ const signUpWithGithub = () => {
   );
 };
 
-export default signUpWithGithub;
+export default signIn;
