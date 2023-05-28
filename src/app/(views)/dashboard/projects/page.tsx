@@ -1,6 +1,7 @@
 import { AiOutlinePlus } from "react-icons/ai";
 import { FaPen } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
+import "./style.scss";
 
 const Projects = () => {
   const projects = [
@@ -56,7 +57,7 @@ const Projects = () => {
   return (
     <div>
       <div className="flex justify-between">
-        <div className="flex font-light gap-1 px-3 py-1 border border-[#E6E8F9] bg-[#FCFCFD] items-center text-[#838389]">
+        <div className="flex font-light gap-1 px-2 py-1 border border-[#E6E8F9] bg-[#FCFCFD] items-center text-[#838389]">
           <FiSearch />
           <input
             type="search"
@@ -65,7 +66,7 @@ const Projects = () => {
             id=""
           />
         </div>
-        <button className="bg-secondary text-white flex justify-center items-center py-2 gap-2 px-4">
+        <button className="bg-secondary text-white flex justify-center items-center py-2 gap-2 px-2 md:px-4">
           <AiOutlinePlus /> Create Project
         </button>
       </div>
@@ -121,19 +122,19 @@ const Projects = () => {
                     />
                   </th>
                   <th className="font-medium text-sm p-2 text-left">
-                    {project.name}
+                    <p className="w-48">{project.name}</p>
                   </th>
                   <th className="font-medium text-sm p-2 text-left">
-                    {project.description}
+                    <p className="w-80 xl-w-full"> {project.description}</p>
                   </th>
                   <th className="font-medium text-sm p-2 text-left">
-                    {project.slug}
+                    <p className="w-48">{project.slug}</p>
                   </th>
                   <th className="font-medium text-sm p-2 text-left">
-                    {project.date}
+                    <p className="w-36">{project.date}</p>
                   </th>
                   <th className="font-light text-sm text-primary p-2 text-left">
-                    <div className="flex gap-2 items-center">
+                    <div className="flex w-16 gap-2 items-center">
                       <FaPen /> Edit
                     </div>
                   </th>
