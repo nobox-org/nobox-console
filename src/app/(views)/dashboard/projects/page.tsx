@@ -1,7 +1,10 @@
+"use client";
 import { AiOutlinePlus } from "react-icons/ai";
 import { FaPen } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 import "./style.scss";
+import CreateProject from "@/app/components/modals/createProject";
+import { useState } from "react";
 
 const Projects = () => {
   const projects = [
@@ -54,6 +57,10 @@ const Projects = () => {
       date: "14th Feb. 2023",
     },
   ];
+  const [open, setOpen] = useState(false);
+  const close = () => {
+    setOpen(false);
+  };
   return (
     <div>
       <div className="flex justify-between">
@@ -66,7 +73,12 @@ const Projects = () => {
             id=""
           />
         </div>
-        <button className="bg-secondary text-white flex justify-center items-center py-2 gap-2 px-2 md:px-4">
+        <button
+          onClick={() => {
+            setOpen(true);
+          }}
+          className="bg-secondary text-white flex justify-center items-center py-2 gap-2 px-2 md:px-4"
+        >
           <AiOutlinePlus /> Create Project
         </button>
       </div>
@@ -156,6 +168,9 @@ const Projects = () => {
             </button>
           </div>
         )}
+      </div>
+      <div className="">
+        <CreateProject open={open} close={close} />
       </div>
     </div>
   );
