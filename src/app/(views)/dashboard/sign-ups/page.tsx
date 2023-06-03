@@ -1,15 +1,676 @@
 "use client";
 import Pagination from "@/app/components/Pagination";
+import RecordDataBox from "@/app/components/RecordDataBox";
+import CreateProject from "@/app/components/modals/createProject";
 import SignUpsTableBody from "@/app/components/tables/SignUpsTableBody";
 import SignUpsTableHead from "@/app/components/tables/SignUpsTableHead";
-import { useState } from "react";
+import { SetStateAction, useState, useEffect } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 
-const SignUPs = () => {
+type ViewMode = "list" | "grid" | "table" | "code";
+
+// const data = [
+//   {
+
+//   },
+// ]
+
+const SignUPs: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const [viewMode, setViewMode] = useState<ViewMode>("table");
+
+  useEffect(() => {
+    console.log({ viewMode });
+  }, [viewMode]);
+
+  const toggleViewMode = (mode: ViewMode) => {
+    setViewMode(mode);
+  };
   const close = () => {
     setOpen(false);
   };
+
+  const renderData = () => {
+    if (viewMode === "table") {
+      return (
+        <div className="p-[24px] bg-[#FAFAFA]">
+          <table className="w-full">
+            <thead className="h-[40px] border bg-tableHeadBgColor">
+              <SignUpsTableHead />
+            </thead>
+            <tbody className="">
+              <SignUpsTableBody />
+              <SignUpsTableBody />
+              <SignUpsTableBody />
+              <SignUpsTableBody />
+              <SignUpsTableBody />
+              <SignUpsTableBody />
+              <SignUpsTableBody />
+              <SignUpsTableBody />
+            </tbody>
+          </table>
+        </div>
+      );
+    } else if (viewMode === "list") {
+      return (
+        <div className="p-[24px] bg-[#FAFAFA] flex flex-col gap-[8px]">
+          <div className="w-full flex items-center h-[192px] border rounded-[2px] bg-white">
+            <div className="w-[303px] h-[160px] pl-[24px]">
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
+                  _id:
+                </span>
+                <span className="text-[#556DFF] text-[12px] leading-[20px]">
+                  ObjectId (‘389dhjf8373hf983f9h3’)
+                </span>
+              </div>
+
+              <div className="flex items-center ">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={12}
+                  height={12}
+                  fill="none"
+                >
+                  <path
+                    fill="#24242E"
+                    d="M3 4.665v2.67c0 1.66 1.175 2.335 2.61 1.51l.64-.37a.502.502 0 0 0 .25-.435V3.96a.502.502 0 0 0-.25-.435l-.64-.37C4.175 2.33 3 3.005 3 4.665ZM7 4.395V7.61c0 .195.21.315.375.215l.55-.32c1.435-.825 1.435-2.185 0-3.01l-.55-.32a.251.251 0 0 0-.375.22Z"
+                  />
+                </svg>
+                <div className="flex items-center">
+                  <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
+                    record:{" "}
+                  </span>
+                  <span className="text-[#667085] text-[12px] leading-[20px] tracking-[-0.02em]">
+                    Object
+                  </span>
+                </div>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
+                  id:
+                </span>
+                <span className="text-[#12B76A] text-[12px] leading-[20px]">
+                  “389dhjf8373hf983f9h3”
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  updatedAt:
+                </span>
+                <span className="text-[#DD2590] text-[12px] leading-[20px]">
+                  2023-01-10T20:43:43.932+00:00
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  createdAt:
+                </span>
+                <span className="text-[#DD2590] text-[12px] leading-[20px]">
+                  2023-01-10T20:43:43.932+00:00
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  first-name
+                </span>
+                <span className="text-[#12B76A] text-[12px] leading-[20px]">
+                  “Caveman”
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  last-name
+                </span>
+                <span className="text-[#12B76A] text-[12px] leading-[20px]">
+                  “Caveman”
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  age:{" "}
+                </span>
+                <span className="text-[#667085] text-[12px] leading-[20px] tracking-[-0.02em]">
+                  30
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="w-full flex items-center h-[192px] border rounded-[2px] bg-white">
+            <div className="w-[303px] h-[160px] pl-[24px]">
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
+                  _id:
+                </span>
+                <span className="text-[#556DFF] text-[12px] leading-[20px]">
+                  ObjectId (‘389dhjf8373hf983f9h3’)
+                </span>
+              </div>
+
+              <div className="flex items-center ">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={12}
+                  height={12}
+                  fill="none"
+                >
+                  <path
+                    fill="#24242E"
+                    d="M3 4.665v2.67c0 1.66 1.175 2.335 2.61 1.51l.64-.37a.502.502 0 0 0 .25-.435V3.96a.502.502 0 0 0-.25-.435l-.64-.37C4.175 2.33 3 3.005 3 4.665ZM7 4.395V7.61c0 .195.21.315.375.215l.55-.32c1.435-.825 1.435-2.185 0-3.01l-.55-.32a.251.251 0 0 0-.375.22Z"
+                  />
+                </svg>
+                <div className="flex items-center">
+                  <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
+                    record:{" "}
+                  </span>
+                  <span className="text-[#667085] text-[12px] leading-[20px] tracking-[-0.02em]">
+                    Object
+                  </span>
+                </div>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
+                  id:
+                </span>
+                <span className="text-[#12B76A] text-[12px] leading-[20px]">
+                  “389dhjf8373hf983f9h3”
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  updatedAt:
+                </span>
+                <span className="text-[#DD2590] text-[12px] leading-[20px]">
+                  2023-01-10T20:43:43.932+00:00
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  createdAt:
+                </span>
+                <span className="text-[#DD2590] text-[12px] leading-[20px]">
+                  2023-01-10T20:43:43.932+00:00
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  first-name
+                </span>
+                <span className="text-[#12B76A] text-[12px] leading-[20px]">
+                  “Caveman”
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  last-name
+                </span>
+                <span className="text-[#12B76A] text-[12px] leading-[20px]">
+                  “Caveman”
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  age:{" "}
+                </span>
+                <span className="text-[#667085] text-[12px] leading-[20px] tracking-[-0.02em]">
+                  30
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="w-full flex items-center h-[192px] border rounded-[2px] bg-white">
+            <div className="w-[303px] h-[160px] pl-[24px]">
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
+                  _id:
+                </span>
+                <span className="text-[#556DFF] text-[12px] leading-[20px]">
+                  ObjectId (‘389dhjf8373hf983f9h3’)
+                </span>
+              </div>
+
+              <div className="flex items-center ">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={12}
+                  height={12}
+                  fill="none"
+                >
+                  <path
+                    fill="#24242E"
+                    d="M3 4.665v2.67c0 1.66 1.175 2.335 2.61 1.51l.64-.37a.502.502 0 0 0 .25-.435V3.96a.502.502 0 0 0-.25-.435l-.64-.37C4.175 2.33 3 3.005 3 4.665ZM7 4.395V7.61c0 .195.21.315.375.215l.55-.32c1.435-.825 1.435-2.185 0-3.01l-.55-.32a.251.251 0 0 0-.375.22Z"
+                  />
+                </svg>
+                <div className="flex items-center">
+                  <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
+                    record:{" "}
+                  </span>
+                  <span className="text-[#667085] text-[12px] leading-[20px] tracking-[-0.02em]">
+                    Object
+                  </span>
+                </div>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
+                  id:
+                </span>
+                <span className="text-[#12B76A] text-[12px] leading-[20px]">
+                  “389dhjf8373hf983f9h3”
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  updatedAt:
+                </span>
+                <span className="text-[#DD2590] text-[12px] leading-[20px]">
+                  2023-01-10T20:43:43.932+00:00
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  createdAt:
+                </span>
+                <span className="text-[#DD2590] text-[12px] leading-[20px]">
+                  2023-01-10T20:43:43.932+00:00
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  first-name
+                </span>
+                <span className="text-[#12B76A] text-[12px] leading-[20px]">
+                  “Caveman”
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  last-name
+                </span>
+                <span className="text-[#12B76A] text-[12px] leading-[20px]">
+                  “Caveman”
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  age:{" "}
+                </span>
+                <span className="text-[#667085] text-[12px] leading-[20px] tracking-[-0.02em]">
+                  30
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    } else if (viewMode === "grid") {
+      return (
+        <div className="grid p-[24px] bg-[#FAFAFA] grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[24px]">
+          <div className="max-w-[389.33px] h-[208px] rounded-[2px] border border-solid border-[#E6E8F9] bg-white">
+            <div className="h-[56px] flex items-center  border-[#E6E8F9]  border-t-[0px] border-l-[0px] border-r-[0px] border-b-[0.5px]">
+              <h2 className="   pl-[16px] text-[16px] font-[600] text-[#000000]">
+                _id: ObjectId (‘389dhjf8373hf983f9h3’)
+              </h2>
+            </div>
+            <div className="h-[152px]  w-[281px] flex items-center">
+              <div className="h-[120px]  flex  flex-col justify-center ">
+                <RecordDataBox name="Number of Records" value="17" />
+                <RecordDataBox
+                  name="updatedAt"
+                  value="2023-01-10T20:43:43.932+00:00”"
+                />
+                <RecordDataBox
+                  name="createdAt"
+                  value="2023-01-10T20:43:43.932+00:00”"
+                />
+                <RecordDataBox name=" first-name" value="Caveman" />
+                <RecordDataBox name="last-name" value="Caveman" />
+              </div>
+            </div>
+          </div>
+          <div className="max-w-[389.33px] h-[208px] rounded-[2px] border border-solid border-[#E6E8F9] bg-white">
+            <div className="h-[56px] flex items-center  border-[#E6E8F9]  border-t-[0px] border-l-[0px] border-r-[0px] border-b-[0.5px]">
+              <h2 className="   pl-[16px] text-[16px] font-[600] text-[#000000]">
+                _id: ObjectId (‘389dhjf8373hf983f9h3’)
+              </h2>
+            </div>
+            <div className="h-[152px]  w-[281px] flex items-center">
+              <div className="h-[120px]  flex  flex-col justify-center ">
+                <RecordDataBox name="Number of Records" value="17" />
+                <RecordDataBox
+                  name="updatedAt"
+                  value="2023-01-10T20:43:43.932+00:00”"
+                />
+                <RecordDataBox
+                  name="createdAt"
+                  value="2023-01-10T20:43:43.932+00:00”"
+                />
+                <RecordDataBox name=" first-name" value="Caveman" />
+                <RecordDataBox name="last-name" value="Caveman" />
+              </div>
+            </div>
+          </div>
+          <div className="max-w-[389.33px] h-[208px] rounded-[2px] border border-solid border-[#E6E8F9] bg-white">
+            <div className="h-[56px] flex items-center  border-[#E6E8F9]  border-t-[0px] border-l-[0px] border-r-[0px] border-b-[0.5px]">
+              <h2 className="   pl-[16px] text-[16px] font-[600] text-[#000000]">
+                _id: ObjectId (‘389dhjf8373hf983f9h3’)
+              </h2>
+            </div>
+            <div className="h-[152px]  w-[281px] flex items-center">
+              <div className="h-[120px]  flex  flex-col justify-center ">
+                <RecordDataBox name="Number of Records" value="17" />
+                <RecordDataBox
+                  name="updatedAt"
+                  value="2023-01-10T20:43:43.932+00:00”"
+                />
+                <RecordDataBox
+                  name="createdAt"
+                  value="2023-01-10T20:43:43.932+00:00”"
+                />
+                <RecordDataBox name=" first-name" value="Caveman" />
+                <RecordDataBox name="last-name" value="Caveman" />
+              </div>
+            </div>
+          </div>
+          <div className="max-w-[389.33px] h-[208px] rounded-[2px] border border-solid border-[#E6E8F9] bg-white">
+            <div className="h-[56px] flex items-center  border-[#E6E8F9]  border-t-[0px] border-l-[0px] border-r-[0px] border-b-[0.5px]">
+              <h2 className="   pl-[16px] text-[16px] font-[600] text-[#000000]">
+                _id: ObjectId (‘389dhjf8373hf983f9h3’)
+              </h2>
+            </div>
+            <div className="h-[152px]  w-[281px] flex items-center">
+              <div className="h-[120px]  flex  flex-col justify-center ">
+                <RecordDataBox name="Number of Records" value="17" />
+                <RecordDataBox
+                  name="updatedAt"
+                  value="2023-01-10T20:43:43.932+00:00”"
+                />
+                <RecordDataBox
+                  name="createdAt"
+                  value="2023-01-10T20:43:43.932+00:00”"
+                />
+                <RecordDataBox name=" first-name" value="Caveman" />
+                <RecordDataBox name="last-name" value="Caveman" />
+              </div>
+            </div>
+          </div>
+          <div className="max-w-[389.33px] h-[208px] rounded-[2px] border border-solid border-[#E6E8F9] bg-white">
+            <div className="h-[56px] flex items-center  border-[#E6E8F9]  border-t-[0px] border-l-[0px] border-r-[0px] border-b-[0.5px]">
+              <h2 className="   pl-[16px] text-[16px] font-[600] text-[#000000]">
+                _id: ObjectId (‘389dhjf8373hf983f9h3’)
+              </h2>
+            </div>
+            <div className="h-[152px]  w-[281px] flex items-center">
+              <div className="h-[120px]  flex  flex-col justify-center ">
+                <RecordDataBox name="Number of Records" value="17" />
+                <RecordDataBox
+                  name="updatedAt"
+                  value="2023-01-10T20:43:43.932+00:00”"
+                />
+                <RecordDataBox
+                  name="createdAt"
+                  value="2023-01-10T20:43:43.932+00:00”"
+                />
+                <RecordDataBox name=" first-name" value="Caveman" />
+                <RecordDataBox name="last-name" value="Caveman" />
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    } else if (viewMode === "code") {
+      return (
+        <div className="p-[24px] bg-[#FAFAFA] flex flex-col gap-[8px]">
+          <div className="w-full flex items-center h-[192px] border rounded-[2px] bg-white">
+            <div className="w-[303px] h-[160px] pl-[24px]">
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
+                  _id:
+                </span>
+                <span className="text-[#556DFF] text-[12px] leading-[20px]">
+                  ObjectId (‘389dhjf8373hf983f9h3’)
+                </span>
+              </div>
+
+              <div className="flex items-center ">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={12}
+                  height={12}
+                  fill="none"
+                >
+                  <path
+                    fill="#24242E"
+                    d="M3 4.665v2.67c0 1.66 1.175 2.335 2.61 1.51l.64-.37a.502.502 0 0 0 .25-.435V3.96a.502.502 0 0 0-.25-.435l-.64-.37C4.175 2.33 3 3.005 3 4.665ZM7 4.395V7.61c0 .195.21.315.375.215l.55-.32c1.435-.825 1.435-2.185 0-3.01l-.55-.32a.251.251 0 0 0-.375.22Z"
+                  />
+                </svg>
+                <div className="flex items-center">
+                  <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
+                    record:{" "}
+                  </span>
+                  <span className="text-[#667085] text-[12px] leading-[20px] tracking-[-0.02em]">
+                    Object
+                  </span>
+                </div>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
+                  id:
+                </span>
+                <span className="text-[#12B76A] text-[12px] leading-[20px]">
+                  “389dhjf8373hf983f9h3”
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  updatedAt:
+                </span>
+                <span className="text-[#DD2590] text-[12px] leading-[20px]">
+                  2023-01-10T20:43:43.932+00:00
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  createdAt:
+                </span>
+                <span className="text-[#DD2590] text-[12px] leading-[20px]">
+                  2023-01-10T20:43:43.932+00:00
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  first-name
+                </span>
+                <span className="text-[#12B76A] text-[12px] leading-[20px]">
+                  “Caveman”
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  last-name
+                </span>
+                <span className="text-[#12B76A] text-[12px] leading-[20px]">
+                  “Caveman”
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  age:{" "}
+                </span>
+                <span className="text-[#667085] text-[12px] leading-[20px] tracking-[-0.02em]">
+                  30
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="w-full flex items-center h-[192px] border rounded-[2px] bg-white">
+            <div className="w-[303px] h-[160px] pl-[24px]">
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
+                  _id:
+                </span>
+                <span className="text-[#556DFF] text-[12px] leading-[20px]">
+                  ObjectId (‘389dhjf8373hf983f9h3’)
+                </span>
+              </div>
+
+              <div className="flex items-center ">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={12}
+                  height={12}
+                  fill="none"
+                >
+                  <path
+                    fill="#24242E"
+                    d="M3 4.665v2.67c0 1.66 1.175 2.335 2.61 1.51l.64-.37a.502.502 0 0 0 .25-.435V3.96a.502.502 0 0 0-.25-.435l-.64-.37C4.175 2.33 3 3.005 3 4.665ZM7 4.395V7.61c0 .195.21.315.375.215l.55-.32c1.435-.825 1.435-2.185 0-3.01l-.55-.32a.251.251 0 0 0-.375.22Z"
+                  />
+                </svg>
+                <div className="flex items-center">
+                  <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
+                    record:{" "}
+                  </span>
+                  <span className="text-[#667085] text-[12px] leading-[20px] tracking-[-0.02em]">
+                    Object
+                  </span>
+                </div>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
+                  id:
+                </span>
+                <span className="text-[#12B76A] text-[12px] leading-[20px]">
+                  “389dhjf8373hf983f9h3”
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  updatedAt:
+                </span>
+                <span className="text-[#DD2590] text-[12px] leading-[20px]">
+                  2023-01-10T20:43:43.932+00:00
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  createdAt:
+                </span>
+                <span className="text-[#DD2590] text-[12px] leading-[20px]">
+                  2023-01-10T20:43:43.932+00:00
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  first-name
+                </span>
+                <span className="text-[#12B76A] text-[12px] leading-[20px]">
+                  “Caveman”
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  last-name
+                </span>
+                <span className="text-[#12B76A] text-[12px] leading-[20px]">
+                  “Caveman”
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  age:{" "}
+                </span>
+                <span className="text-[#667085] text-[12px] leading-[20px] tracking-[-0.02em]">
+                  30
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="w-full flex items-center h-[192px] border rounded-[2px] bg-white">
+            <div className="w-[303px] h-[160px] pl-[24px]">
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
+                  _id:
+                </span>
+                <span className="text-[#556DFF] text-[12px] leading-[20px]">
+                  ObjectId (‘389dhjf8373hf983f9h3’)
+                </span>
+              </div>
+
+              <div className="flex items-center ">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={12}
+                  height={12}
+                  fill="none"
+                >
+                  <path
+                    fill="#24242E"
+                    d="M3 4.665v2.67c0 1.66 1.175 2.335 2.61 1.51l.64-.37a.502.502 0 0 0 .25-.435V3.96a.502.502 0 0 0-.25-.435l-.64-.37C4.175 2.33 3 3.005 3 4.665ZM7 4.395V7.61c0 .195.21.315.375.215l.55-.32c1.435-.825 1.435-2.185 0-3.01l-.55-.32a.251.251 0 0 0-.375.22Z"
+                  />
+                </svg>
+                <div className="flex items-center">
+                  <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
+                    record:{" "}
+                  </span>
+                  <span className="text-[#667085] text-[12px] leading-[20px] tracking-[-0.02em]">
+                    Object
+                  </span>
+                </div>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
+                  id:
+                </span>
+                <span className="text-[#12B76A] text-[12px] leading-[20px]">
+                  “389dhjf8373hf983f9h3”
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  updatedAt:
+                </span>
+                <span className="text-[#DD2590] text-[12px] leading-[20px]">
+                  2023-01-10T20:43:43.932+00:00
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  createdAt:
+                </span>
+                <span className="text-[#DD2590] text-[12px] leading-[20px]">
+                  2023-01-10T20:43:43.932+00:00
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  first-name
+                </span>
+                <span className="text-[#12B76A] text-[12px] leading-[20px]">
+                  “Caveman”
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  last-name
+                </span>
+                <span className="text-[#12B76A] text-[12px] leading-[20px]">
+                  “Caveman”
+                </span>
+              </div>
+              <div className="flex gap-[4px]">
+                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                  age:{" "}
+                </span>
+                <span className="text-[#667085] text-[12px] leading-[20px] tracking-[-0.02em]">
+                  30
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+  };
+
   return (
     <div>
       <div className="h-[107px] flex justify-between px-[24px] items-center ">
@@ -92,7 +753,28 @@ const SignUPs = () => {
             </div>
           </div>
           <div className="flex space-x-3 items-center">
-            <div className="cursor-pointer">
+            <div
+              className="cursor-pointer"
+              onClick={() => toggleViewMode("grid")}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={16}
+                height={16}
+                fill="none"
+              >
+                <path
+                  stroke="#98A2B3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M14.667 5.68V2.653c0-.94-.427-1.32-1.487-1.32h-2.693c-1.06 0-1.487.38-1.487 1.32v3.02c0 .947.427 1.32 1.487 1.32h2.693c1.06.007 1.487-.373 1.487-1.313ZM14.667 13.18v-2.693C14.667 9.427 14.24 9 13.18 9h-2.693C9.427 9 9 9.427 9 10.487v2.693c0 1.06.427 1.487 1.487 1.487h2.693c1.06 0 1.487-.427 1.487-1.487ZM7 5.68V2.653c0-.94-.427-1.32-1.487-1.32H2.82c-1.06 0-1.487.38-1.487 1.32v3.02c0 .947.427 1.32 1.487 1.32h2.693C6.573 7 7 6.62 7 5.68ZM7 13.18v-2.693C7 9.427 6.573 9 5.513 9H2.82c-1.06 0-1.487.427-1.487 1.487v2.693c0 1.06.427 1.487 1.487 1.487h2.693C6.573 14.667 7 14.24 7 13.18Z"
+                />
+              </svg>
+            </div>
+            <div
+              className="cursor-pointer"
+              onClick={() => toggleViewMode("code")}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width={16}
@@ -113,7 +795,10 @@ const SignUPs = () => {
                 />
               </svg>
             </div>
-            <div className="cursor-pointer">
+            <div
+              className="cursor-pointer"
+              onClick={() => toggleViewMode("list")}
+            >
               {" "}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +815,10 @@ const SignUPs = () => {
                 />
               </svg>
             </div>
-            <div className="cursor-pointer">
+            <div
+              className="cursor-pointer"
+              onClick={() => toggleViewMode("table")}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width={16}
@@ -146,24 +834,13 @@ const SignUPs = () => {
           </div>
         </div>
       </div>
-      <div className="p-[24px] bg-[#FAFAFA]">
-        <table className="w-full">
-          <thead className="h-[40px] border bg-tableHeadBgColor">
-            <SignUpsTableHead />
-          </thead>
-          <tbody className="">
-            <SignUpsTableBody />
-            <SignUpsTableBody />
-            <SignUpsTableBody />
-            <SignUpsTableBody />
-            <SignUpsTableBody />
-            <SignUpsTableBody />
-            <SignUpsTableBody />
-            <SignUpsTableBody />
-          </tbody>
-        </table>
+
+      {renderData()}
+      <Pagination />
+
+      <div className="">
+        <CreateProject open={open} close={close} />
       </div>
-      <Pagination/>
     </div>
   );
 };

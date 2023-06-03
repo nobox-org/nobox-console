@@ -11,7 +11,7 @@ const CreateProject: React.FC<Props> = (props) => {
   return (
     <div
       className="modal-overlay flex justify-center items-center"
-      onClick={() => props.close()}
+      // onClick={() => props.close()}
     >
       <div className="modal-container">
         <div>
@@ -28,7 +28,7 @@ const CreateProject: React.FC<Props> = (props) => {
                 </div>
                 <div
                   onClick={() => props.close()}
-                  className="flex w-8 h-8 rounded-full text-[#0F172A] border border-[#E6E8F9] justify-center items-center"
+                  className="flex w-8 h-8 rounded-full text-[#0F172A] border border-[#E6E8F9] justify-center items-center cursor-pointer"
                 >
                   <FaTimes />
                 </div>
