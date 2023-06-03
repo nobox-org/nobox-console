@@ -24,8 +24,12 @@ module.exports = {
         rowColor: "#6379A8",
         customInputBorder: "#87ADFF",
         borderCard: "#DDE3F0",
+        tableHeadBgColor: "#ECEDF3",
+        tableBorderColor: "#CACFF6",
+        checkboxBg: "#ECEDF3",
+        checkboxText: "#556DFF",
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
 };

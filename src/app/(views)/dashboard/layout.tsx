@@ -39,7 +39,7 @@ export default function DashboardLayout({
               </div>
             </div>
           </div>
-          <div className="bg-[#F6F6F9] p-4 min-h-screen w-full">{children}</div>
+          <div className="bg-[#FFFFFF]  min-h-screen w-full">{children}</div>
         </div>
       </div>
     </section>
