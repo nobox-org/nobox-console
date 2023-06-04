@@ -76,6 +76,21 @@ input {
   height: 100%;
 }
 
+.welcome-bg {
+  position: relative;
+}
+
+.welcome-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top right, transparent 0%, #FAFAFA 83%);
+  opacity: 1; /* Adjust the opacity value to control the fading effect */
+}
+
 .modal-overlay::before {
   content: "";
   position: fixed;
