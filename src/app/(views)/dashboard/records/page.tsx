@@ -1,18 +1,157 @@
 "use client";
 import RecordTableBody from "@/app/components/tables/RecordTableBody";
 import RecordTableHead from "@/app/components/tables/RecordTableHead";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { GrLinkNext } from "react-icons/gr";
 import { BiArrowBack } from "react-icons/bi";
 import RecordDataBox from "@/app/components/RecordDataBox";
 import Pagination from "@/app/components/Pagination";
+import CreateProject from "@/app/components/modals/createProject";
+
+type ViewMode = "table" | "grid" 
+
 
 const Records = () => {
   const [open, setOpen] = useState(false);
   const close = () => {
     setOpen(false);
   };
+
+   const [viewMode, setViewMode] = useState<ViewMode>("table");
+
+   useEffect(() => {
+     console.log({ viewMode });
+   }, [viewMode]);
+
+   const toggleViewMode = (mode: ViewMode) => {
+     setViewMode(mode);
+  };
+  
+  const renderData = () => {
+    if (viewMode === "table") {
+      return (
+        <table className="w-full">
+          <thead className="h-[40px] border bg-tableHeadBgColor">
+            <RecordTableHead />
+          </thead>
+          <tbody className="">
+            <RecordTableBody />
+            <RecordTableBody />
+            <RecordTableBody />
+            <RecordTableBody />
+            <RecordTableBody />
+            <RecordTableBody />
+            <RecordTableBody />
+            <RecordTableBody />
+            <RecordTableBody />
+          </tbody>
+        </table>
+      );
+    }
+    if (viewMode === 'grid') return (
+      <div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-[24px]">
+          <div className="w-[224px] h-[208px] rounded-[2px] border border-solid border-[#E6E8F9] bg-white">
+            <div className="h-[56px] flex items-center border-[#E6E8F9]  border-t-[0px] border-l-[0px] border-r-[0px] border-b-[0.5px]">
+              <h2 className="w-[192px] h-[24px] pl-[16px] text-[16px] font-[600] text-[#000000]">
+                Sign Ups
+              </h2>
+            </div>
+            <div className="h-[152px]  w-[224px] flex items-center">
+              <div className="h-[120px]  flex  flex-col justify-center ">
+                <RecordDataBox name="Size" value="5.63 kb" />
+                <RecordDataBox name="Documents" value="3" />
+                <RecordDataBox name="Avg. Size" value="102 B" />
+                <RecordDataBox name="Indexes" value="1" />
+                <RecordDataBox name="Index Size" value="35.1 kb" />
+              </div>
+            </div>
+          </div>
+          <div className="w-[224px] h-[208px] rounded-[2px] border border-solid border-[#E6E8F9] bg-white">
+            <div className="h-[56px] flex items-center border-[#E6E8F9]  border-t-[0px] border-l-[0px] border-r-[0px] border-b-[0.5px]">
+              <h2 className="w-[192px] h-[24px] pl-[16px] text-[16px] font-[600] text-[#000000]">
+                Sign Ups
+              </h2>
+            </div>
+            <div className="h-[152px]  w-[224px] flex items-center">
+              <div className="h-[120px]  flex  flex-col justify-center ">
+                <RecordDataBox name="Size" value="5.63 kb" />
+                <RecordDataBox name="Documents" value="3" />
+                <RecordDataBox name="Avg. Size" value="102 B" />
+                <RecordDataBox name="Indexes" value="1" />
+                <RecordDataBox name="Index Size" value="35.1 kb" />
+              </div>
+            </div>
+          </div>
+          <div className="w-[224px] h-[208px] rounded-[2px] border border-solid border-[#E6E8F9] bg-white">
+            <div className="h-[56px] flex items-center border-[#E6E8F9]  border-t-[0px] border-l-[0px] border-r-[0px] border-b-[0.5px]">
+              <h2 className="w-[192px] h-[24px] pl-[16px] text-[16px] font-[600] text-[#000000]">
+                Sign Ups
+              </h2>
+            </div>
+            <div className="h-[152px]  w-[224px] flex items-center">
+              <div className="h-[120px]  flex  flex-col justify-center ">
+                <RecordDataBox name="Size" value="5.63 kb" />
+                <RecordDataBox name="Documents" value="3" />
+                <RecordDataBox name="Avg. Size" value="102 B" />
+                <RecordDataBox name="Indexes" value="1" />
+                <RecordDataBox name="Index Size" value="35.1 kb" />
+              </div>
+            </div>
+          </div>
+          <div className="w-[224px] h-[208px] rounded-[2px] border border-solid border-[#E6E8F9] bg-white">
+            <div className="h-[56px] flex items-center border-[#E6E8F9]  border-t-[0px] border-l-[0px] border-r-[0px] border-b-[0.5px]">
+              <h2 className="w-[192px] h-[24px] pl-[16px] text-[16px] font-[600] text-[#000000]">
+                Sign Ups
+              </h2>
+            </div>
+            <div className="h-[152px]  w-[224px] flex items-center">
+              <div className="h-[120px]  flex  flex-col justify-center ">
+                <RecordDataBox name="Size" value="5.63 kb" />
+                <RecordDataBox name="Documents" value="3" />
+                <RecordDataBox name="Avg. Size" value="102 B" />
+                <RecordDataBox name="Indexes" value="1" />
+                <RecordDataBox name="Index Size" value="35.1 kb" />
+              </div>
+            </div>
+          </div>
+          <div className="w-[224px] h-[208px] rounded-[2px] border border-solid border-[#E6E8F9] bg-white">
+            <div className="h-[56px] flex items-center border-[#E6E8F9]  border-t-[0px] border-l-[0px] border-r-[0px] border-b-[0.5px]">
+              <h2 className="w-[192px] h-[24px] pl-[16px] text-[16px] font-[600] text-[#000000]">
+                Sign Ups
+              </h2>
+            </div>
+            <div className="h-[152px]  w-[224px] flex items-center">
+              <div className="h-[120px]  flex  flex-col justify-center ">
+                <RecordDataBox name="Size" value="5.63 kb" />
+                <RecordDataBox name="Documents" value="3" />
+                <RecordDataBox name="Avg. Size" value="102 B" />
+                <RecordDataBox name="Indexes" value="1" />
+                <RecordDataBox name="Index Size" value="35.1 kb" />
+              </div>
+            </div>
+          </div>
+          <div className="w-[224px] h-[208px] rounded-[2px] border border-solid border-[#E6E8F9] bg-white">
+            <div className="h-[56px] flex items-center border-[#E6E8F9]  border-t-[0px] border-l-[0px] border-r-[0px] border-b-[0.5px]">
+              <h2 className="w-[192px] h-[24px] pl-[16px] text-[16px] font-[600] text-[#000000]">
+                Sign Ups
+              </h2>
+            </div>
+            <div className="h-[152px]  w-[224px] flex items-center">
+              <div className="h-[120px]  flex  flex-col justify-center ">
+                <RecordDataBox name="Size" value="5.63 kb" />
+                <RecordDataBox name="Documents" value="3" />
+                <RecordDataBox name="Avg. Size" value="102 B" />
+                <RecordDataBox name="Indexes" value="1" />
+                <RecordDataBox name="Index Size" value="35.1 kb" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="">
       <div className="h-[107px] flex justify-between px-[24px] items-center ">
@@ -93,7 +232,10 @@ const Records = () => {
             </div>
           </div>
           <div className="flex space-x-3 items-center">
-            <div className="cursor-pointer">
+            <div
+              className="cursor-pointer"
+              onClick={() => toggleViewMode("grid")}
+            >
               {" "}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -109,7 +251,10 @@ const Records = () => {
                 />
               </svg>
             </div>
-            <div className="cursor-pointer">
+            <div
+              className="cursor-pointer"
+              onClick={() => toggleViewMode("table")}
+            >
               {" "}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -129,126 +274,11 @@ const Records = () => {
           </div>
         </div>
       </div>
-      <div className="p-[24px] bg-[#FAFAFA]">
-        <table className="w-full">
-          <thead className="h-[40px] border bg-tableHeadBgColor">
-            <RecordTableHead />
-          </thead>
-          <tbody className="">
-            <RecordTableBody />
-            <RecordTableBody />
-            <RecordTableBody />
-            <RecordTableBody />
-            <RecordTableBody />
-            <RecordTableBody />
-            <RecordTableBody />
-            <RecordTableBody />
-            <RecordTableBody />
-          </tbody>
-        </table>
-
-        {/* <div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-[24px]">
-            <div className="w-[224px] h-[208px] rounded-[2px] border border-solid border-[#E6E8F9] bg-white">
-              <div className="h-[56px] flex items-center border-[#E6E8F9]  border-t-[0px] border-l-[0px] border-r-[0px] border-b-[0.5px]">
-                <h2 className="w-[192px] h-[24px] pl-[16px] text-[16px] font-[600] text-[#000000]">
-                  Sign Ups
-                </h2>
-              </div>
-              <div className="h-[152px]  w-[224px] flex items-center">
-                <div className="h-[120px]  flex  flex-col justify-center ">
-                  <RecordDataBox name="Size" value="5.63 kb" />
-                  <RecordDataBox name="Documents" value="3" />
-                  <RecordDataBox name="Avg. Size" value="102 B" />
-                  <RecordDataBox name="Indexes" value="1" />
-                  <RecordDataBox name="Index Size" value="35.1 kb" />
-                </div>
-              </div>
-            </div>
-            <div className="w-[224px] h-[208px] rounded-[2px] border border-solid border-[#E6E8F9] bg-white">
-              <div className="h-[56px] flex items-center border-[#E6E8F9]  border-t-[0px] border-l-[0px] border-r-[0px] border-b-[0.5px]">
-                <h2 className="w-[192px] h-[24px] pl-[16px] text-[16px] font-[600] text-[#000000]">
-                  Sign Ups
-                </h2>
-              </div>
-              <div className="h-[152px]  w-[224px] flex items-center">
-                <div className="h-[120px]  flex  flex-col justify-center ">
-                  <RecordDataBox name="Size" value="5.63 kb" />
-                  <RecordDataBox name="Documents" value="3" />
-                  <RecordDataBox name="Avg. Size" value="102 B" />
-                  <RecordDataBox name="Indexes" value="1" />
-                  <RecordDataBox name="Index Size" value="35.1 kb" />
-                </div>
-              </div>
-            </div>
-            <div className="w-[224px] h-[208px] rounded-[2px] border border-solid border-[#E6E8F9] bg-white">
-              <div className="h-[56px] flex items-center border-[#E6E8F9]  border-t-[0px] border-l-[0px] border-r-[0px] border-b-[0.5px]">
-                <h2 className="w-[192px] h-[24px] pl-[16px] text-[16px] font-[600] text-[#000000]">
-                  Sign Ups
-                </h2>
-              </div>
-              <div className="h-[152px]  w-[224px] flex items-center">
-                <div className="h-[120px]  flex  flex-col justify-center ">
-                  <RecordDataBox name="Size" value="5.63 kb" />
-                  <RecordDataBox name="Documents" value="3" />
-                  <RecordDataBox name="Avg. Size" value="102 B" />
-                  <RecordDataBox name="Indexes" value="1" />
-                  <RecordDataBox name="Index Size" value="35.1 kb" />
-                </div>
-              </div>
-            </div>
-            <div className="w-[224px] h-[208px] rounded-[2px] border border-solid border-[#E6E8F9] bg-white">
-              <div className="h-[56px] flex items-center border-[#E6E8F9]  border-t-[0px] border-l-[0px] border-r-[0px] border-b-[0.5px]">
-                <h2 className="w-[192px] h-[24px] pl-[16px] text-[16px] font-[600] text-[#000000]">
-                  Sign Ups
-                </h2>
-              </div>
-              <div className="h-[152px]  w-[224px] flex items-center">
-                <div className="h-[120px]  flex  flex-col justify-center ">
-                  <RecordDataBox name="Size" value="5.63 kb" />
-                  <RecordDataBox name="Documents" value="3" />
-                  <RecordDataBox name="Avg. Size" value="102 B" />
-                  <RecordDataBox name="Indexes" value="1" />
-                  <RecordDataBox name="Index Size" value="35.1 kb" />
-                </div>
-              </div>
-            </div>
-            <div className="w-[224px] h-[208px] rounded-[2px] border border-solid border-[#E6E8F9] bg-white">
-              <div className="h-[56px] flex items-center border-[#E6E8F9]  border-t-[0px] border-l-[0px] border-r-[0px] border-b-[0.5px]">
-                <h2 className="w-[192px] h-[24px] pl-[16px] text-[16px] font-[600] text-[#000000]">
-                  Sign Ups
-                </h2>
-              </div>
-              <div className="h-[152px]  w-[224px] flex items-center">
-                <div className="h-[120px]  flex  flex-col justify-center ">
-                  <RecordDataBox name="Size" value="5.63 kb" />
-                  <RecordDataBox name="Documents" value="3" />
-                  <RecordDataBox name="Avg. Size" value="102 B" />
-                  <RecordDataBox name="Indexes" value="1" />
-                  <RecordDataBox name="Index Size" value="35.1 kb" />
-                </div>
-              </div>
-            </div>
-            <div className="w-[224px] h-[208px] rounded-[2px] border border-solid border-[#E6E8F9] bg-white">
-              <div className="h-[56px] flex items-center border-[#E6E8F9]  border-t-[0px] border-l-[0px] border-r-[0px] border-b-[0.5px]">
-                <h2 className="w-[192px] h-[24px] pl-[16px] text-[16px] font-[600] text-[#000000]">
-                  Sign Ups
-                </h2>
-              </div>
-              <div className="h-[152px]  w-[224px] flex items-center">
-                <div className="h-[120px]  flex  flex-col justify-center ">
-                  <RecordDataBox name="Size" value="5.63 kb" />
-                  <RecordDataBox name="Documents" value="3" />
-                  <RecordDataBox name="Avg. Size" value="102 B" />
-                  <RecordDataBox name="Indexes" value="1" />
-                  <RecordDataBox name="Index Size" value="35.1 kb" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
-      </div>
+      <div className="p-[24px] bg-[#FAFAFA]">{renderData()}</div>
       <Pagination />
+      <div className="">
+        <CreateProject open={open} close={close} />
+      </div>
     </div>
   );
 };

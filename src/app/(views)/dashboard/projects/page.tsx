@@ -62,7 +62,7 @@ const Projects = () => {
     setOpen(false);
   };
   return (
-    <div>
+    <div className="p-[24px]">
       <div className="flex justify-between">
         <div className="flex font-light gap-1 px-2 py-1 border border-[#E6E8F9] bg-[#FCFCFD] items-center text-[#838389]">
           <FiSearch />
