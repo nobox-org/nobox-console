@@ -695,7 +695,7 @@ const SignUPs: React.FC = () => {
         </button>
       </div>
       <div className="px-[24px] py-[16px] flex justify-between items-center border-[#E6E8F9] border-t-[1px] border-b-[1px] border-r-[0px] border-l-[0px]">
-        <div className="flex h-[48px] max-w-[358px] pl-[17.25px] items-center space-x-2 bg-[#FAFAFA] rounded-[2px] border-[#E6E8F9] border-[1.2px]">
+        <div className="flex h-[48px] w-[358px] pl-[17.25px] items-center space-x-2 bg-[#FAFAFA] rounded-[2px] border-[#E6E8F9] border-[1.2px]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width={24}
