@@ -3,7 +3,7 @@ import { FaArrowRight, FaCheck } from "react-icons/fa";
 
 export default function Dashboard() {
   return (
-    <main className="text-[#292D32] px-[24]">
+    <main className="text-[#292D32] px-[24px]">
       <div className="md:flex">
         <div className="bg-[#FAFAFA] md:w-4/12 overflow-y-hidden">
           <div className=" p-4 ">
