@@ -17,13 +17,13 @@
   right: 0px;
   z-index: 3;
   position: fixed;
-  padding: 2rem 1rem;
+  padding: 48px 24px;
   width: 80%;
   &.show {
     display: block;
   }
   @include md {
-    width: 60%;
+    width: 620px;
     height: 100%;
   }
 }

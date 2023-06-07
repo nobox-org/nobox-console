@@ -19,10 +19,10 @@ const CreateProject: React.FC<Props> = (props) => {
             <div className="text-[#292D32]">
               <div className="flex justify-between">
                 <div className="">
-                  <h6 className="text-lg font-medium py-1">
+                  <h6 className="text-[20px] font-[700] text-[#292D32]">
                     Create project{props.open}
                   </h6>
-                  <p className="text-[#838389] text-sm font-light">
+                  <p className="text-[#838389] text-[14px] font-[400] tracking-[-0.015em]">
                     Create your project with different fields
                   </p>
                 </div>
@@ -33,31 +33,50 @@ const CreateProject: React.FC<Props> = (props) => {
                   <FaTimes />
                 </div>
               </div>
-              <form className="mt-10">
+              <form className="mt-[52px]">
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="pName">Project Name</label>
-                  <input
-                    type="text"
-                    className="border rounded-sm border-[#D0D5DD] p-2"
-                    id="pName"
-                    name="pName"
-                  />
+                  <label
+                    htmlFor="pName"
+                    className="text-[#262626] text-[16px] font-[500]"
+                  >
+                    Project Name
+                  </label>
+                  <div className="border border-[#D0D5DD]">
+                    <input
+                      type="text"
+                      className=" rounded-sm w-full border-none p-2 focus:ring-0 "
+                      id="pName"
+                      name="pName"
+                    />
+                  </div>
                 </div>
                 <div className="my-5 flex flex-col gap-2">
-                  <label htmlFor="pDescription">Description</label>
-                  <textarea
-                    placeholder="Describe your project"
-                    className="border rounded-sm border-[#D0D5DD] p-2"
-                    id="pDescription"
-                    name="pDescription"
-                  ></textarea>
+                  <label
+                    htmlFor="pDescription"
+                    className="text-[#262626] text-[16px] font-[500]"
+                  >
+                    Description
+                  </label>
+                  <div className="w-full border border-[#D0D5DD]">
+                    <textarea
+                      placeholder="Describe your project"
+                      className="w-full rounded-sm  border-none p-2 focus:ring-0"
+                      id="pDescription"
+                      name="pDescription"
+                    ></textarea>
+                  </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="pName">Slug</label>
+                  <label
+                    htmlFor="pName"
+                    className="text-[#262626] text-[16px] font-[500]"
+                  >
+                    Slug
+                  </label>
                   <div className="flex just border rounded-sm border-[#D0D5DD]">
                     <input
                       type="text"
-                      className="bg-[#F9FAFB] w-full p-2"
+                      className="bg-[#F9FAFB] w-full p-2 border-none focus:ring-0"
                       id="pSlug"
                       name="pSlug"
                     />

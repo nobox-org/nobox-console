@@ -10,7 +10,6 @@ import ProjectTableHead from "@/app/components/tables/ProjectTableHead";
 import Pagination from "@/app/components/Pagination";
 import { usePathname } from "next/navigation";
 
- 
 const Projects = () => {
   const pathname = usePathname();
   const projects: any[] = [];
@@ -36,7 +35,7 @@ const Projects = () => {
           <input
             type="search"
             name=""
-            className="bg-[#FFFFFF] border-none"
+            className="bg-[#FFFFFF] border-none focus:ring-0"
             placeholder="Search for something"
             id=""
           />
@@ -73,92 +72,17 @@ const Projects = () => {
         <Pagination />
       </div>
 
-      {/* <div className="table-container mt-6">
-        {projects.length ? (
-          <table className="table-auto w-full">
-            <thead className="table__header">
-              <tr className="table__row capitalize divide-x divide-[#E6E8F9] border border-[#E6E8F9] text-left text-[#515478] bg-[#FFFFFF]">
-                <th className="font-medium px-2 text-sm py-3">
-                  <input
-                    className="border border-[#B0B2C9] rounded-sm"
-                    type="checkbox"
-                    name="check"
-                    id=""
-                  />
-                </th>
-                <th className="font-medium text-sm p-2 text-left">
-                  <span className="flex gap-1">
-                    Name{" "}
-                    <span className="self-center">
-                      <img src="/sort.svg" alt="sort icon" />
-                    </span>
-                  </span>
-                </th>
-                <th className="font-medium text-sm p-2 text-left">
-                  Description
-                </th>
-                <th className="font-medium text-sm p-2 text-left">Slug</th>
-                <th className="font-medium text-sm p-2 text-left">
-                  <span className="flex gap-1">
-                    Date{" "}
-                    <span className="self-center">
-                      <img src="/sort.svg" alt="sort icon" />
-                    </span>
-                  </span>
-                </th>
-                <th className="font-medium text-sm p-2 text-left">Actions</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {projects.map((project) => (
-                <tr
-                  key={project.id}
-                  className="table__row capitalize divide-x divide-[#E6E8F9] border border-[#E6E8F9] text-left text-[#24242E] bg-[#FFFFFF]"
-                >
-                  <th className="font-medium px-2 text-sm py-4">
-                    <input
-                      className="border border-[#B0B2C9] rounded-sm"
-                      type="checkbox"
-                      name="check"
-                      id=""
-                    />
-                  </th>
-                  <th className="font-medium text-sm p-2 text-left">
-                    <p className="w-48">{project.name}</p>
-                  </th>
-                  <th className="font-medium text-sm p-2 text-left">
-                    <p className="w-80 xl-w-full"> {project.description}</p>
-                  </th>
-                  <th className="font-medium text-sm p-2 text-left">
-                    <p className="w-48">{project.slug}</p>
-                  </th>
-                  <th className="font-medium text-sm p-2 text-left">
-                    <p className="w-36">{project.date}</p>
-                  </th>
-                  <th className="font-light text-sm text-primary p-2 text-left">
-                    <div className="flex w-16 gap-2 items-center">
-                      <FaPen /> Edit
-                    </div>
-                  </th>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <div className="flex flex-col h-[70vh] justify-center items-center">
-            <div className="mx-auto mb-5">
-              <img src="/empty-project.svg" alt="no projects" />
-            </div>
-            <h6 className="text-[#24242E]">No projects yet.</h6>
-            <p className="text-[#838389] font-thin">
-              Create your first project below
-            </p>
-            <button className="bg-secondary text-white flex justify-center items-center py-2 mt-2 gap-2 px-4">
-              <AiOutlinePlus /> Create Project
-            </button>
-          </div>
-        )}
+      {/* <div className="flex flex-col h-[70vh] justify-center items-center">
+        <div className="mx-auto mb-5">
+          <img src="/empty-project.svg" alt="no projects" />
+        </div>
+        <h6 className="text-[#24242E]">No projects yet.</h6>
+        <p className="text-[#838389] font-thin">
+          Create your first project below
+        </p>
+        <button className="bg-secondary text-white flex justify-center items-center py-2 mt-2 gap-2 px-4">
+          <AiOutlinePlus /> Create Project
+        </button>
       </div> */}
       <div className="">
         <CreateProject open={open} close={close} />

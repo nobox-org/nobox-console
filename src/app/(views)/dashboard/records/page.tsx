@@ -189,7 +189,7 @@ const Records = () => {
           <input
             type="search"
             name=""
-            className="bg-[#FAFAFA] border-none"
+            className="bg-[#FAFAFA] border-none focus:ring-0"
             placeholder="Search for records"
             id=""
           />

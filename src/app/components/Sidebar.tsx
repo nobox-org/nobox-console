@@ -62,15 +62,11 @@ const Sidebar = () => {
                 fill="none"
               >
                 <path
-                  fill={
-                    pathname == "/dashboard" ? "#556DFF" : "#838389"
-                  }
+                  fill={pathname == "/dashboard" ? "#556DFF" : "#838389"}
                   d="M21.5 10.9V4.1c0-1.5-.64-2.1-2.23-2.1h-4.04C13.64 2 13 2.6 13 4.1v6.8c0 1.5.64 2.1 2.23 2.1h4.04c1.59 0 2.23-.6 2.23-2.1ZM11 13.1v6.8c0 1.5-.64 2.1-2.23 2.1H4.73c-1.59 0-2.23-.6-2.23-2.1v-6.8c0-1.5.64-2.1 2.23-2.1h4.04c1.59 0 2.23.6 2.23 2.1Z"
                 />
                 <path
-                  fill={
-                    pathname == "/dashboard" ? "#556DFF" : "#838389"
-                  }
+                  fill={pathname == "/dashboard" ? "#556DFF" : "#838389"}
                   d="M21.5 19.9v-2.8c0-1.5-.64-2.1-2.23-2.1h-4.04c-1.59 0-2.23.6-2.23 2.1v2.8c0 1.5.64 2.1 2.23 2.1h4.04c1.59 0 2.23-.6 2.23-2.1ZM11 6.9V4.1C11 2.6 10.36 2 8.77 2H4.73C3.14 2 2.5 2.6 2.5 4.1v2.8c0 1.5.64 2.1 2.23 2.1h4.04C10.36 9 11 8.4 11 6.9Z"
                   opacity={0.4}
                 />
@@ -105,7 +101,8 @@ const Sidebar = () => {
                   d="M21.74 9.44H2V6.42C2 3.98 3.98 2 6.42 2h2.33c1.63 0 2.14.53 2.79 1.4l1.4 1.86c.31.41.35.47.93.47h2.79c2.37-.01 4.39 1.55 5.08 3.71Z"
                   opacity={0.4}
                 />
-              </svg> Projects
+              </svg>{" "}
+              Projects
             </Link>
             <Link
               className={
@@ -178,7 +175,7 @@ const Sidebar = () => {
                 </>
               ) : (
                 <>
-                  <div className="flex w-full justify-between items-center">
+                  <div className="flex w-full justify-between items-center relative">
                     <div className="flex space-x-2 flex-1">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -215,15 +212,14 @@ const Sidebar = () => {
                 <div className="absolute top-full left-0 w-full h-[1px] bg-gray-300" />
               )} */}
             </div>
-            {docsDropdownOpen && <div className=""></div>}
 
             {docsDropdownOpen && (
               <ul className="pl-8 flex flex-col space-y-3">
-                <li className="bg-[#ECF3FF] px-[22px] py-[8px]">
+                <li className="bg-[#ECF3FF] px-[22px] py-[8px] border-l-[2px] rounded-[2px] border-l-[#556DFF]">
                   <Link
-                    href="dashboard/docs"
+                    href="/dashboard/docs"
                     className={`${
-                      pathname === "dashboard/docs"
+                      pathname === "/dashboard/docs"
                         ? "text-[#556DFF]"
                         : "#838389"
                     } font-[500] text-[14px]`}
@@ -231,11 +227,11 @@ const Sidebar = () => {
                     Get started
                   </Link>
                 </li>
-                <li className="bg-[#ECF3FF] px-[22px] py-[8px]">
+                <li className="bg-[#ECF3FF] border-l-[2px] rounded-[2px] border-l-[#556DFF] px-[22px] py-[8px]">
                   <Link
-                    href="dashboard/docs/user-guide"
+                    href="/dashboard/docs/user-guide"
                     className={`${
-                      pathname === "dashbord/docs/user-guide"
+                      pathname === "/dashboard/docs/user-guide"
                         ? "text-[#556DFF]"
                         : "#838389"
                     } font-[500] text-[14px]`}
