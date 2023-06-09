@@ -5,71 +5,38 @@ import { FiSearch } from "react-icons/fi";
 import "./style.scss";
 import CreateProject from "@/app/components/modals/createProject";
 import { useState } from "react";
+import ProjectableBody from "@/app/components/tables/ProjectableBody";
+import ProjectTableHead from "@/app/components/tables/ProjectTableHead";
+import Pagination from "@/app/components/Pagination";
+import { usePathname } from "next/navigation";
 
 const Projects = () => {
-  const projects = [
-    {
-      id: 0,
-      name: "NoBox Codebase",
-      description:
-        "This where everything in the codebase happens. Until we decide a new method later",
-      slug: "/noBox-repo-codebase",
-      date: "14th Feb. 2023",
-    },
-    {
-      id: 1,
-      name: "NoBox Codebase",
-      description:
-        "This where everything in the codebase happens. Until we decide a new method later",
-      slug: "/noBox-repo-codebase",
-      date: "14th Feb. 2023",
-    },
-    {
-      id: 2,
-      name: "NoBox Codebase",
-      description:
-        "This where everything in the codebase happens. Until we decide a new method later",
-      slug: "/noBox-repo-codebase",
-      date: "14th Feb. 2023",
-    },
-    {
-      id: 3,
-      name: "NoBox Codebase",
-      description:
-        "This where everything in the codebase happens. Until we decide a new method later",
-      slug: "/noBox-repo-codebase",
-      date: "14th Feb. 2023",
-    },
-    {
-      id: 4,
-      name: "NoBox Codebase",
-      description:
-        "This where everything in the codebase happens. Until we decide a new method later",
-      slug: "/noBox-repo-codebase",
-      date: "14th Feb. 2023",
-    },
-    {
-      id: 6,
-      name: "NoBox Codebase",
-      description:
-        "This where everything in the codebase happens. Until we decide a new method later",
-      slug: "/noBox-repo-codebase",
-      date: "14th Feb. 2023",
-    },
-  ];
+  const pathname = usePathname();
+  const projects: any[] = [];
   const [open, setOpen] = useState(false);
   const close = () => {
     setOpen(false);
   };
   return (
-    <div className="p-[24px]">
-      <div className="flex justify-between">
-        <div className="flex font-light gap-1 px-2 py-1 border border-[#E6E8F9] bg-[#FCFCFD] items-center text-[#838389]">
-          <FiSearch />
+    <div className=" bg-[#FAFAFA]">
+      <div className="pt-[24px] px-[24px] pb-[32px] flex justify-between items-center">
+        <div className="flex h-[48px] w-[358px] pl-[17.25px] items-center space-x-2 bg-[#FFFFFF] rounded-[2px] border-[#E6E8F9] border-[1.2px]">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={24}
+            height={24}
+            fill="none"
+          >
+            <path
+              fill="#838389"
+              d="M11 20.75c-5.38 0-9.75-4.37-9.75-9.75S5.62 1.25 11 1.25s9.75 4.37 9.75 9.75-4.37 9.75-9.75 9.75Zm0-18c-4.55 0-8.25 3.7-8.25 8.25s3.7 8.25 8.25 8.25 8.25-3.7 8.25-8.25-3.7-8.25-8.25-8.25ZM20.16 22.79c-.08 0-.16-.01-.23-.02-.47-.06-1.32-.38-1.8-1.81-.25-.75-.16-1.5.25-2.07.41-.57 1.1-.89 1.89-.89 1.02 0 1.82.39 2.18 1.08.36.69.26 1.57-.31 2.42-.71 1.07-1.48 1.29-1.98 1.29Zm-.6-2.3c.17.52.41.78.57.8.16.02.46-.17.77-.62.29-.43.31-.74.24-.88s-.35-.29-.87-.29c-.31 0-.54.1-.67.27-.12.17-.14.43-.04.72Z"
+            />
+          </svg>
           <input
             type="search"
             name=""
-            placeholder="Search for projects"
+            className="bg-[#FFFFFF] border-none focus:ring-0"
+            placeholder="Search for something"
             id=""
           />
         </div>
@@ -82,93 +49,41 @@ const Projects = () => {
           <AiOutlinePlus /> Create Project
         </button>
       </div>
-      <div className="table-container mt-6">
-        {projects.length ? (
-          <table className="table-auto w-full">
-            <thead className="table__header">
-              <tr className="table__row capitalize divide-x divide-[#E6E8F9] border border-[#E6E8F9] text-left text-[#515478] bg-[#FFFFFF]">
-                <th className="font-medium px-2 text-sm py-3">
-                  <input
-                    className="border border-[#B0B2C9] rounded-sm"
-                    type="checkbox"
-                    name="check"
-                    id=""
-                  />
-                </th>
-                <th className="font-medium text-sm p-2 text-left">
-                  <span className="flex gap-1">
-                    Name{" "}
-                    <span className="self-center">
-                      <img src="/sort.svg" alt="sort icon" />
-                    </span>
-                  </span>
-                </th>
-                <th className="font-medium text-sm p-2 text-left">
-                  Description
-                </th>
-                <th className="font-medium text-sm p-2 text-left">Slug</th>
-                <th className="font-medium text-sm p-2 text-left">
-                  <span className="flex gap-1">
-                    Date{" "}
-                    <span className="self-center">
-                      <img src="/sort.svg" alt="sort icon" />
-                    </span>
-                  </span>
-                </th>
-                <th className="font-medium text-sm p-2 text-left">Actions</th>
-              </tr>
-            </thead>
 
-            <tbody>
-              {projects.map((project) => (
-                <tr
-                  key={project.id}
-                  className="table__row capitalize divide-x divide-[#E6E8F9] border border-[#E6E8F9] text-left text-[#24242E] bg-[#FFFFFF]"
-                >
-                  <th className="font-medium px-2 text-sm py-4">
-                    <input
-                      className="border border-[#B0B2C9] rounded-sm"
-                      type="checkbox"
-                      name="check"
-                      id=""
-                    />
-                  </th>
-                  <th className="font-medium text-sm p-2 text-left">
-                    <p className="w-48">{project.name}</p>
-                  </th>
-                  <th className="font-medium text-sm p-2 text-left">
-                    <p className="w-80 xl-w-full"> {project.description}</p>
-                  </th>
-                  <th className="font-medium text-sm p-2 text-left">
-                    <p className="w-48">{project.slug}</p>
-                  </th>
-                  <th className="font-medium text-sm p-2 text-left">
-                    <p className="w-36">{project.date}</p>
-                  </th>
-                  <th className="font-light text-sm text-primary p-2 text-left">
-                    <div className="flex w-16 gap-2 items-center">
-                      <FaPen /> Edit
-                    </div>
-                  </th>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <div className="flex flex-col h-[70vh] justify-center items-center">
-            <div className="mx-auto mb-5">
-              <img src="/empty-project.svg" alt="no projects" />
-            </div>
-            <h6 className="text-[#24242E]">No projects yet.</h6>
-            <p className="text-[#838389] font-thin">
-              Create your first project below
-            </p>
-            <button className="bg-secondary text-white flex justify-center items-center py-2 mt-2 gap-2 px-4">
-              <AiOutlinePlus /> Create Project
-            </button>
-          </div>
-        )}
+      <div className="px-[24px]">
+        <table className="w-full">
+          <thead className="h-[40px] border bg-[#FFFFFF]">
+            <ProjectTableHead />
+          </thead>
+          <tbody className="">
+            <ProjectableBody />
+            <ProjectableBody />
+            <ProjectableBody />
+            <ProjectableBody />
+            <ProjectableBody />
+            <ProjectableBody />
+            <ProjectableBody />
+            <ProjectableBody />
+          </tbody>
+        </table>
       </div>
+
+      <div className="pt-[24px]">
+        <Pagination />
+      </div>
+
+      {/* <div className="flex flex-col h-[70vh] justify-center items-center">
+        <div className="mx-auto mb-5">
+          <img src="/empty-project.svg" alt="no projects" />
+        </div>
+        <h6 className="text-[#24242E]">No projects yet.</h6>
+        <p className="text-[#838389] font-thin">
+          Create your first project below
+        </p>
+        <button className="bg-secondary text-white flex justify-center items-center py-2 mt-2 gap-2 px-4">
+          <AiOutlinePlus /> Create Project
+        </button>
+      </div> */}
       <div className="">
         <CreateProject open={open} close={close} />
       </div>
