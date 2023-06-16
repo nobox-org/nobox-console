@@ -1,26 +1,61 @@
-import { BsBoundingBoxCircles, BsFileEarmarkCodeFill } from "react-icons/bs";
+"use client";
+import React, { useEffect, useState } from "react";
 import { FaArrowRight, FaCheck } from "react-icons/fa";
+import { copyToClipboard } from "@/lib/copyToClipboard";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import '../../styles/custom-toast.css'
+import { useSearchParams } from "next/navigation";
+
 
 export default function Dashboard() {
+  const [skip, setSkip] = useState(true);
+
+    const searchParams = useSearchParams();
+
+  const token = searchParams.get("token");
+  console.log({ token });
+  
+   useEffect(() => {
+     const skipState = localStorage.getItem("skipState");
+     if (skipState) {
+       setSkip(JSON.parse(skipState));
+     }
+   }, []);
+
+   useEffect(() => {
+     localStorage.setItem("skipState", JSON.stringify(skip));
+   }, [skip]);
+
+  const handleSkip = () => {
+    setSkip(false);
+  };
+
+  const handleButtonClick = () => {
+    if (token) {
+      copyToClipboard(token);
+    }
+  };
+
   return (
-    <main className="text-[#292D32] bg-[#ECEDF3] p-[24px]">
-      <div className="md:flex h-[348px]">
-        <div className="bg-[#FAFAFA]  overflow-y-hidden w-[348px]">
+    <main className="text-[#292D32] bg-[#ECEDF3]  h-full p-[24px]">
+      <ToastContainer toastClassName="custom-toast" />
+      <div className={`${skip ? "md:flex h-[348px]" : "hidden"}`}>
+        <div className="bg-[#FAFAFA]  overflow-y-hidden max-w-[348px]">
           <div className=" p-[24px] ">
             <h4 className="text-lg font-[700 ]  text">Welcome to NoBox </h4>
             <p className="text-[#496080] text-[16px] w-[300px]">
               Set up your IDE with your Forever token in 3 easy steps...
             </p>
           </div>
-          <div className="welcome-bg w-full opacity-20"></div>
+          <div className="welcome-bg w-full opacity-40"></div>
         </div>
-        <div className="bg-white p-4 md:w-8/12">
+        <div className="bg-white p-4 flex-1">
           <ul className="flex flex-col  divide-[#DFE5EC]">
             <li className="pb-5">
               <div className="flex justify-between items-center gap-6">
                 <div className="flex gap-3 items-center">
                   <div>
-                    {" "}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width={18}
@@ -43,13 +78,10 @@ export default function Dashboard() {
                     </p>
                   </div>
                 </div>
-                {/* <button className="border border-secondary text-secondary text-sm px-4 py-2">
-                  install npm install nobox-client
-                </button> */}
+
                 <code className="border border-secondary  text-[14px] text-secondary  px-4 py-2">
-                  {" "}
-                  <code className="font-[700]">install npm</code> install
-                  nobox-client
+                  <code className="font-[700]"> npm</code> install nobox-client
+                  --save
                 </code>
               </div>
             </li>
@@ -59,7 +91,6 @@ export default function Dashboard() {
               <div className="flex justify-between items-center gap-6">
                 <div className="flex gap-3 items-center">
                   <div>
-                    {" "}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width={18}
@@ -74,7 +105,7 @@ export default function Dashboard() {
                   </div>
                   <div className="">
                     <h6 className="font-[700] text-[18px] tracking-[-0.01em] text-[#24242E]">
-                      Read the docs{" "}
+                      Read the docs
                     </h6>
                     <p className="text-[#515478] tracking-[-0.01em] text-[14px]">
                       Learn how to install NoBox instantly.{" "}
@@ -92,7 +123,6 @@ export default function Dashboard() {
               <div className="flex justify-between items-center gap-6">
                 <div className="flex gap-3 items-center">
                   <div>
-                    {" "}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width={18}
@@ -107,38 +137,50 @@ export default function Dashboard() {
                   </div>
                   <div className="">
                     <h6 className="font-[700] text-[18px] tracking-[-0.01em] text-[#24242E]">
-                      Copy Forever Token{" "}
+                      Copy Forever Token
                     </h6>
                     <p className="text-[#515478] tracking-[-0.01em] text-[14px]">
-                      You need this code to use NoBox{" "}
+                      You need this code to use NoBox
                     </p>
                   </div>
                 </div>
-                <button className="border border-secondary text-secondary text-[14px] px-[32px] py-[12px] font-[500]">
+                <button onClick={handleButtonClick} className="border border-secondary text-secondary text-[14px] px-[32px] py-[12px] font-[500]">
                   Copy token
                 </button>
               </div>
             </li>
           </ul>
           <div className="flex justify-end text-sm font-medium">
-            <button className=" text-secondary text-[14px] font-[700]">
+            <button
+              onClick={handleSkip}
+              className="text-secondary text-[14px] font-[700]"
+            >
               Skip for later
             </button>
           </div>
         </div>
       </div>
-      <div className="mt-[60px]">
+
+      <div className={`${skip ? "hidden" : "block"}`}>
+        <p className="text-[#838389] text-[16px] h-[24px]">Hi Akintunde,</p>
+        <p className="text-[#24242E] h-[36px] text-[16px]">
+          Remember to eat before you code!
+        </p>
+      </div>
+      <div className={`${skip ? "mt-[60px]" : "mt-[32px]"}`}>
         <h6 className="text-[20px] font-[700] text-[#292D32]">
           Your forever token
         </h6>
         <div className="flex gap-4 py-2">
           <div className="bg-white w-[358px] px-[16px] py-[9.5px] text-[#838389]">
             <p className="whitespace-nowrap text-[14px] text-ellipsis overflow-hidden">
-              afufsfivbekjnsdiuvhhkjndaiajcnvaowfjkclzkjndlvjawneufhdskvjzlcxnlvklwaenfmclaiosdjofftj0gvjkakdmgfsdcv//fb,vb,s.dcpef;v,vnskieufhanjznhwueherh3rdobihdussf409ug
-              oi34w‘s/d;gk0g3wuergijt4{" "}
+              {token}
             </p>
           </div>
-          <button className="bg-secondary text-white px-[24px] py-[12px] text-[14px] font-[500]">
+          <button
+            onClick={handleButtonClick}
+            className="bg-secondary text-white px-[24px] py-[12px] text-[14px] font-[500]"
+          >
             Copy token
           </button>
         </div>
@@ -208,7 +250,7 @@ export default function Dashboard() {
                   Read the docs{" "}
                 </h6>
                 <p className="text-[#515478] text-[14px]">
-                  Learn how to install NoBox instantly.{" "}
+                  Learn how to install NoBox instantly.
                 </p>
               </div>
               <div className="flex justify-end pt-[16px]">

@@ -9,12 +9,6 @@ import { AiOutlinePlus } from "react-icons/ai";
 
 type ViewMode = "list" | "grid" | "table" | "code";
 
-// const data = [
-//   {
-
-//   },
-// ]
-
 const SignUPs: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [viewMode, setViewMode] = useState<ViewMode>("table");

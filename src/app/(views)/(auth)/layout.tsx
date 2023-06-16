@@ -6,20 +6,22 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className='flex relative w-full h-screen overflow-hidden'>
-      <div className="auth flex w-full min-h-screen justify-center px-16 py-5 items-center">
-        <div className="auth-bg w-full md:w-8/12 mt-20">
-          <h1 className="text-center mb-4">Welcome to Nobox</h1>
+    <section className="flex relative w-full overflow-hidden">
+      <div className="auth flex w-full min-h-screen justify-between px-16 py-5 items-center">
+        <div className="auth-bg max-w-[614px] ">
+          <h1 className="text-center mt-[114px] mb-4 text-[48px] font-[500] text-[#F1F1F1]">
+            Welcome to Nobox
+          </h1>
           <div className="w-full">
             {/* <img src="/auth-bg.svg" className="w-full" alt="" /> */}
           </div>
         </div>
-        <div className="md:w-3/12 justify-self-center" />
+
         {children}
       </div>
-      <div className='__blob'></div>
-      <div className='__blob-2'></div>
-      <div className='__blob-3'></div>
+      <div className="__blob"></div>
+      <div className="__blob-2"></div>
+      <div className="__blob-3"></div>
     </section>
   );
 }
