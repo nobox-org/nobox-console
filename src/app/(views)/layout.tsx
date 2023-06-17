@@ -1,11 +1,10 @@
 "use client";
 import Sidebar from "@/app/components/Sidebar";
 import { FiMenu } from "react-icons/fi";
-import { MdOutlineNotificationsActive } from "react-icons/md";
 import { usePathname } from "next/navigation";
 
 export default function DashboardLayout({
-  children, 
+  children,
 }: {
   children: React.ReactNode;
 }) {
@@ -15,6 +14,13 @@ export default function DashboardLayout({
     const sidebar = document.getElementById("sidebar");
     sidebar?.classList.add("open");
   };
+
+  console.log({ pathname })
+
+  if (pathname === "/signup" || pathname === "/signup-with-email" || pathname === "/login" || pathname === "/login/github") {
+    return <>{children}</>
+  }
+
   return (
     <section>
       <div className="md:flex justify-center">
@@ -23,7 +29,7 @@ export default function DashboardLayout({
             <img src="/logo.svg" className="w-full" alt="" />
             <p className="text-xl font-medium">Nobox</p>
           </div>
-          <div className=" text-xl" onClick={toggleSidebar}> 
+          <div className=" text-xl" onClick={toggleSidebar}>
             <FiMenu />
           </div>
         </div>

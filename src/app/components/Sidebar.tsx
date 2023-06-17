@@ -2,7 +2,6 @@ import { useState } from "react";
 import Link from "next/link";
 import { VscFileCode } from "react-icons/vsc";
 import { BsFolder2Open } from "react-icons/bs";
-import { TbLayoutDashboard } from "react-icons/tb";
 import { FaTimes, FaChevronDown, FaChevronRight } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 
@@ -49,11 +48,11 @@ const Sidebar = () => {
             </div>
             <Link
               className={
-                pathname == "/dashboard"
+                pathname == "/"
                   ? "bg-[#ECF3FF] text-secondary font-medium flex gap-2 px-2 py-4 items-center"
                   : "flex gap-2 px-2 py-4 items-center hover:bg-[#ECF3FF] hover:text-secondary hover:font-medium"
               }
-              href="/dashboard"
+              href="/"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -62,11 +61,11 @@ const Sidebar = () => {
                 fill="none"
               >
                 <path
-                  fill={pathname == "/dashboard" ? "#556DFF" : "#838389"}
+                  fill={pathname == "/" ? "#556DFF" : "#838389"}
                   d="M21.5 10.9V4.1c0-1.5-.64-2.1-2.23-2.1h-4.04C13.64 2 13 2.6 13 4.1v6.8c0 1.5.64 2.1 2.23 2.1h4.04c1.59 0 2.23-.6 2.23-2.1ZM11 13.1v6.8c0 1.5-.64 2.1-2.23 2.1H4.73c-1.59 0-2.23-.6-2.23-2.1v-6.8c0-1.5.64-2.1 2.23-2.1h4.04c1.59 0 2.23.6 2.23 2.1Z"
                 />
                 <path
-                  fill={pathname == "/dashboard" ? "#556DFF" : "#838389"}
+                  fill={pathname == "/" ? "#556DFF" : "#838389"}
                   d="M21.5 19.9v-2.8c0-1.5-.64-2.1-2.23-2.1h-4.04c-1.59 0-2.23.6-2.23 2.1v2.8c0 1.5.64 2.1 2.23 2.1h4.04c1.59 0 2.23-.6 2.23-2.1ZM11 6.9V4.1C11 2.6 10.36 2 8.77 2H4.73C3.14 2 2.5 2.6 2.5 4.1v2.8c0 1.5.64 2.1 2.23 2.1h4.04C10.36 9 11 8.4 11 6.9Z"
                   opacity={0.4}
                 />
@@ -75,11 +74,11 @@ const Sidebar = () => {
             </Link>
             <Link
               className={
-                pathname == "/dashboard/projects"
+                pathname == "/projects"
                   ? "bg-[#ECF3FF] text-secondary font-medium flex gap-2 px-2 py-4 items-center"
                   : "flex gap-2 px-2 py-4 items-center hover:bg-[#ECF3FF] hover:text-secondary hover:font-medium"
               }
-              href="/dashboard/projects"
+              href="/projects"
             >
               {/* <BsFolder2Open className="text-2xl" /> Projects */}
               <svg
@@ -90,13 +89,13 @@ const Sidebar = () => {
               >
                 <path
                   fill={
-                    pathname == "/dashboard/projects" ? "#556DFF" : "#838389"
+                    pathname == "/projects" ? "#556DFF" : "#838389"
                   }
                   d="M22 11.07v5.58C22 19.6 19.6 22 16.65 22h-9.3C4.4 22 2 19.6 2 16.65V9.44h19.74c.15.45.23.91.25 1.4.01.07.01.16.01.23Z"
                 />
                 <path
                   fill={
-                    pathname == "/dashboard/projects" ? "#556DFF" : "#838389"
+                    pathname == "/projects" ? "#556DFF" : "#838389"
                   }
                   d="M21.74 9.44H2V6.42C2 3.98 3.98 2 6.42 2h2.33c1.63 0 2.14.53 2.79 1.4l1.4 1.86c.31.41.35.47.93.47h2.79c2.37-.01 4.39 1.55 5.08 3.71Z"
                   opacity={0.4}
@@ -106,11 +105,11 @@ const Sidebar = () => {
             </Link>
             <Link
               className={
-                pathname == "/dashboard/records"
+                pathname == "/records"
                   ? "bg-[#ECF3FF] text-secondary font-medium flex gap-2 px-2 py-4 items-center"
                   : "flex gap-2 px-2 py-4 items-center hover:bg-[#ECF3FF] hover:text-secondary hover:font-medium"
               }
-              href="/dashboard/records"
+              href="/records"
             >
               {/* <BsFolder2Open className="text-2xl" /> */}
               <svg
@@ -151,7 +150,7 @@ const Sidebar = () => {
                       >
                         <path
                           fill={
-                            pathname == "/dashboard/docs"
+                            pathname == "/docs"
                               ? "#556DFF"
                               : "#838389"
                           }
@@ -159,7 +158,7 @@ const Sidebar = () => {
                         />
                         <path
                           fill={
-                            pathname == "/dashboard/docs"
+                            pathname == "/docs"
                               ? "#556DFF"
                               : "#838389"
                           }
@@ -185,7 +184,7 @@ const Sidebar = () => {
                       >
                         <path
                           fill={
-                            pathname == "/dashboard/docs"
+                            pathname == "/docs"
                               ? "#556DFF"
                               : "#838389"
                           }
@@ -193,7 +192,7 @@ const Sidebar = () => {
                         />
                         <path
                           fill={
-                            pathname == "/dashboard/docs"
+                            pathname == "/docs"
                               ? "#556DFF"
                               : "#838389"
                           }
@@ -217,24 +216,22 @@ const Sidebar = () => {
               <ul className="pl-8 flex flex-col space-y-3">
                 <li className="bg-[#ECF3FF] px-[22px] py-[8px] border-l-[2px] rounded-[2px] border-l-[#556DFF]">
                   <Link
-                    href="/dashboard/docs"
-                    className={`${
-                      pathname === "/dashboard/docs"
-                        ? "text-[#556DFF]"
-                        : "#838389"
-                    } font-[500] text-[14px]`}
+                    href="/docs"
+                    className={`${pathname === "/docs"
+                      ? "text-[#556DFF]"
+                      : "#838389"
+                      } font-[500] text-[14px]`}
                   >
                     Get started
                   </Link>
                 </li>
                 <li className="bg-[#ECF3FF] border-l-[2px] rounded-[2px] border-l-[#556DFF] px-[22px] py-[8px]">
                   <Link
-                    href="/dashboard/docs/user-guide"
-                    className={`${
-                      pathname === "/dashboard/docs/user-guide"
-                        ? "text-[#556DFF]"
-                        : "#838389"
-                    } font-[500] text-[14px]`}
+                    href="/docs/user-guide"
+                    className={`${pathname === "/docs/user-guide"
+                      ? "text-[#556DFF]"
+                      : "#838389"
+                      } font-[500] text-[14px]`}
                   >
                     User Guide
                   </Link>

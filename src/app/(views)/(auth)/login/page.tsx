@@ -2,7 +2,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaGithub } from "react-icons/fa";
-const signIn = () => {
+
+const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleTogglePassword = () => {
@@ -90,4 +91,4 @@ const signIn = () => {
   );
 };
 
-export default signIn;
+export default SignIn;
