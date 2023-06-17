@@ -48,7 +48,7 @@ const UserGuide = () => {
               <div className="flex items-center">
                 <RxDotFilled size={18} />{" "}
                 <span>
-                  Go to{" "}
+                  Go to{ }
                   <Link
                     className="underline underline-offset-4 text-[#556DFF]"
                     href="https://nobox.cloud"
@@ -86,7 +86,7 @@ const UserGuide = () => {
                   <span>
                     {"{ Config, getFunctions, getSchemaCreator } from"}
                   </span>{" "}
-                  <span className="text-[#e97d43]"> "nobox-client";</span>
+                  <span className="text-[#e97d43]"> &quot;nobox-client&quot;;</span>
                 </code>
                 <code>
                   <div className="mt-6"></div>
@@ -94,14 +94,14 @@ const UserGuide = () => {
                   {": Config = {"}
                   <br />
                   &nbsp;&nbsp;<span>endpoint</span>:{" "}
-                  <span className="text-[#e97d43]">"https://nobox.cloud"</span>
+                  <span className="text-[#e97d43]">&quot;https://nobox.cloud&quot;</span>
                   ,
                   <br />
                   &nbsp;&nbsp;<span>project</span>:{" "}
-                  <span className="text-[#e97d43]">"[project]"</span>,
+                  <span className="text-[#e97d43]">&quot;[project]&quot;</span>,
                   <br />
                   &nbsp;&nbsp;<span>token</span>:{" "}
-                  <span className="text-[#e97d43]">"[eternalToken]"</span>,
+                  <span className="text-[#e97d43]">&quot;[eternalToken]&quot;</span>,
                   <br />
                   {"};"}
                 </code>
@@ -151,15 +151,15 @@ const UserGuide = () => {
               <div className="px-[24px] w-[772px]  py-[8px] bg-[#F6F6F9] text-[14px]">
                 <code className="text-[14px] tracking-[-0.01em]">
                   <span className="text-[#A71D5D]">
-                    // record-structures/user.ts
+                   // record-structures/user.ts
                   </span>
                   <br />
                   <span className="text-[#A71D5D]">
-                    import Space from "nobox-client"
+                    import Space from &quot;nobox-client&quot;
                   </span>
                   <br />
                   <span className="text-[#A71D5D]">
-                    import createSchema from "./config"
+                    import createSchema from &quot;./config&quot;
                   </span>
                   <br />
                   <br />
@@ -421,7 +421,7 @@ When required is false, It becomes important to make this field optional in your
                     <span className="text-[#795DA3]">UserModel</span>{" "}
                     <span className="text-[#A71D5D]">from</span>{" "}
                     <span className="text-[#DF5000]">
-                      "../record-structures/user.ts";
+                      &quot;../record-structures/user.ts&quot;;
                     </span>
                   </span>
                   <br />
@@ -502,7 +502,7 @@ When required is false, It becomes important to make this field optional in your
                     const allData = await {"UserModel.find({ email:"}
                     <span className="text-[#DF5000]">
                       {" "}
-                      "test@gmail.com"{" "}
+                      &quot;"test@gmail.com&quot;{" "}
                     </span>{" "}
                     {"});"}
                   </span>
