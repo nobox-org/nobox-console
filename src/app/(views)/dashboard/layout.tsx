@@ -17,7 +17,7 @@ export default function DashboardLayout({
   };
   return (
     <section>
-      <div className="md:flex justify-center">
+      <div className="md:flex justify-center ">
         <div className="md:hidden fixed top-0 left-0 w-full bg-white flex pb-2 pt-6 justify-between px-4 items-center border-b border-[#E6E8F9] text-[#1C1B1B]">
           <div className="md:px-2 flex gap-2 ">
             <img src="/logo.svg" className="w-full" alt="" />
