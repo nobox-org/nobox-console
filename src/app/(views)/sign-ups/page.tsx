@@ -4,13 +4,24 @@ import RecordDataBox from "@/app/components/RecordDataBox";
 import CreateProject from "@/app/components/modals/createProject";
 import SignUpsTableBody from "@/app/components/tables/SignUpsTableBody";
 import SignUpsTableHead from "@/app/components/tables/SignUpsTableHead";
+import { UserModel } from "@/nobox/record-structures/user";
 import { SetStateAction, useState, useEffect } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 
 type ViewMode = "list" | "grid" | "table" | "code";
 
+interface User {
+  id: string;
+  updatedAt: string;
+  createdAt: string;
+  firstName: string;
+  age: number;
+}
+
 const SignUPs: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const [users, setUsers] = useState<User[]>([]);
+
   const [viewMode, setViewMode] = useState<ViewMode>("table");
 
   useEffect(() => {
@@ -23,6 +34,21 @@ const SignUPs: React.FC = () => {
   const close = () => {
     setOpen(false);
   };
+
+  const getAllUsers = async () => {
+    const users = await UserModel.find({});
+    return users;
+  };
+
+  const getAndSetAllUsers = async () => {
+    const sampleUsers = await getAllUsers();
+    setUsers(sampleUsers as any);
+  };
+
+  useEffect(() => {
+    getAndSetAllUsers();
+  }, []);
+  console.log(users);
 
   const renderData = () => {
     if (viewMode === "table") {
@@ -48,252 +74,65 @@ const SignUPs: React.FC = () => {
     } else if (viewMode === "list") {
       return (
         <div className="p-[24px] bg-[#FAFAFA] flex flex-col gap-[8px]">
-          <div className="w-full flex items-center h-[192px] border rounded-[2px] bg-white">
-            <div className="w-[303px] h-[160px] pl-[24px]">
-              <div className="flex gap-[4px]">
-                <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
-                  _id:
-                </span>
-                <span className="text-[#556DFF] text-[12px] leading-[20px]">
-                  ObjectId (‘389dhjf8373hf983f9h3’)
-                </span>
-              </div>
-
-              <div className="flex items-center ">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width={12}
-                  height={12}
-                  fill="none"
-                >
-                  <path
-                    fill="#24242E"
-                    d="M3 4.665v2.67c0 1.66 1.175 2.335 2.61 1.51l.64-.37a.502.502 0 0 0 .25-.435V3.96a.502.502 0 0 0-.25-.435l-.64-.37C4.175 2.33 3 3.005 3 4.665ZM7 4.395V7.61c0 .195.21.315.375.215l.55-.32c1.435-.825 1.435-2.185 0-3.01l-.55-.32a.251.251 0 0 0-.375.22Z"
-                  />
-                </svg>
-                <div className="flex items-center">
+          {users.map((user, index) => (
+            <div
+              key={index}
+              className="w-full flex items-center h-[192px] border rounded-[2px] bg-white"
+            >
+              <div className="w-[303px] h-[160px] pl-[24px]">
+                <div className="flex gap-[4px]">
                   <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
-                    record:{" "}
+                    _id:
+                  </span>
+                  <span className="text-[#556DFF] text-[12px] leading-[20px]">
+                    ({`‘${user?.id}’`})
+                  </span>
+                </div>
+
+                <div className="flex gap-[4px]">
+                  <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
+                    id:
+                  </span>
+                  <span className="text-[#12B76A] text-[12px] leading-[20px]">
+                    “389dhjf8373hf983f9h3”
+                  </span>
+                </div>
+                <div className="flex gap-[4px]">
+                  <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                    updatedAt
+                  </span>
+                  <span className="text-[#DD2590] text-[12px] leading-[20px]">
+                    {user?.updatedAt}
+                  </span>
+                </div>
+                <div className="flex gap-[4px]">
+                  <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                    createdAt:
+                  </span>
+                  <span className="text-[#DD2590] text-[12px] leading-[20px]">
+                    {user?.createdAt}
+                  </span>
+                </div>
+                <div className="flex gap-[4px]">
+                  <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                    Fullname
+                  </span>
+                  <span className="text-[#12B76A] text-[12px] leading-[20px]">
+                    {user?.firstName}
+                  </span>
+                </div>
+
+                <div className="flex gap-[4px]">
+                  <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
+                    age:{" "}
                   </span>
                   <span className="text-[#667085] text-[12px] leading-[20px] tracking-[-0.02em]">
-                    Object
+                    {user?.age}
                   </span>
                 </div>
               </div>
-              <div className="flex gap-[4px]">
-                <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
-                  id:
-                </span>
-                <span className="text-[#12B76A] text-[12px] leading-[20px]">
-                  “389dhjf8373hf983f9h3”
-                </span>
-              </div>
-              <div className="flex gap-[4px]">
-                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
-                  updatedAt:
-                </span>
-                <span className="text-[#DD2590] text-[12px] leading-[20px]">
-                  2023-01-10T20:43:43.932+00:00
-                </span>
-              </div>
-              <div className="flex gap-[4px]">
-                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
-                  createdAt:
-                </span>
-                <span className="text-[#DD2590] text-[12px] leading-[20px]">
-                  2023-01-10T20:43:43.932+00:00
-                </span>
-              </div>
-              <div className="flex gap-[4px]">
-                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
-                  first-name
-                </span>
-                <span className="text-[#12B76A] text-[12px] leading-[20px]">
-                  “Caveman”
-                </span>
-              </div>
-              <div className="flex gap-[4px]">
-                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
-                  last-name
-                </span>
-                <span className="text-[#12B76A] text-[12px] leading-[20px]">
-                  “Caveman”
-                </span>
-              </div>
-              <div className="flex gap-[4px]">
-                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
-                  age:{" "}
-                </span>
-                <span className="text-[#667085] text-[12px] leading-[20px] tracking-[-0.02em]">
-                  30
-                </span>
-              </div>
             </div>
-          </div>
-          <div className="w-full flex items-center h-[192px] border rounded-[2px] bg-white">
-            <div className="w-[303px] h-[160px] pl-[24px]">
-              <div className="flex gap-[4px]">
-                <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
-                  _id:
-                </span>
-                <span className="text-[#556DFF] text-[12px] leading-[20px]">
-                  ObjectId (‘389dhjf8373hf983f9h3’)
-                </span>
-              </div>
-
-              <div className="flex items-center ">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width={12}
-                  height={12}
-                  fill="none"
-                >
-                  <path
-                    fill="#24242E"
-                    d="M3 4.665v2.67c0 1.66 1.175 2.335 2.61 1.51l.64-.37a.502.502 0 0 0 .25-.435V3.96a.502.502 0 0 0-.25-.435l-.64-.37C4.175 2.33 3 3.005 3 4.665ZM7 4.395V7.61c0 .195.21.315.375.215l.55-.32c1.435-.825 1.435-2.185 0-3.01l-.55-.32a.251.251 0 0 0-.375.22Z"
-                  />
-                </svg>
-                <div className="flex items-center">
-                  <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
-                    record:{" "}
-                  </span>
-                  <span className="text-[#667085] text-[12px] leading-[20px] tracking-[-0.02em]">
-                    Object
-                  </span>
-                </div>
-              </div>
-              <div className="flex gap-[4px]">
-                <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
-                  id:
-                </span>
-                <span className="text-[#12B76A] text-[12px] leading-[20px]">
-                  “389dhjf8373hf983f9h3”
-                </span>
-              </div>
-              <div className="flex gap-[4px]">
-                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
-                  updatedAt:
-                </span>
-                <span className="text-[#DD2590] text-[12px] leading-[20px]">
-                  2023-01-10T20:43:43.932+00:00
-                </span>
-              </div>
-              <div className="flex gap-[4px]">
-                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
-                  createdAt:
-                </span>
-                <span className="text-[#DD2590] text-[12px] leading-[20px]">
-                  2023-01-10T20:43:43.932+00:00
-                </span>
-              </div>
-              <div className="flex gap-[4px]">
-                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
-                  first-name
-                </span>
-                <span className="text-[#12B76A] text-[12px] leading-[20px]">
-                  “Caveman”
-                </span>
-              </div>
-              <div className="flex gap-[4px]">
-                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
-                  last-name
-                </span>
-                <span className="text-[#12B76A] text-[12px] leading-[20px]">
-                  “Caveman”
-                </span>
-              </div>
-              <div className="flex gap-[4px]">
-                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
-                  age:{" "}
-                </span>
-                <span className="text-[#667085] text-[12px] leading-[20px] tracking-[-0.02em]">
-                  30
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className="w-full flex items-center h-[192px] border rounded-[2px] bg-white">
-            <div className="w-[303px] h-[160px] pl-[24px]">
-              <div className="flex gap-[4px]">
-                <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
-                  _id:
-                </span>
-                <span className="text-[#556DFF] text-[12px] leading-[20px]">
-                  ObjectId (‘389dhjf8373hf983f9h3’)
-                </span>
-              </div>
-
-              <div className="flex items-center ">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width={12}
-                  height={12}
-                  fill="none"
-                >
-                  <path
-                    fill="#24242E"
-                    d="M3 4.665v2.67c0 1.66 1.175 2.335 2.61 1.51l.64-.37a.502.502 0 0 0 .25-.435V3.96a.502.502 0 0 0-.25-.435l-.64-.37C4.175 2.33 3 3.005 3 4.665ZM7 4.395V7.61c0 .195.21.315.375.215l.55-.32c1.435-.825 1.435-2.185 0-3.01l-.55-.32a.251.251 0 0 0-.375.22Z"
-                  />
-                </svg>
-                <div className="flex items-center">
-                  <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
-                    record:{" "}
-                  </span>
-                  <span className="text-[#667085] text-[12px] leading-[20px] tracking-[-0.02em]">
-                    Object
-                  </span>
-                </div>
-              </div>
-              <div className="flex gap-[4px]">
-                <span className="text-[#24242E] text-[12px] leading-[20px] tracking-[-0.02em]">
-                  id:
-                </span>
-                <span className="text-[#12B76A] text-[12px] leading-[20px]">
-                  “389dhjf8373hf983f9h3”
-                </span>
-              </div>
-              <div className="flex gap-[4px]">
-                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
-                  updatedAt:
-                </span>
-                <span className="text-[#DD2590] text-[12px] leading-[20px]">
-                  2023-01-10T20:43:43.932+00:00
-                </span>
-              </div>
-              <div className="flex gap-[4px]">
-                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
-                  createdAt:
-                </span>
-                <span className="text-[#DD2590] text-[12px] leading-[20px]">
-                  2023-01-10T20:43:43.932+00:00
-                </span>
-              </div>
-              <div className="flex gap-[4px]">
-                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
-                  first-name
-                </span>
-                <span className="text-[#12B76A] text-[12px] leading-[20px]">
-                  “Caveman”
-                </span>
-              </div>
-              <div className="flex gap-[4px]">
-                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
-                  last-name
-                </span>
-                <span className="text-[#12B76A] text-[12px] leading-[20px]">
-                  “Caveman”
-                </span>
-              </div>
-              <div className="flex gap-[4px]">
-                <span className="text-[#24242E] text-[12px] font-[500] leading-[20px] tracking-[-0.02em]">
-                  age:{" "}
-                </span>
-                <span className="text-[#667085] text-[12px] leading-[20px] tracking-[-0.02em]">
-                  30
-                </span>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       );
     } else if (viewMode === "grid") {
@@ -671,12 +510,10 @@ const SignUPs: React.FC = () => {
         <div className="">
           <p className="text-[#98A2B3] text-[14px]">
             Projects/ <span className="text-[14px] text-[#98A2B3]">NoBox</span>/
-            <span className="text-[14px] text-[#667085] font-[500]">
-              Sign Ups
-            </span>
+            <span className="text-[14px] text-[#667085] font-[500]">Users</span>
           </p>
           <h1 className="text-[25px] font-[600] text-[#292D32] leading-[40px]">
-            Sign Ups
+            Users
           </h1>
         </div>
         <button
