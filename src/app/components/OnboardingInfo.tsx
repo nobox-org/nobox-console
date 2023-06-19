@@ -12,7 +12,7 @@ export const OnboardingInfo = ({ handleSkip, token }: OnboardingInfoProps) => {
     };
 
     return (
-        <div className="md:flex h-[348px]">
+        <div className="md:flex h-[348px] mb-10">
             <div className="bg-[#FAFAFA]  overflow-y-hidden max-w-[348px]">
                 <div className=" p-[24px] ">
                     <h4 className="text-lg font-[700 ]  text">Welcome to NoBox </h4>

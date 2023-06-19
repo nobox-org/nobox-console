@@ -151,7 +151,7 @@ const UserGuide = () => {
               <div className="px-[24px] w-[772px]  py-[8px] bg-[#F6F6F9] text-[14px]">
                 <code className="text-[14px] tracking-[-0.01em]">
                   <span className="text-[#A71D5D]">
-                   // record-structures/user.ts
+                    &#47;&#47; record-structures/user.ts
                   </span>
                   <br />
                   <span className="text-[#A71D5D]">
@@ -430,17 +430,17 @@ When required is false, It becomes important to make this field optional in your
                   <br />
                   <span>
                     &nbsp;&nbsp;email:{" "}
-                    <span className="text-[#DF5000]">"test@gmail.com"</span> ,
+                    <span className="text-[#DF5000]">&quot;test@gmail.com&quot;</span> ,
                   </span>
                   <br />
                   <span>
                     &nbsp;&nbsp;firstName:{" "}
-                    <span className="text-[#DF5000]">"akin"</span> ,
+                    <span className="text-[#DF5000]">&quot;akin&quot;</span> ,
                   </span>
                   <br />
                   <span>
                     &nbsp;&nbsp;password:{" "}
-                    <span className="text-[#DF5000]">"123456*"</span>,
+                    <span className="text-[#DF5000]">&quot;123456*&quot;</span>,
                   </span>
                   <br />
                   <span>
@@ -451,7 +451,7 @@ When required is false, It becomes important to make this field optional in your
                   <span>{"}"};</span>
                   <br />
                   <br />
-                  <span className="text-[#969896]">// Insert</span>
+                  <span className="text-[#969896]">&#47;&#47; Insert</span>
                   <br />
                   <span>
                     const insertedData = await UserModel.insertOne(data);
@@ -460,10 +460,10 @@ When required is false, It becomes important to make this field optional in your
                   <span>{"console.log({ insertedData })"};</span>
                   <br />
                   <br />
-                  <span className="text-[#969896]">// FindOne</span>
+                  <span className="text-[#969896]">&#47;&#47; FindOne</span>
                   <br />
                   <span className="text-[#969896]">
-                    // The below operation will return the inserted data
+                    &#47;&#47; The below operation will return the inserted data
                   </span>
                   <br />
                   <span>
@@ -474,27 +474,27 @@ When required is false, It becomes important to make this field optional in your
                   <span>{" console.log({ foundData })"};</span>
                   <br />
                   <br />
-                  <span className="text-[#969896]">// UpdateOneById</span>
+                  <span className="text-[#969896]"> &#47;&#47; UpdateOneById</span>
                   <br />
                   <span className="text-[#969896]">
-                    // The below operation allows you to update a previously
+                    &#47;&#47; The below operation allows you to update a previously
                     inserted record with its id
                   </span>
                   <br />
                   <span>
                     const updatedData = await{" "}
                     {"UserModel.updateOneById(id, { firstName: "}
-                    <span className="text-[#DF5000]"> "akin2" </span>
+                    <span className="text-[#DF5000]"> &quot;akin2&quot; </span>
                     {"});"}
                   </span>
                   <br />
                   <span>{"console.log({ updatedData });"}</span>
                   <br />
                   <br />
-                  <span className="text-[#969896]">// Find</span>
+                  <span className="text-[#969896]"> &#47;&#47; Find</span>
                   <br />
                   <span className="text-[#969896]">
-                    // This will return all data within that space with `email:
+                    &#47;&#47; This will return all data within that space with `email:
                     test@gmail.com`
                   </span>
                   <br />
@@ -502,7 +502,7 @@ When required is false, It becomes important to make this field optional in your
                     const allData = await {"UserModel.find({ email:"}
                     <span className="text-[#DF5000]">
                       {" "}
-                      &quot;"test@gmail.com&quot;{" "}
+                      &quot;test@gmail.com&quot;
                     </span>{" "}
                     {"});"}
                   </span>
