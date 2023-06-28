@@ -1,0 +1,12 @@
+.inputBorder:focus {
+  border: 1.5px solid;
+  border-image: linear-gradient(
+      to right,
+      #ffc61b 0%,
+      #ffa400 100%,
+      #bb5502 100%
+    )
+    1;
+  border-radius: 2px;
+  border-image-slice: 1;
+}
