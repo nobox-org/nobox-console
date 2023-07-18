@@ -1,6 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
-import { FaArrowRight } from "react-icons/fa";
+import React, { useEffect, useRef } from "react";
 import { copyToClipboard } from "@/lib/copyToClipboard";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,11 +9,21 @@ import useTokenHandler from "@/lib/hooks/useTokenHandler";
 import useInfoSkip from "@/lib/hooks/useInfoSkip";
 import useNoboxData from "@/lib/hooks/useNoboxData";
 import Box from "../components/Box";
+import { storageConstants } from "@/lib/constants";
 
 export default function Dashboard() {
   const { token } = useTokenHandler();
   const { isSkipped, skip } = useInfoSkip();
   const { loading, data: projects } = useNoboxData();
+  const isFirstLoad = useRef(true);
+
+  useEffect(() => {
+    if (isFirstLoad.current) {
+      localStorage.removeItem(storageConstants.NOBOX_DATA);
+      localStorage.removeItem(storageConstants.NOBOX_RECORDS);
+      isFirstLoad.current = false;
+    }
+  }, []);
 
   const handleButtonClick = () => {
     if (token) {

@@ -9,7 +9,7 @@ const useNoboxData = () => {
     const [loading, setLoading] = useState(true);
 
     const store = storage(storageConstants.NOBOX_DATA);
-    const projects = store.getObject() as any;
+    const projectsDataFromLocalStore = store.getObject() as any;
 
     const fetchProjects = async (token: string, opts: {
         backgroundRun?: boolean
@@ -44,8 +44,8 @@ const useNoboxData = () => {
         const token = localStorage.getItem(storageConstants.NOBOX_CLIENT_TOKEN);
 
         if (token) {
-            if (projects) {
-                setData(projects);
+            if (projectsDataFromLocalStore) {
+                setData(projectsDataFromLocalStore);
                 fetchProjects(token);
                 setLoading(false);
                 return;

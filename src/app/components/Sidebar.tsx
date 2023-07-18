@@ -79,83 +79,29 @@ const Sidebar = () => {
               }
               onClick={toggleDocsDropdown}
             >
-              {/* Add an icon here to indicate that this is a dropdown */}
-              {docsDropdownOpen ? (
-                <>
-                  <div className="flex w-full justify-between items-center">
-                    <div className="flex space-x-2 flex-1 ">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width={24}
-                        height={24}
-                        fill="none"
-                      >
-                        <path
-                          fill={pathname == "/docs" ? "#556DFF" : "#838389"}
-                          d="M16 22.75H8c-3.65 0-5.75-2.1-5.75-5.75V7c0-3.65 2.1-5.75 5.75-5.75h8c3.65 0 5.75 2.1 5.75 5.75v10c0 3.65-2.1 5.75-5.75 5.75Zm-8-20C5.14 2.75 3.75 4.14 3.75 7v10c0 2.86 1.39 4.25 4.25 4.25h8c2.86 0 4.25-1.39 4.25-4.25V7c0-2.86-1.39-4.25-4.25-4.25H8Z"
-                        />
-                        <path
-                          fill={pathname == "/docs" ? "#556DFF" : "#838389"}
-                          d="M18.5 9.25h-2c-1.52 0-2.75-1.23-2.75-2.75v-2c0-.41.34-.75.75-.75s.75.34.75.75v2c0 .69.56 1.25 1.25 1.25h2c.41 0 .75.34.75.75s-.34.75-.75.75ZM10 17.75c-.19 0-.38-.07-.53-.22l-2-2a.755.755 0 0 1 0-1.06l2-2c.29-.29.77-.29 1.06 0 .29.29.29.77 0 1.06L9.06 15l1.47 1.47c.29.29.29.77 0 1.06-.15.15-.34.22-.53.22ZM14 17.75c-.19 0-.38-.07-.53-.22a.755.755 0 0 1 0-1.06L14.94 15l-1.47-1.47a.755.755 0 0 1 0-1.06c.29-.29.77-.29 1.06 0l2 2c.29.29.29.77 0 1.06l-2 2c-.15.15-.34.22-.53.22Z"
-                        />
-                      </svg>
-                      <span>Docs</span>
-                    </div>
-                    <div>
-                      <FaChevronDown />
-                    </div>
+              <a href="https://docs.nobox.cloud" target="_blank">
+                <div className="flex w-full justify-between items-center relative">
+                  <div className="flex space-x-2 flex-1">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      fill="none"
+                    >
+                      <path
+                        fill={pathname == "/docs" ? "#556DFF" : "#838389"}
+                        d="M16 22.75H8c-3.65 0-5.75-2.1-5.75-5.75V7c0-3.65 2.1-5.75 5.75-5.75h8c3.65 0 5.75 2.1 5.75 5.75v10c0 3.65-2.1 5.75-5.75 5.75Zm-8-20C5.14 2.75 3.75 4.14 3.75 7v10c0 2.86 1.39 4.25 4.25 4.25h8c2.86 0 4.25-1.39 4.25-4.25V7c0-2.86-1.39-4.25-4.25-4.25H8Z"
+                      />
+                      <path
+                        fill={pathname == "/docs" ? "#556DFF" : "#838389"}
+                        d="M18.5 9.25h-2c-1.52 0-2.75-1.23-2.75-2.75v-2c0-.41.34-.75.75-.75s.75.34.75.75v2c0 .69.56 1.25 1.25 1.25h2c.41 0 .75.34.75.75s-.34.75-.75.75ZM10 17.75c-.19 0-.38-.07-.53-.22l-2-2a.755.755 0 0 1 0-1.06l2-2c.29-.29.77-.29 1.06 0 .29.29.29.77 0 1.06L9.06 15l1.47 1.47c.29.29.29.77 0 1.06-.15.15-.34.22-.53.22ZM14 17.75c-.19 0-.38-.07-.53-.22a.755.755 0 0 1 0-1.06L14.94 15l-1.47-1.47a.755.755 0 0 1 0-1.06c.29-.29.77-.29 1.06 0l2 2c.29.29.29.77 0 1.06l-2 2c-.15.15-.34.22-.53.22Z"
+                      />
+                    </svg>
+                    <span>Docs</span>
                   </div>
-                </>
-              ) : (
-                <>
-                  <div className="flex w-full justify-between items-center relative">
-                    <div className="flex space-x-2 flex-1">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width={24}
-                        height={24}
-                        fill="none"
-                      >
-                        <path
-                          fill={pathname == "/docs" ? "#556DFF" : "#838389"}
-                          d="M16 22.75H8c-3.65 0-5.75-2.1-5.75-5.75V7c0-3.65 2.1-5.75 5.75-5.75h8c3.65 0 5.75 2.1 5.75 5.75v10c0 3.65-2.1 5.75-5.75 5.75Zm-8-20C5.14 2.75 3.75 4.14 3.75 7v10c0 2.86 1.39 4.25 4.25 4.25h8c2.86 0 4.25-1.39 4.25-4.25V7c0-2.86-1.39-4.25-4.25-4.25H8Z"
-                        />
-                        <path
-                          fill={pathname == "/docs" ? "#556DFF" : "#838389"}
-                          d="M18.5 9.25h-2c-1.52 0-2.75-1.23-2.75-2.75v-2c0-.41.34-.75.75-.75s.75.34.75.75v2c0 .69.56 1.25 1.25 1.25h2c.41 0 .75.34.75.75s-.34.75-.75.75ZM10 17.75c-.19 0-.38-.07-.53-.22l-2-2a.755.755 0 0 1 0-1.06l2-2c.29-.29.77-.29 1.06 0 .29.29.29.77 0 1.06L9.06 15l1.47 1.47c.29.29.29.77 0 1.06-.15.15-.34.22-.53.22ZM14 17.75c-.19 0-.38-.07-.53-.22a.755.755 0 0 1 0-1.06L14.94 15l-1.47-1.47a.755.755 0 0 1 0-1.06c.29-.29.77-.29 1.06 0l2 2c.29.29.29.77 0 1.06l-2 2c-.15.15-.34.22-.53.22Z"
-                        />
-                      </svg>
-                      <span>Docs</span>
-                    </div>
-                    <div>
-                      <FaChevronRight />
-                    </div>
-                  </div>
-                </>
-              )}
-              {/* {docsDropdownOpen && (
-                <div className="absolute top-full left-0 w-full h-[1px] bg-gray-300" />
-              )} */}
+                </div>
+              </a>
             </div>
-
-            {docsDropdownOpen && (
-              <ul className="pl-8 flex flex-col space-y-3">
-                <li className="bg-[#ECF3FF] border-l-[2px] rounded-[2px] border-l-[#556DFF] px-[22px] py-[8px]">
-                  <Link
-                    href="/docs/user-guide"
-                    className={`${
-                      pathname === "/docs/user-guide"
-                        ? "text-[#556DFF]"
-                        : "#838389"
-                    } font-[500] text-[14px]`}
-                  >
-                    User Guide
-                  </Link>
-                </li>
-
-                {/* Add more links here if needed */}
-              </ul>
-            )}
           </div>
         </ul>
       </aside>
