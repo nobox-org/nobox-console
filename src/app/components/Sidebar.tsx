@@ -1,11 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FaTimes, FaChevronDown, FaChevronRight } from "react-icons/fa";
 import { usePathname } from "next/navigation";
+import React from "react";
+import { findProject } from "@/lib/gen";
+import useNoboxData from "@/lib/hooks/useNoboxData";
+import { useRouter } from "next/router";
 
-const Sidebar = () => {
+const Sidebar = ({ projectSlug }: any) => {
   const pathname = usePathname();
+
   const [docsDropdownOpen, setDocsDropdownOpen] = useState(false);
+  const { data: projects } = useNoboxData();
+  const router = useRouter();
+  const { project_slug } = router.query;
+
+
+  const project = findProject({
+    projects,
+    projectSlug: project_slug as string,
+  });
 
   const closeSidebar = () => {
     document.querySelector<HTMLElement>("#sidebar")?.classList.remove("open");
@@ -38,7 +52,10 @@ const Sidebar = () => {
               <h3 className="text-[#1C1B1B] text-[20px] font-[500]">Nobox</h3>
             </div>
           </div>
-          <div id="sidebar" className="px-2 flex h-screen flex-col gap-y-2">
+          <div
+            id="sidebar"
+            className="px-2 flex h-screen flex-col bg-[#fff] gap-y-2"
+          >
             <div
               className="text-lg flex md:hidden justify-end text-primary cursor-pointer font-light my-4"
               onClick={closeSidebar}

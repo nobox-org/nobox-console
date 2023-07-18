@@ -45,10 +45,10 @@ export default function DashboardLayout({
             <FiMenu />
           </div>
         </div>
-        <div className="md:w-[200px] w-full fixed top-0 left-0 bg-white">
+        <div className="md:w-[350px] w-full fixed top-0 left-0 bg-white">
           <Sidebar />
         </div>
-        <div className="md:w-[calc(100%-200px)] md:ml-[200px] ">
+        <div className="md:w-[calc(100%-350px)] md:ml-[350px] ">
           <div className="flex justify-between items-center px-[24px] h-[56px] border-b border-b-[#E6E8F9]">
             <div>
               <h3 className="text-[#24242E] text-[24px] tracking-[-0.02em] font-[900]">
