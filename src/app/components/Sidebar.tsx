@@ -1,11 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FaTimes, FaChevronDown, FaChevronRight } from "react-icons/fa";
 import { usePathname } from "next/navigation";
+import React from "react";
+import { findProject } from "@/lib/gen";
+import useNoboxData from "@/lib/hooks/useNoboxData";
+import { useRouter } from "next/router";
 
-const Sidebar = () => {
+const Sidebar = ({projectSlug}:any) => {
   const pathname = usePathname();
+
   const [docsDropdownOpen, setDocsDropdownOpen] = useState(false);
+  const { data: projects } = useNoboxData();
+  const router = useRouter();
+  const { project_slug } = router.query;
+
+
+    const project = findProject({
+      projects,
+      projectSlug: project_slug as string,
+    });
 
   const closeSidebar = () => {
     document.querySelector<HTMLElement>("#sidebar")?.classList.remove("open");
@@ -38,7 +52,10 @@ const Sidebar = () => {
               <h3 className="text-[#1C1B1B] text-[20px] font-[500]">Nobox</h3>
             </div>
           </div>
-          <div id="sidebar" className="px-2 flex h-screen flex-col gap-y-2">
+          <div
+            id="sidebar"
+            className="px-2 flex h-screen flex-col bg-[#fff] gap-y-2"
+          >
             <div
               className="text-lg flex md:hidden justify-end text-primary cursor-pointer font-light my-4"
               onClick={closeSidebar}
@@ -125,7 +142,7 @@ const Sidebar = () => {
                           d="M18.5 9.25h-2c-1.52 0-2.75-1.23-2.75-2.75v-2c0-.41.34-.75.75-.75s.75.34.75.75v2c0 .69.56 1.25 1.25 1.25h2c.41 0 .75.34.75.75s-.34.75-.75.75ZM10 17.75c-.19 0-.38-.07-.53-.22l-2-2a.755.755 0 0 1 0-1.06l2-2c.29-.29.77-.29 1.06 0 .29.29.29.77 0 1.06L9.06 15l1.47 1.47c.29.29.29.77 0 1.06-.15.15-.34.22-.53.22ZM14 17.75c-.19 0-.38-.07-.53-.22a.755.755 0 0 1 0-1.06L14.94 15l-1.47-1.47a.755.755 0 0 1 0-1.06c.29-.29.77-.29 1.06 0l2 2c.29.29.29.77 0 1.06l-2 2c-.15.15-.34.22-.53.22Z"
                         />
                       </svg>
-                      <span>Docs</span>
+                      <span>Projects</span>
                     </div>
                     <div>
                       <FaChevronRight />
@@ -141,16 +158,28 @@ const Sidebar = () => {
             {docsDropdownOpen && (
               <ul className="pl-8 flex flex-col space-y-3">
                 <li className="bg-[#ECF3FF] border-l-[2px] rounded-[2px] border-l-[#556DFF] px-[22px] py-[8px]">
-                  <Link
-                    href="/docs/user-guide"
-                    className={`${
-                      pathname === "/docs/user-guide"
-                        ? "text-[#556DFF]"
-                        : "#838389"
-                    } font-[500] text-[14px]`}
-                  >
-                    User Guide
-                  </Link>
+                  {project.recordSpaces?.length > 0 &&
+                    project.recordSpaces.map((recordSpace: any) => {
+                      const {
+                        name,
+                        slug: recordSpaceSlug,
+                      } = recordSpace;
+
+                      const link = `/records/${projectSlug}/${recordSpaceSlug}`;
+
+                      return (
+                        <Link
+                          href={link}
+                          className={`${
+                            pathname === "/docs/user-guide"
+                              ? "text-[#556DFF]"
+                              : "#838389"
+                          } font-[500] text-[14px]`}
+                        >
+                          {name}
+                        </Link>
+                      );
+                    })}
                 </li>
 
                 {/* Add more links here if needed */}
