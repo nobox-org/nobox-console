@@ -6,10 +6,10 @@ export const copyToClipboard = (text: string) => {
   navigator.clipboard
     .writeText(text)
     .then(() => {
-        toast.info("Token to clipboard", {
-          icon: "🚀",
-          className: "toast-message",
-        });
+      toast.info("Copied Token", {
+        className: "toast-message",
+        autoClose: 1000,
+      });
     })
     .catch((err) => {
       toast.error(`Could not copy text: ${err}`);

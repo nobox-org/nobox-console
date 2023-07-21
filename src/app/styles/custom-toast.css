@@ -5,9 +5,9 @@
 }
 
 .toast-message {
-  background: #556dff;
-  color: #fff;
+  background: white;
+  color: #292D32;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 300;
   /* font-family: Arial, Helvetica, sans-serif; */
 }
