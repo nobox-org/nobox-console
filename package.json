@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "deploy": "sudo chmod u+x ./deploy.sh && ./deploy.sh",
-    "pm2:start:prod": "pm2 start 'npm run deploy' --name nobox:web:console"
+    "pm2:start:prod": "pm2 start 'npm run deploy' --name nobox:web:console",
+    "precommit-msg": "echo 'Pre-commit checks...' && exit 0"
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.5.3",
@@ -24,6 +25,7 @@
     "next": "^13.4.3",
     "nobox-client": "^1.0.4",
     "postcss": "8.4.23",
+    "pre-commit": "^1.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
@@ -36,5 +38,9 @@
   "engines": {
     "npm": "please-use-yarn",
     "yarn": ">= 1.19.1"
-  }
+  },
+  "pre-commit": [
+    "precommit-msg",
+    "build"
+  ]
 }
