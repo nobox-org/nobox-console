@@ -1,66 +1,120 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { storageConstants } from '../constants';
-import { LINKS } from '../links';
 import { storage } from '../localStorage';
+import { serverCall } from '@/servercall/init';
+import { serverCalls } from '@/servercall/store';
+
 
 const useNoboxData = () => {
     const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [sharedData, setSharedData] = useState([]);
+    const [dataLoadingStatus, setDataLoadingStatus] = useState(true);
+    const [sharedDataLoadingStatus, setSharedDataLoadingStatus] = useState(true);
 
     const store = storage(storageConstants.NOBOX_DATA);
-    const projectsDataFromLocalStore = store.getObject() as any;
-
-    const fetchProjects = async (token: string, opts: {
-        backgroundRun?: boolean
-    } = {
-            backgroundRun: true
-        }) => {
-        try {
-            const response = await axios.get(`${LINKS.noboxGatewayRootUrl}/projects`, {
-                headers: {
-                    'accept': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-            });
-            const data = response.data;
-
-            if (data) {
-                store.setObject(data)
-                !opts?.backgroundRun && setData(response.data);
-                !opts?.backgroundRun && setLoading(false);
-                return;
-            }
-
-            console.log("An unexpected error occured:: useNoboxData")
-            throw new Error("An unexpceted error occured.");
-        } catch (error) {
-            console.error(`Error fetching noboxData::`, error);
-            setLoading(false);
-        }
-    };
+    const sharedStore = storage(storageConstants.NOBOX_SHARED_DATA);
+    const tokenStore = storage(storageConstants.NOBOX_SHARED_PROJECT_TOKENS);
 
     useEffect(() => {
-        const token = localStorage.getItem(storageConstants.NOBOX_CLIENT_TOKEN);
+        Promise.all([
+            getAndSaveData({
+                setData,
+                setLoading: setDataLoadingStatus,
+                store,
+                dataSourceCall: () => fetchProjects()
+            }),
+            getAndSaveData({
+                setData: setSharedData,
+                setLoading: setSharedDataLoadingStatus,
+                store: sharedStore,
+                dataSourceCall: () => fetchProjects({ shared: true })
+            }),
+            getAndSaveData({
+                setData: () => { },
+                setLoading: () => { },
+                store: tokenStore,
+                dataSourceCall: () => fetchSharedProjectTokens()
+            })
+        ]);
 
-        if (token) {
-            if (projectsDataFromLocalStore) {
-                setData(projectsDataFromLocalStore);
-                fetchProjects(token);
-                setLoading(false);
-                return;
-            }
-
-            console.log("Fetching projects:: useNoboxData");
-
-            fetchProjects(token, { backgroundRun: false });
-
-            setLoading(false);
-        }
 
     }, []);
 
-    return { data, loading };
+    return {
+        data,
+        sharedData,
+        dataLoadingStatus,
+        sharedDataLoadingStatus,
+        allProjects: [
+            ...data,
+            ...sharedData
+        ],
+        loading: dataLoadingStatus && sharedDataLoadingStatus
+    };
 };
+
+
+const getAndSaveData = (opts: {
+    setData: any;
+    setLoading: any;
+    store: ReturnType<typeof storage>;
+    dataSourceCall: typeof fetchProjects;
+}) => {
+    const { setData, store, setLoading, dataSourceCall } = opts;
+
+    const dataFromStore = store.getObject();
+
+    if (dataFromStore) {
+        setData(dataFromStore);
+        setLoading(false);
+    }
+
+    dataSourceCall().then((data: any) => {
+        console.log({ data })
+        store.setObject(data)
+        if (!dataFromStore) { setData(data) }
+    });
+
+    setLoading(false);
+}
+
+const fetchProjects = async (opts: {
+    shared?: boolean
+} = {}) => {
+
+    const { shared = false } = opts;
+    try {
+        const { dataReturned: data } = await serverCall({
+            serverCallProps: {
+                call: shared ? serverCalls.getGatewaySharedProjects : serverCalls.getGatewayProjects,
+            },
+            authorized: true,
+        });
+
+        return data;
+    } catch (error) {
+        console.error(`Error fetching projects::`, error);
+        throw error;
+    }
+};
+
+const fetchSharedProjectTokens = async () => {
+    try {
+        const { dataReturned: data } = await serverCall({
+            serverCallProps: {
+                call: serverCalls.getGatewaySharedProjectTokens
+            },
+            authorized: true,
+        });
+
+        return data;
+    } catch (error) {
+        console.error(`Error fetching projects::`, error);
+        throw error;
+    }
+};
+
+
+
 
 export default useNoboxData;

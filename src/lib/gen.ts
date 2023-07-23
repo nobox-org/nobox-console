@@ -1,12 +1,8 @@
 import _ from 'lodash';
 import { Space } from 'nobox-client';
-
-interface FindProjectArgs {
-    projects: any[];
-    projectSlug: string;
-}
-
-export type CompatibleStructureFieldType = "TEXT" | "NUMBER" | "BOOLEAN" | "ARRAY";
+import { CompatibleStructureFieldType, FindProjectArgs, PagePathNames, PageTypes } from './types';
+import { storageConstants } from './constants';
+import { storage } from './localStorage';
 
 const convertStringTypeToConstructor = (type: CompatibleStructureFieldType) => {
     switch (type) {
@@ -23,10 +19,18 @@ const convertStringTypeToConstructor = (type: CompatibleStructureFieldType) => {
     }
 }
 
-
-export const findProject = ({ projects, projectSlug }: FindProjectArgs) => {
-    const project = (projects as any[])?.find(project => project.slug === projectSlug);
+export const findProject = ({ projects, projectId }: FindProjectArgs) => {
+    const project = (projects as any[])?.find(project => project._id === projectId);
     return project;
+}
+
+export const findProjectSlug = ({ projectId }: { projectId: string }) => {
+    const projectStore = storage(storageConstants.NOBOX_DATA);
+    const sharedProjectStore = storage(storageConstants.NOBOX_SHARED_DATA);
+
+    const allProjects = [...projectStore.getObject() as any[], ...sharedProjectStore.getObject() as any[]];
+    const project = allProjects?.find(project => project._id === projectId);
+    return project.slug;
 }
 
 
@@ -73,7 +77,35 @@ export const convertFieldDetailsToRecordSpaceStructure = (args: {
 
     }
 
-    console.log({ recordSpaceStructure })
-
     return recordSpaceStructure;
+}
+
+
+export const getProjectIdFromPathName = (pathname: string) => {
+    const pathArr = pathname.split("/");
+
+    const [, secondPathName, thirdPathName, fourthPathName] = pathArr;
+
+    if (secondPathName === PagePathNames.recordSpacePathName && Boolean(thirdPathName)) {
+        return {
+            projectId: thirdPathName,
+            pageType: PageTypes.recordSpacesList
+        };
+    }
+
+    if (secondPathName === PagePathNames.recordsPathName && Boolean(thirdPathName) && Boolean(fourthPathName)) {
+        return {
+            projectId: thirdPathName,
+            recordSpaceSlug: fourthPathName,
+            pageType: PageTypes.recordsList
+        };
+    }
+
+    return {};
+
+}
+
+export function isValidEmail(email: string): boolean {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
 }

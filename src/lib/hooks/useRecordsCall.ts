@@ -1,67 +1,39 @@
 import { useEffect, useState } from 'react';
-import { storageConstants } from '../constants';
-import { Config, getSchemaCreator } from "nobox-client";
-import { LINKS } from '../links';
 import useNoboxData from './useNoboxData';
-import { convertFieldDetailsToRecordSpaceStructure, findProject, findRecordSpace } from '../gen';
-import { set } from 'lodash';
+import getRecords from '../get-records';
 
 interface FetchRecordsArgs {
-    projectSlug: string;
+    projectId: string;
     recordSpaceSlug: string;
 }
 
 const useRecordsCall = ({
-    projectSlug,
+    projectId,
     recordSpaceSlug,
 }: FetchRecordsArgs) => {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [recordSpaceStructure, setRecordSpaceStructure] = useState({});
 
-    const { loading: noboxDataIsLoading, data: projects } = useNoboxData();
+    const { sharedDataLoadingStatus, dataLoadingStatus, allProjects } = useNoboxData();
+
+    const noboxDataIsLoading = sharedDataLoadingStatus && dataLoadingStatus;
 
     useEffect(() => {
 
         if (!noboxDataIsLoading) {
-
-            const project = findProject({
-                projects,
-                projectSlug
-            });
-
-            const recordSpace = findRecordSpace({
-                project,
+            getRecords({
+                allProjects,
+                projectId,
                 recordSpaceSlug
-            });
-
-
-            const recordSpaceStructure = convertFieldDetailsToRecordSpaceStructure({
-                fieldDetails: recordSpace.hydratedRecordFields,
-                recordSpace,
-                projectSlug
-            });
-
-            const token = localStorage.getItem(storageConstants.NOBOX_CLIENT_TOKEN);
-
-            if (token) {
-                const config: Config = {
-                    endpoint: LINKS.noboxAPIRootUrl,
-                    project: projectSlug,
-                    token,
-                };
-
-                const createSchema = getSchemaCreator(config);
-
-                const model = createSchema(recordSpaceStructure);
-
-                model.find().then((records: any) => {
+            }).then((data) => {
+                const { records, recordSpaceStructure: computedRecordSpaceStructure } = data
+                if (records) {
                     setData(records);
-                    setRecordSpaceStructure(recordSpaceStructure);
+                    setRecordSpaceStructure(computedRecordSpaceStructure);
                     setLoading(false);
-                })
-                return;
-            }
+                }
+            })
 
         }
     }, [noboxDataIsLoading])
