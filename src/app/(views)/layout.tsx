@@ -5,13 +5,16 @@ import { usePathname, useRouter } from "next/navigation";
 import { storageConstants } from "@/lib/constants";
 import { LINKS } from "@/lib/links";
 import Image from "next/image";
+import HeaderCrumbSection from "../components/HeaderCrumbSection";
+
+interface DashboardLayoutProps {
+  children: React.ReactNode;
+}
 
 export default function DashboardLayout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
-  const pathname = usePathname();
+}: DashboardLayoutProps) {
+  const pathName = usePathname();
 
   const router = useRouter();
 
@@ -21,10 +24,10 @@ export default function DashboardLayout({
   };
 
   if (
-    pathname === "/signup" ||
-    pathname === "/signup-with-email" ||
-    pathname === "/login" ||
-    pathname === LINKS.internalPages.login.github) {
+    pathName === "/signup" ||
+    pathName === "/signup-with-email" ||
+    pathName === "/login" ||
+    pathName === LINKS.internalPages.login.github) {
     return <>{children}</>
   }
 
@@ -52,15 +55,10 @@ export default function DashboardLayout({
         </div>
         <div className="md:w-[calc(100%-350px)] md:ml-[350px] ">
           <div className="flex justify-between items-center px-[24px] h-[56px] border-b border-b-[#E6E8F9]">
-            <div>
-              <h3 className="text-[#24242E] text-[24px] tracking-[-0.02em] font-[900]">
-                {pathname === "/dashboard" && <span>Overview</span>}
-                {pathname === "/dashboard/docs/user-guide" && (
-                  <span>Documentation</span>
-                )}
-              </h3>
+            <div className="text-[20px] text-[#292D32]">
+              <HeaderCrumbSection />
             </div>
-            <div className=" flex items-center ">
+            <div className=" flex items-center text-[16px]">
               <button onClick={handleLogout}>
                 Logout
               </button>

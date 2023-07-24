@@ -8,13 +8,15 @@ import { OnboardingInfo } from "../components/OnboardingInfo";
 import useTokenHandler from "@/lib/hooks/useTokenHandler";
 import useInfoSkip from "@/lib/hooks/useInfoSkip";
 import useNoboxData from "@/lib/hooks/useNoboxData";
-import Box from "../components/Box";
 import { storageConstants } from "@/lib/constants";
+import OverviewSection from "../components/OverviewSection";
+import ProjectCard from "../components/ProjectCards";
 
 export default function Dashboard() {
   const { token } = useTokenHandler();
   const { isSkipped, skip } = useInfoSkip();
-  const { loading, data: projects } = useNoboxData();
+  const { dataLoadingStatus, data: projects, sharedData: sharedProjects, sharedDataLoadingStatus } = useNoboxData();
+
   const isFirstLoad = useRef(true);
 
   useEffect(() => {
@@ -31,7 +33,7 @@ export default function Dashboard() {
     }
   };
 
-  if (loading) {
+  if (dataLoadingStatus || sharedDataLoadingStatus) {
     return (
       <main className="text-[#292D32] bg-[#ECEDF3] h-full p-[24px]">
         Loading
@@ -45,7 +47,7 @@ export default function Dashboard() {
       {!isSkipped && <OnboardingInfo handleSkip={skip} token={token} />}
       <div className={`${!isSkipped && "mt-[32px]"}`}>
         <h6 className="text-[20px] font-[700] text-[#292D32]">
-          Your forever token
+          Token
         </h6>
         <div className="flex gap-4 py-2">
           <div className="w-[358px] px-[16px] bg-[#FFF] rounded-lg py-[9.5px] text-[#838389] border-red">
@@ -60,21 +62,16 @@ export default function Dashboard() {
             Copy token
           </button>
         </div>
-        <h6 className="text-[20px] font-[700] text-[#292D32] mt-[24px]">
-          Projects
-        </h6>
-        <div className="flex flex-wrap gap-[24px] mt-[8px] mb-[136px]">
-          {
-            projects?.length > 0 && projects.map(project => {
-              const { name, id, slug } = project;
-
-              const handleProjectClick = () => {
-                window.location.href = `/record-spaces/${slug}`;
-              }
-              return (<Box id={id} key={id} handleClick={handleProjectClick} title={name} />)
-            })
-          }
-        </div>
+        <OverviewSection title="Projects" dataIsEmpty={projects?.length <= 0} Section={
+          projects?.length > 0
+          &&
+          projects.map((project, i) => <ProjectCard project={project} key={i} />)
+        } />
+        <OverviewSection title="Shared Projects" dataIsEmpty={sharedProjects?.length <= 0} Section={
+          sharedProjects?.length > 0
+          &&
+          sharedProjects.map((project, i) => <ProjectCard project={project} key={i} />)
+        } />
       </div>
     </main>
   );
