@@ -1,11 +1,10 @@
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { storageConstants } from '../constants';
 import { LINKS } from '../links';
 
 const useTokenHandler = () => {
     const [token, setToken] = useState("");
-    const router = useRouter()
 
     const searchParams = useSearchParams();
 
@@ -15,11 +14,12 @@ const useTokenHandler = () => {
 
             if (tokenInUrl) {
                 localStorage.setItem(storageConstants.NOBOX_CLIENT_TOKEN, tokenInUrl);
-                router.push(LINKS.internalPages.home)
+                window.location.href = LINKS.internalPages.home
                 setToken(tokenInUrl);
             }
 
             if (!tokenInUrl) {
+
                 const noboxClientToken = localStorage.getItem(storageConstants.NOBOX_CLIENT_TOKEN);
 
                 if (noboxClientToken) {
@@ -27,7 +27,7 @@ const useTokenHandler = () => {
                 }
 
                 if (!noboxClientToken) {
-                    router.push(LINKS.internalPages.login.github)
+                    window.location.href = LINKS.internalPages.login.github
                 }
             }
         }
