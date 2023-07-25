@@ -104,9 +104,6 @@ export const AddUserModal = ({ projectId }: {
         }
     }
 
-
-
-
     return (
         <>
             <div className="py-[20px] px-[40px]">

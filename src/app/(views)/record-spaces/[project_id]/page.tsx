@@ -17,18 +17,25 @@ export default function RecordSpaces({ params }: { params: { project_id: string 
 
   const [project, setProject] = React.useState<any>(null);
 
+
   const [openModal, setOpenModal] = React.useState<boolean>(false);
 
   const [recordMap, setRecordMap] = React.useState<Record<any, any>>({})
 
   const loading = sharedDataLoadingStatus && dataLoadingStatus;
 
+  const sharedProjectData = sharedProjects.find((project: any) => project._id === projectId)
+
+
   useEffect(() => {
     if (!loading) {
-      const project = findProject({
-        projects: [...projects, ...sharedProjects],
+
+
+      const project = sharedProjectData || findProject({
+        projects,
         projectId
       });
+
       setProject(project);
 
       if (project) {
@@ -70,13 +77,14 @@ export default function RecordSpaces({ params }: { params: { project_id: string 
     <main className="text-[#292D32] bg-[#ECEDF3] overflow-hidden px-[16px]">
       <ToastContainer toastClassName="custom-toast" />
       <div className="mt-[30px] mb-[136px]">
-        <div className="py-[12px]">
-
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => {
-            setOpenModal(true)
-          }}> Add User</button>
-        </div>
-
+        {
+          !sharedProjectData &&
+          <div className="py-[12px]">
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => {
+              setOpenModal(true)
+            }}> Add User</button>
+          </div>
+        }
         <div className="flex flex-wrap gap-[24px]">
           {
             project.recordSpaces?.length > 0 && project.recordSpaces.map((recordSpace: any) => {
