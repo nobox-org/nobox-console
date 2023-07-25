@@ -1,8 +1,9 @@
 import { storageConstants } from '@/lib/constants';
+import { LINKS } from '@/lib/links';
 import { createServerCall } from 'servercall';
 
 export const serverCall = createServerCall({
-    baseUrl: 'http://localhost:8000',
+    baseUrl: LINKS.noboxAPIRootUrl,
     logger: console,
     defaultAuthSource: () => localStorage.getItem(storageConstants.NOBOX_CLIENT_TOKEN) || "",
     defaultResponseDataDept: (response: any) => response?.['data'],
