@@ -109,3 +109,18 @@ export function isValidEmail(email: string): boolean {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
 }
+
+
+
+export const moveKeysToEnd = <T>(array: T[], keysToMove: T[]): T[] => {
+    let removedKeys: T[] = [];
+    keysToMove.forEach(key => {
+        const index = array.indexOf(key);
+        if (index !== -1) {
+            removedKeys.push(array.splice(index, 1)[0]);
+        }
+    });
+
+    array.push(...removedKeys);
+    return array;
+};
