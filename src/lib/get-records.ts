@@ -1,7 +1,5 @@
 import { Config, getRowedSchemaCreator } from "nobox-client";
 import { getKeyGroupSchemaCreator } from 'nobox-client/lib/create-schema/create-key-group-schema';
-import { storageConstants } from './constants';
-import { storage } from './localStorage';
 import { findProject, findRecordSpace, convertFieldDetailsToRecordSpaceStructure } from './gen';
 import { getProjectToken } from './get-project-token';
 import { LINKS } from './links';
