@@ -43,6 +43,7 @@ const getRecords = async ({
             endpoint: LINKS.noboxAPIRootUrl,
             project: projectSlug,
             token,
+            autoCreate: false,
         };
 
         if (recordSpaceType === "key-value") {
