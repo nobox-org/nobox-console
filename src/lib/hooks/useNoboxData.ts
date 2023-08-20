@@ -15,8 +15,6 @@ const useNoboxData = () => {
     const sharedStore = storage(storageConstants.NOBOX_SHARED_DATA);
     const tokenStore = storage(storageConstants.NOBOX_SHARED_PROJECT_TOKENS);
 
-
-
     useEffect(() => {
         Promise.all([
             getAndSaveData({

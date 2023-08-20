@@ -24,7 +24,8 @@ export default function RecordSpaces({ params }: { params: { project_id: string 
 
   const loading = sharedDataLoadingStatus && dataLoadingStatus;
 
-  const sharedProjectData = sharedProjects.find((project: any) => project._id === projectId)
+  const sharedProjectData = sharedProjects.find((project: any) => project._id === projectId);
+
 
 
   useEffect(() => {
@@ -57,9 +58,6 @@ export default function RecordSpaces({ params }: { params: { project_id: string 
         ).then(() => {
           setRecordMap(temporaryRecordMap);
         });
-
-
-
       }
     }
   }, [loading]);

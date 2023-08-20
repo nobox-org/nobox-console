@@ -6,7 +6,7 @@ export const copyToClipboard = (text: string) => {
   navigator.clipboard
     .writeText(text)
     .then(() => {
-      toast.info("Copied Token", {
+      toast.info("Token Copied 😇", {
         className: "toast-message",
         autoClose: 1000,
       });
