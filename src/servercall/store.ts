@@ -5,7 +5,6 @@ export type ServerCallsKeyType =
     | "getHealth"
     | "get"
     | "post"
-    | "delete"
     | "getSearch"
     | "getSingle"
     | "postSingle"
@@ -19,9 +18,12 @@ export type ServerCallsKeyType =
     | "getAuthGoogleCallback"
     | "getAuthGithub"
     | "getAuthGithubCallback"
+    | "getAuthForeverToken"
+    | "getAuthAuthCheck"
     | "getGatewayProjects"
     | "getGatewaySharedProjects"
     | "getGatewaySharedProjectTokens"
+    | "getGatewayRecordsByRecordspaceId"
     | "postGatewayProjectsAddUser"
     | "postGatewayProjectsRemoveUser"
     | "getGatewayProjectsUsers";
@@ -43,12 +45,6 @@ export const serverCalls: ServerCallsType<ServerCallsKeyType> = {
             `/${args.projectSlug}/${args.recordSpaceSlug}`,
         name: "post",
         verb: ServerCallVerbs.Post,
-    },
-    delete: {
-        path: (args: { recordSpaceSlug: string; projectSlug: string }) =>
-            `/${args.projectSlug}/${args.recordSpaceSlug}`,
-        name: "delete",
-        verb: ServerCallVerbs.Get,
     },
     getSearch: {
         path: (args: { recordSpaceSlug: string; projectSlug: string }) =>
@@ -124,6 +120,17 @@ export const serverCalls: ServerCallsType<ServerCallsKeyType> = {
         name: "getAuthGithubCallback",
         verb: ServerCallVerbs.Get,
     },
+    getAuthForeverToken: {
+        path: (args: { token: string }) =>
+            `/auth/_/forever_token/${args.token}`,
+        name: "getAuthForeverToken",
+        verb: ServerCallVerbs.Get,
+    },
+    getAuthAuthCheck: {
+        path: (args: { token: string }) => `/auth/_/auth_check/${args.token}`,
+        name: "getAuthAuthCheck",
+        verb: ServerCallVerbs.Get,
+    },
     getGatewayProjects: {
         path: "/gateway/*/projects",
         name: "getGatewayProjects",
@@ -137,6 +144,11 @@ export const serverCalls: ServerCallsType<ServerCallsKeyType> = {
     getGatewaySharedProjectTokens: {
         path: "/gateway/*/shared-project-tokens",
         name: "getGatewaySharedProjectTokens",
+        verb: ServerCallVerbs.Get,
+    },
+    getGatewayRecordsByRecordspaceId: {
+        path: "/gateway/*/records-by-recordspace_id",
+        name: "getGatewayRecordsByRecordspaceId",
         verb: ServerCallVerbs.Get,
     },
     postGatewayProjectsAddUser: {

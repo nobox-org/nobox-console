@@ -15,14 +15,18 @@ import ProjectCard from "../components/ProjectCards";
 export default function Dashboard() {
   const { token } = useTokenHandler();
   const { isSkipped, skip } = useInfoSkip();
-  const { dataLoadingStatus, data: projects, sharedData: sharedProjects, sharedDataLoadingStatus } = useNoboxData();
 
   const isFirstLoad = useRef(true);
 
+
+  const { dataLoadingStatus, data: projects, sharedData: sharedProjects, sharedDataLoadingStatus } = useNoboxData({
+    fresh: Boolean(isFirstLoad.current)
+  });
+
   useEffect(() => {
     if (isFirstLoad.current) {
+      console.log("remove", new Date())
       localStorage.removeItem(storageConstants.NOBOX_DATA);
-      localStorage.removeItem(storageConstants.NOBOX_RECORDS);
       isFirstLoad.current = false;
     }
   }, []);

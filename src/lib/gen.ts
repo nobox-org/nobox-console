@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { Space } from 'nobox-client';
+import { Space, SpaceWebhooks } from 'nobox-client';
 import { CompatibleStructureFieldType, FindProjectArgs, PagePathNames, PageTypes } from './types';
 import { storageConstants } from './constants';
 import { storage } from './localStorage';
@@ -27,59 +27,61 @@ export const findProject = ({ projects, projectId }: FindProjectArgs) => {
 export const findProjectSlug = ({ projectId }: { projectId: string }) => {
     const projectStore = storage(storageConstants.NOBOX_DATA);
     const sharedProjectStore = storage(storageConstants.NOBOX_SHARED_DATA);
-
     const allProjects = [...projectStore.getObject() as any[], ...sharedProjectStore.getObject() as any[]];
     const project = allProjects?.find(project => project._id === projectId);
     return project.slug;
 }
 
-
 export const findRecordSpace = ({ project, recordSpaceSlug }: any) => {
-    const recordSpace = project?.recordSpaces?.find((recordSpace: any) => recordSpace.slug === recordSpaceSlug);
+    const recordSpace = project?.recordSpaces?.find(
+        (recordSpace: any) => recordSpace.slug === recordSpaceSlug
+    );
     return recordSpace;
 };
 
-export const convertFieldDetailsToRecordSpaceStructure = (args: {
+export const createRecordSpaceStructure = (args: {
     fieldDetails: any[];
     recordSpace: {
         id: string;
         name: string;
         description: string;
         slug: string;
+        webhooks: SpaceWebhooks;
     },
     projectSlug: string;
-
 }) => {
-    const { fieldDetails, recordSpace, projectSlug } = args;
+    const { fieldDetails, recordSpace } = args;
 
     const recordSpaceStructure: Space<any> = {
         space: recordSpace.slug,
         description: recordSpace.description,
-        structure: {}
+        structure: {},
+        webhooks: recordSpace.webhooks
     };
 
     for (const field of fieldDetails) {
         const { name, description, type, unique, required, comment, hashed, defaultValue } = field;
-        const unitStructure = _.omitBy({
-            required,
-            unique,
-            description,
-            comment,
-            hashed,
-            type: convertStringTypeToConstructor(type),
-            name,
-            defaultValue
-        }, _.isNil);
+        const unitStructure = _.omitBy(
+            {
+                required,
+                unique,
+                description,
+                comment,
+                hashed,
+                type: convertStringTypeToConstructor(type),
+                name,
+                defaultValue
+            },
+            _.isNil
+        );
 
         if (name) {
             (recordSpaceStructure.structure as any)[name] = unitStructure;
         }
-
     }
 
     return recordSpaceStructure;
 }
-
 
 export const getProjectIdFromPathName = (pathname: string) => {
     const pathArr = pathname.split("/");
@@ -102,7 +104,6 @@ export const getProjectIdFromPathName = (pathname: string) => {
     }
 
     return {};
-
 }
 
 export function isValidEmail(email: string): boolean {
@@ -110,10 +111,9 @@ export function isValidEmail(email: string): boolean {
     return emailRegex.test(email);
 }
 
-
-
 export const moveKeysToEnd = <T>(array: T[], keysToMove: T[]): T[] => {
     let removedKeys: T[] = [];
+
     keysToMove.forEach(key => {
         const index = array.indexOf(key);
         if (index !== -1) {

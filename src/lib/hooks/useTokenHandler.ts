@@ -2,6 +2,8 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { storageConstants } from '../constants';
 import { LINKS } from '../links';
+import { serverCall } from '@/servercall/init';
+import { serverCalls } from '@/servercall/store';
 
 const useTokenHandler = () => {
     const [token, setToken] = useState("");
@@ -23,6 +25,19 @@ const useTokenHandler = () => {
                 const noboxClientToken = localStorage.getItem(storageConstants.NOBOX_CLIENT_TOKEN);
 
                 if (noboxClientToken) {
+                    serverCall({
+                        serverCallProps: {
+                            call: serverCalls.getAuthAuthCheck,
+                        },
+                        pathArgs: {
+                            token: noboxClientToken
+                        }
+                    }).then((response) => {
+                        if (response.dataReturned.invalid) {
+                            window.location.href = LINKS.internalPages.login.github
+                        }
+                    });
+
                     setToken(noboxClientToken);
                 }
 

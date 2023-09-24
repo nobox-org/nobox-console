@@ -8,4 +8,12 @@ export const serverCall = createServerCall({
     defaultAuthSource: () => localStorage.getItem(storageConstants.NOBOX_CLIENT_TOKEN) || "",
     defaultResponseDataDept: (response: any) => response?.['data'],
     successFieldDept: (response: any) => !!response.data,
+    handleServerError: (args: any) => {
+        if (args.error.response.data.error[0] === "Authorization error") {
+            return window.location.href = LINKS.internalPages.login.github;
+
+        }
+
+        throw args;
+    }
 });

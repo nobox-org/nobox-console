@@ -4,8 +4,10 @@ const realStorage = <K extends string, V extends Record<string, any>>(key: K) =>
         return item ? JSON.parse(item) : null;
     },
     setObject(value: V) {
-        const item = JSON.stringify(value);
-        localStorage.setItem(key, item);
+        if (value) {
+            const item = JSON.stringify(value);
+            localStorage.setItem(key, item);
+        }
     }
 })
 
@@ -21,5 +23,4 @@ const mockStorage = (key: string) => ({
 
 
 const localStorageCanBeUsed = typeof window !== 'undefined';
-
 export const storage = (key: string) => localStorageCanBeUsed ? realStorage(key) : mockStorage(key);   

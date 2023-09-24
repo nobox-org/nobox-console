@@ -1,80 +1,43 @@
-import { Config, getRowedSchemaCreator } from "nobox-client";
-import { getKeyGroupSchemaCreator } from 'nobox-client/lib/create-schema/create-key-group-schema';
-import { findProject, findRecordSpace, convertFieldDetailsToRecordSpaceStructure } from './gen';
-import { getProjectToken } from './get-project-token';
-import { LINKS } from './links';
+import { storageConstants } from "./constants";
+import getNoboxModel from "./get-nobox-model";
+import { storage } from "./localStorage";
 
 interface GetRecordsArgs {
     projectId: string;
     recordSpaceSlug: string;
-    allProjects: string[]
+    allProjects: string[];
+    freshCall?: boolean;
 }
 
 const getRecords = async ({
     allProjects,
     projectId,
     recordSpaceSlug,
+    freshCall = false
 }: GetRecordsArgs) => {
-    const project = findProject({
-        projects: allProjects,
-        projectId
+    const { keyGroupModel, rowedModel, recordSpaceStructure } = await getNoboxModel({
+        allProjects,
+        projectId,
+        recordSpaceSlug,
     });
 
-    const projectSlug = project.slug;
+    const store = storage(storageConstants.PROJECT_RECORD_MAP);
 
-    const recordSpace = findRecordSpace({
-        project,
-        recordSpaceSlug
-    });
+    const recordsMapFromStore = store.getObject<Record<any, any>>() || {};
 
-    const recordSpaceType = recordSpace.type;
+    const recordsFromStore = recordsMapFromStore?.[projectId]?.[recordSpaceSlug];
 
-    const recordSpaceStructure = convertFieldDetailsToRecordSpaceStructure({
-        fieldDetails: recordSpace.hydratedRecordFields,
-        recordSpace,
-        projectSlug: project.slug
-    });
+    const badRecordStoreData = !(recordsFromStore?.[0]);
 
+    const records = freshCall || !recordsFromStore || badRecordStoreData ?
+        (keyGroupModel ? await keyGroupModel?.getKeys() : await rowedModel?.find())
+        : recordsFromStore;
 
-    const token = getProjectToken(project._id)
+    return {
+        records: Array.isArray(records) ? records : [records],
+        recordSpaceStructure
+    };
 
-    if (token) {
-        const config: Config = {
-            endpoint: LINKS.noboxAPIRootUrl,
-            project: projectSlug,
-            token,
-            autoCreate: false,
-        };
-
-        if (recordSpaceType === "key-value") {
-
-            const createSchema = getKeyGroupSchemaCreator(config);
-
-            const model = createSchema(recordSpaceStructure);
-
-            const records = await model.getKeys();
-
-            return {
-                records: [records],
-                recordSpaceStructure
-            };
-        }
-
-
-
-        const createSchema = getRowedSchemaCreator(config);
-
-        const model = createSchema(recordSpaceStructure);
-
-        const records = await model.find();
-
-        return {
-            records: records,
-            recordSpaceStructure
-        };
-    }
-
-    throw "Token Not set"
 };
 
 export default getRecords;

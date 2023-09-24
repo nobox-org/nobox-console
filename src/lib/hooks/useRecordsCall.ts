@@ -5,40 +5,45 @@ import getRecords from '../get-records';
 interface FetchRecordsArgs {
     projectId: string;
     recordSpaceSlug: string;
+    initiateFreshCall?: boolean;
 }
 
 const useRecordsCall = ({
     projectId,
     recordSpaceSlug,
+    initiateFreshCall
 }: FetchRecordsArgs) => {
     const [data, setData] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [recordSpaceStructure, setRecordSpaceStructure] = useState({});
 
-    const { sharedDataLoadingStatus, dataLoadingStatus, allProjects } = useNoboxData();
+    const { sharedDataLoadingStatus, dataLoadingStatus, allProjects } = useNoboxData({});
 
     const noboxDataIsLoading = sharedDataLoadingStatus && dataLoadingStatus;
 
-    useEffect(() => {
 
-        if (!noboxDataIsLoading) {
+    useEffect(() => {
+        if (!noboxDataIsLoading || initiateFreshCall) {
             getRecords({
                 allProjects,
                 projectId,
-                recordSpaceSlug
+                recordSpaceSlug,
+                freshCall: initiateFreshCall
             }).then((data) => {
                 const { records, recordSpaceStructure: computedRecordSpaceStructure } = data
+
                 if (records) {
                     setData(records);
                     setRecordSpaceStructure(computedRecordSpaceStructure);
                     setLoading(false);
                 }
             })
-
         }
-    }, [noboxDataIsLoading])
+    }, [initiateFreshCall, noboxDataIsLoading])
 
-    return { data, loading, recordSpaceStructure };
+    return {
+        data, loading, recordSpaceStructure
+    };
 };
 
 export default useRecordsCall;

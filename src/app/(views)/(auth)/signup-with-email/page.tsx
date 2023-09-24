@@ -85,8 +85,8 @@ const SignUpEmail = () => {
             </div>
 
             <div className="text-[#404040] w-[317px] h-[36px] mx-auto mt-[49px] text-[12px] font-[400] text-center">
-              <span>By creating an account, you agree to our</span>
-              <Link href={"/"} className="text-link font-medium">
+              <span>By creating an account, you agree to our </span>
+              <Link href={"/docs/terms-and-conditions"} className="text-link font-medium">
                 Terms & Conditions
               </Link>{" "}
               <span>and</span>{" "}

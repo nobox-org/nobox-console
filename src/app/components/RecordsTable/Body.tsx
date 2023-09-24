@@ -3,7 +3,6 @@
 import { RecordsTableProps } from "./RecordsTable";
 
 export const Body = ({ records, headings }: RecordsTableProps) => {
-
     return <>
         {
             records?.map((record, index) => {

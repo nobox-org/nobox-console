@@ -56,7 +56,6 @@ export const AddUserModal = ({ projectId }: {
 
 
     const removeProjectUser = async ({ emailToDelete }: any) => {
-        console.log({ emailToDelete })
         const response = await serverCall({
             serverCallProps: {
                 call: serverCalls.postGatewayProjectsRemoveUser,

@@ -92,6 +92,13 @@ input {
   /* Adjust the opacity value to control the fading effect */
 }
 
+.fixed-header {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 10;
+}
+
 .modal-overlay::before {
   content: "";
   position: fixed;

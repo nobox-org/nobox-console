@@ -14,3 +14,10 @@ export enum PagePathNames {
     recordSpacePathName = "record-spaces",
     recordsPathName = "records"
 }
+
+export enum FieldType {
+    Number = "number",
+    String = "string",
+    Boolean = "boolean",
+    Array = "array"
+}
