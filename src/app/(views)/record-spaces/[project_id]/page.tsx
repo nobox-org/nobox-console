@@ -11,7 +11,7 @@ import { getRecordMap } from "@/lib/get-record-map";
 import { useRecordsBackgroundUpdate } from "@/lib/hooks/useRecordsBackgroundUpdate";
 
 export default function RecordSpaces({ params }: { params: { project_id: string } }) {
-  const { sharedDataLoadingStatus, dataLoadingStatus, data: projects, sharedData: sharedProjects, allProjects } = useNoboxData({
+  const {  dataLoadingStatus, data: projects, sharedData: sharedProjects, allProjects } = useNoboxData({
     backgroundOpts: {
       runInBackground: true,
       timeIntervalInSeconds: 10
@@ -22,7 +22,7 @@ export default function RecordSpaces({ params }: { params: { project_id: string 
 
   const [openModal, setOpenModal] = React.useState<boolean>(false);
 
-  const loading = sharedDataLoadingStatus && dataLoadingStatus;
+  const loading =  dataLoadingStatus;
 
   const sharedProjectData = sharedProjects.find((project: any) => project._id === projectId);
 

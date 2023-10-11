@@ -19,7 +19,7 @@ export default function Dashboard() {
   const isFirstLoad = useRef(true);
 
 
-  const { dataLoadingStatus, data: projects, sharedData: sharedProjects, sharedDataLoadingStatus } = useNoboxData({
+  const { dataLoadingStatus, data: projects, sharedData: sharedProjects } = useNoboxData({
     fresh: Boolean(isFirstLoad.current)
   });
 
@@ -37,7 +37,7 @@ export default function Dashboard() {
     }
   };
 
-  if (dataLoadingStatus || sharedDataLoadingStatus) {
+  if (dataLoadingStatus) {
     return (
       <main className="text-[#292D32] bg-[#ECEDF3] h-full p-[24px]">
         Loading

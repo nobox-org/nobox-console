@@ -17,9 +17,7 @@ const Records = (
 
   const [initiateFreshCall, setInitiateFreshCall] = useState(false);
 
-  const { allProjects, dataLoadingStatus, sharedDataLoadingStatus } = useNoboxData();
-
-  const allDataLoading = dataLoadingStatus && sharedDataLoadingStatus;
+  const { allProjects, dataLoadingStatus} = useNoboxData();
 
 
   const [openModal, setOpenModal] = useState<boolean>(false);
