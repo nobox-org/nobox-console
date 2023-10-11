@@ -17,9 +17,7 @@ const useRecordsCall = ({
     const [loading, setLoading] = useState(true);
     const [recordSpaceStructure, setRecordSpaceStructure] = useState({});
 
-    const { sharedDataLoadingStatus, dataLoadingStatus, allProjects } = useNoboxData({});
-
-    const noboxDataIsLoading = sharedDataLoadingStatus && dataLoadingStatus;
+    const { dataLoadingStatus: noboxDataIsLoading, allProjects } = useNoboxData({});
 
 
     useEffect(() => {

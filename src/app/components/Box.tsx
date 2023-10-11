@@ -10,6 +10,7 @@ interface BoxProps {
   subTitle?: string;
   bottomTitle?: string;
   link?: string;
+  tooltip?: string;
 }
 
 export default function Box({
@@ -19,10 +20,12 @@ export default function Box({
   subTitle,
   bottomTitle,
   link,
+  tooltip
 }: BoxProps) {
   return (
     <Link href={link || ""}>
       <div
+       title={tooltip}
         key={id}
         className="w-full relative md:w-[224px] bg-white rounded-[2px] cursor-pointer hover:ring hover:ring-blue-500 hover:ring-opacity-50 hover:ring-offset-4 hover:rounded-lg py-4 px-4"
         onClick={handleClick}

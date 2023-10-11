@@ -23,6 +23,7 @@ export type ServerCallsKeyType =
     | "getGatewayProjects"
     | "getGatewaySharedProjects"
     | "getGatewaySharedProjectTokens"
+    | "getGatewayBulkProjectResources"
     | "getGatewayRecordsByRecordspaceId"
     | "postGatewayProjectsAddUser"
     | "postGatewayProjectsRemoveUser"
@@ -41,8 +42,7 @@ export const serverCalls: ServerCallsType<ServerCallsKeyType> = {
         verb: ServerCallVerbs.Get,
     },
     post: {
-        path: (args: { recordSpaceSlug: string; projectSlug: string }) =>
-            `/${args.projectSlug}/${args.recordSpaceSlug}`,
+        path: "/{projectSlug}/{recordSpaceSlug}",
         name: "post",
         verb: ServerCallVerbs.Post,
     },
@@ -53,50 +53,42 @@ export const serverCalls: ServerCallsType<ServerCallsKeyType> = {
         verb: ServerCallVerbs.Get,
     },
     getSingle: {
-        path: (args: { recordSpaceSlug: string; projectSlug: string }) =>
-            `/${args.projectSlug}/${args.recordSpaceSlug}/_single_`,
+        path: "/{projectSlug}/{recordSpaceSlug}/_single_",
         name: "getSingle",
         verb: ServerCallVerbs.Get,
     },
     postSingle: {
-        path: (args: { recordSpaceSlug: string; projectSlug: string }) =>
-            `/${args.projectSlug}/${args.recordSpaceSlug}/_single_`,
+        path: "/{projectSlug}/{recordSpaceSlug}/_single_",
         name: "postSingle",
         verb: ServerCallVerbs.Post,
     },
     postUpdateById: {
-        path: (args: { recordSpaceSlug: string; projectSlug: string }) =>
-            `/${args.projectSlug}/${args.recordSpaceSlug}/update-by-id`,
+        path: "/{projectSlug}/{recordSpaceSlug}/update-by-id",
         name: "postUpdateById",
         verb: ServerCallVerbs.Post,
     },
     postUpdate: {
-        path: (args: { recordSpaceSlug: string; projectSlug: string }) =>
-            `/${args.projectSlug}/${args.recordSpaceSlug}/update`,
+        path: "/{projectSlug}/{recordSpaceSlug}/update",
         name: "postUpdate",
         verb: ServerCallVerbs.Post,
     },
     getGetTokenOwner: {
-        path: (args: { recordSpaceSlug: string; projectSlug: string }) =>
-            `/${args.projectSlug}/${args.recordSpaceSlug}/get-token-owner`,
+        path: "/{projectSlug}/{recordSpaceSlug}/get-token-owner",
         name: "getGetTokenOwner",
         verb: ServerCallVerbs.Get,
     },
     postSetKeyValues: {
-        path: (args: { recordSpaceSlug: string; projectSlug: string }) =>
-            `/${args.projectSlug}/${args.recordSpaceSlug}/set-key-values`,
+        path: "/{projectSlug}/{recordSpaceSlug}/set-key-values",
         name: "postSetKeyValues",
         verb: ServerCallVerbs.Post,
     },
     getGetKeyValues: {
-        path: (args: { recordSpaceSlug: string; projectSlug: string }) =>
-            `/${args.projectSlug}/${args.recordSpaceSlug}/get-key-values`,
+        path: "/{projectSlug}/{recordSpaceSlug}/get-key-values",
         name: "getGetKeyValues",
         verb: ServerCallVerbs.Get,
     },
     postFunction: {
-        path: (args: { projectSlug: string }) =>
-            `/${args.projectSlug}/function/{functionName}`,
+        path: "/{projectSlug}/function/{functionName}",
         name: "postFunction",
         verb: ServerCallVerbs.Post,
     },
@@ -146,6 +138,11 @@ export const serverCalls: ServerCallsType<ServerCallsKeyType> = {
         name: "getGatewaySharedProjectTokens",
         verb: ServerCallVerbs.Get,
     },
+    getGatewayBulkProjectResources: {
+        path: "/gateway/*/bulk-project-resources",
+        name: "getGatewayBulkProjectResources",
+        verb: ServerCallVerbs.Get,
+    },
     getGatewayRecordsByRecordspaceId: {
         path: "/gateway/*/records-by-recordspace_id",
         name: "getGatewayRecordsByRecordspaceId",
@@ -162,8 +159,7 @@ export const serverCalls: ServerCallsType<ServerCallsKeyType> = {
         verb: ServerCallVerbs.Post,
     },
     getGatewayProjectsUsers: {
-        path: (args: { projectSlug: string; projectId: string }) =>
-            `/gateway/*/projects/users/${args.projectId}`,
+        path: "/gateway/*/projects/users/{projectId}",
         name: "getGatewayProjectsUsers",
         verb: ServerCallVerbs.Get,
     },
