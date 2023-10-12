@@ -25,7 +25,6 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (isFirstLoad.current) {
-      console.log("remove", new Date())
       localStorage.removeItem(storageConstants.NOBOX_DATA);
       isFirstLoad.current = false;
     }

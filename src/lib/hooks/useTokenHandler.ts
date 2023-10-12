@@ -15,6 +15,18 @@ const useTokenHandler = () => {
             const tokenInUrl = searchParams.get("token");
 
             if (tokenInUrl) {
+
+                serverCall({
+                    serverCallProps: {
+                        call: serverCalls.getAuthForeverToken,
+                    },
+                    pathArgs: {
+                        token: tokenInUrl
+                    }
+                }).then((response) => {
+                    console.log({ response })
+                });
+
                 localStorage.setItem(storageConstants.NOBOX_CLIENT_TOKEN, tokenInUrl);
                 window.location.href = LINKS.internalPages.home
                 setToken(tokenInUrl);
