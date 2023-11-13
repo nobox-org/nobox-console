@@ -3,10 +3,11 @@ import React from "react";
 import "react-toastify/dist/ReactToastify.css";
 import '../styles/custom-toast.css'
 import Box from "@/app/components/Box";
-import useRecordsCall from "@/lib/hooks/useRecordsCall";
 
 export const RecordSpaceCard = ({ recordSpace, projectId, records }: { recordSpace: any, projectId: string, records: any[] }) => {
     const { name, id, slug: recordSpaceSlug, description, createdAt } = recordSpace;
+
+    console.log({ recordSpace, records })
 
     const link = `/records/${projectId}/${recordSpaceSlug}`;
     return (

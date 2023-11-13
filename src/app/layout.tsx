@@ -42,6 +42,6 @@ export default function RootLayout({
       <body suppressHydrationWarning={true} className={Euclid.className}>
         {children}
       </body>
-    </html>
+    </html >
   );
 }

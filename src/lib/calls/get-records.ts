@@ -1,6 +1,6 @@
-import { storageConstants } from "./constants";
+import { storageConstants } from "../constants";
 import getNoboxModel from "./get-nobox-model";
-import { storage } from "./localStorage";
+import { storage } from "../localStorage";
 
 interface GetRecordsArgs {
     projectId: string;

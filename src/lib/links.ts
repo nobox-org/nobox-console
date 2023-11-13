@@ -7,6 +7,9 @@ export interface Links {
         home: string;
         login: {
             github: string;
+        },
+        error: {
+            main: string
         }
     }
 }
@@ -19,6 +22,9 @@ export const LINKS: Links = {
         home: "/",
         login: {
             github: "/login/github"
+        },
+        error: {
+            main: "/error"
         }
     }
 }

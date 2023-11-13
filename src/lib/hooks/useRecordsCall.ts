@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import useNoboxData from './useNoboxData';
-import getRecords from '../get-records';
+import getRecords from '../calls/get-records';
 
 interface FetchRecordsArgs {
     projectId: string;
@@ -17,8 +17,7 @@ const useRecordsCall = ({
     const [loading, setLoading] = useState(true);
     const [recordSpaceStructure, setRecordSpaceStructure] = useState({});
 
-    const { dataLoadingStatus: noboxDataIsLoading, allProjects } = useNoboxData({});
-
+    const { loading: noboxDataIsLoading, allProjects } = useNoboxData({});
 
     useEffect(() => {
         if (!noboxDataIsLoading || initiateFreshCall) {

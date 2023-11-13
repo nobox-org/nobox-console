@@ -1,28 +1,21 @@
 "use client";
-import React, { useEffect, useState } from "react";
+
+import React, { useContext, useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import '../../../styles/custom-toast.css'
-import useNoboxData from "@/lib/hooks/useNoboxData";
 import Modal from "@/app/components/Modal";
 import { AddUserModal } from "@/app/components/modals/AddUserModal";
 import { RecordSpaceCard } from "@/app/components/RecordSpaceCard";
-import { getRecordMap } from "@/lib/get-record-map";
-import { useRecordsBackgroundUpdate } from "@/lib/hooks/useRecordsBackgroundUpdate";
+import { getRecordMap } from "@/lib/calls/get-record-map";
+import DataContext from "@/app/components/dataContext/DataContext";
 
 export default function RecordSpaces({ params }: { params: { project_id: string } }) {
-  const {  dataLoadingStatus, data: projects, sharedData: sharedProjects, allProjects } = useNoboxData({
-    backgroundOpts: {
-      runInBackground: true,
-      timeIntervalInSeconds: 10
-    }
-  });
+  const { loading, sharedProjects, allProjects } = useContext(DataContext);
 
-  const projectId = params.project_id as string;
+  const projectId = String(params.project_id).trim();
 
   const [openModal, setOpenModal] = React.useState<boolean>(false);
-
-  const loading =  dataLoadingStatus;
 
   const sharedProjectData = sharedProjects.find((project: any) => project._id === projectId);
 
@@ -30,25 +23,22 @@ export default function RecordSpaces({ params }: { params: { project_id: string 
 
   const [project, setProject] = useState<any>();
 
-  // useRecordsBackgroundUpdate({
-  //   allProjects,
-  //   projectId
-  // });
 
   useEffect(() => {
-    if (allProjects.length > 0 && !(projectRecordMap && project)) {
+    if (allProjects.length > 0 && !projectRecordMap) {
       getRecordMap({
         projectId: params.project_id,
         allProjects,
+        freshCall: true
       }).then(({ projectRecordMap, project }) => {
         setProjectRecordMap(projectRecordMap);
         setProject(project)
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allProjects])
 
-
-  if (!projectRecordMap || loading) {
+  if (loading) {
     return (
       <main className="text-[#292D32] bg-[#ECEDF3] h-full p-[24px]">
         Loading
@@ -70,9 +60,11 @@ export default function RecordSpaces({ params }: { params: { project_id: string 
         }
         <div className="flex flex-wrap gap-[24px]">
           {
-            project.recordSpaces?.length > 0 && project.recordSpaces.map((recordSpace: any) => {
-              return <RecordSpaceCard key={recordSpace._id} recordSpace={recordSpace} projectId={projectId} records={projectRecordMap[recordSpace.slug]} />
-            })
+            project?.recordSpaces?.length > 0 && projectRecordMap
+              ? project.recordSpaces.map((recordSpace: any) => {
+                return <RecordSpaceCard key={recordSpace._id} recordSpace={recordSpace} projectId={projectId} records={projectRecordMap[recordSpace.slug]} />
+              }) :
+              (<div className="text-center">No RecordSpaces at the moment</div>)
           }
         </div>
       </div>

@@ -9,9 +9,5 @@ interface ProjectCardProps {
 export default function ProjectCard({ project }: ProjectCardProps) {
     const { name, id, slug, description } = project;
 
-    const handleProjectClick = () => {
-        window.location.href = `/record-spaces/${id}`;
-    }
-
-    return <Box id={id} key={id} handleClick={handleProjectClick} title={name} tooltip={description} bottomTitle={`[slug: ${slug}]`}/>
+    return <Box link={`/record-spaces/${id}`} id={id} key={id} title={name} tooltip={description} bottomTitle={`[slug: ${slug}]`} />
 }
