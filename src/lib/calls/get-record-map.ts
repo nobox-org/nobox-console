@@ -55,8 +55,6 @@ export const getRecordMap = async ({ projectId, allProjects, freshCall = false }
     }
 
 
-    console.log("was here")
-
     return {
         project: foundProject,
     }

@@ -55,7 +55,6 @@ const useNoboxData = ({ fresh = false, freshReloadTime, backgroundOpts }: UseNob
 
             const interval = setInterval(() => {
                 callAndSetAllProjectResources({ freshCall: true });
-                console.log("get new data")
             }, MINUTE_MS);
             return () => clearInterval(interval);
         }

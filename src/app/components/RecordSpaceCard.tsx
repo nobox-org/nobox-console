@@ -7,8 +7,6 @@ import Box from "@/app/components/Box";
 export const RecordSpaceCard = ({ recordSpace, projectId, records }: { recordSpace: any, projectId: string, records: any[] }) => {
     const { name, id, slug: recordSpaceSlug, description, createdAt } = recordSpace;
 
-    console.log({ recordSpace, records })
-
     const link = `/records/${projectId}/${recordSpaceSlug}`;
     return (
         <Box

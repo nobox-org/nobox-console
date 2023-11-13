@@ -25,8 +25,6 @@ export default function DashboardLayout({
     sidebar?.classList.add("open");
   };
 
-  console.log(pathName)
-
 
   if (
     pathName === "/signup" ||

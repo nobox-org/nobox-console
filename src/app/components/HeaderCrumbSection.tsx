@@ -9,9 +9,6 @@ export default function HeaderCrumbSection() {
 
     const { projectId, pageType, recordSpaceSlug } = getProjectIdFromPathName(pathName);
 
-    console.log({ projectId, pageType, recordSpaceSlug })
-
-
     if (pageType === PageTypes.recordSpacesList) {
         const projectSlug = findProjectSlug({ projectId });
         return <Breadcrumb path={[
