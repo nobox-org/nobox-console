@@ -1,14 +1,15 @@
 import { findProject } from "@/lib/gen";
-import getRecords from "@/lib/get-records";
+import getRecords from "@/lib/calls/get-records";
 import { storage } from "@/lib/localStorage";
 import { storageConstants } from "@/lib/constants";
 
 interface UseRecordMapArgs {
     projectId: string;
     allProjects: any;
+    freshCall?: boolean;
 }
 
-export const getRecordMap = async ({ projectId, allProjects }: UseRecordMapArgs) => {
+export const getRecordMap = async ({ projectId, allProjects, freshCall = false }: UseRecordMapArgs) => {
     const store = storage(storageConstants.PROJECT_RECORD_MAP);
     const foundProject = findProject({
         projects: allProjects,
@@ -20,35 +21,41 @@ export const getRecordMap = async ({ projectId, allProjects }: UseRecordMapArgs)
         projectId,
     });
 
+
     if (foundProject) {
 
-        const { projectRecordMap } = getStoreRecordMap({
-            store,
-            projectId
-        });
+        if (!freshCall) {
+            const { projectRecordMap } = getStoreRecordMap({
+                store,
+                projectId
+            });
 
-        if (projectRecordMap) {
-            return {
-                projectRecordMap,
-                project: foundProject
-            }
-        };
 
-        if (!projectRecordMap) {
-            callGetProjectRecordMap().then((recordMap: any) => {
-                saveRecordMapInLocalStorage({
-                    recordMap,
-                    projectId,
-                    store
-                });
-
+            if (projectRecordMap) {
                 return {
-                    projectRecordMap: recordMap,
+                    projectRecordMap,
                     project: foundProject
                 }
-            });
+            };
         }
+
+        const recordMap = await callGetProjectRecordMap();
+
+        saveRecordMapInLocalStorage({
+            recordMap,
+            projectId,
+            store
+        });
+
+        return {
+            projectRecordMap: recordMap,
+            project: foundProject
+        }
+
     }
+
+
+    console.log("was here")
 
     return {
         project: foundProject,

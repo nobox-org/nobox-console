@@ -5,7 +5,7 @@ import useRecordsCall from "@/lib/hooks/useRecordsCall";
 import DynamicInputComponent from "@/app/components/SubmitRecord";
 import { FieldType } from "@/lib/types";
 import useNoboxData from "@/lib/hooks/useNoboxData";
-import submitRecords from "@/lib/submit-records";
+import submitRecords from "@/lib/calls/submit-records";
 import Modal from "@/app/components/Modal";
 import { useRecordsBackgroundUpdate } from "@/lib/hooks/useRecordsBackgroundUpdate";
 
@@ -17,7 +17,7 @@ const Records = (
 
   const [initiateFreshCall, setInitiateFreshCall] = useState(false);
 
-  const { allProjects, dataLoadingStatus} = useNoboxData();
+  const { allProjects } = useNoboxData();
 
 
   const [openModal, setOpenModal] = useState<boolean>(false);

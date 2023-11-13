@@ -16,6 +16,8 @@ const useTokenHandler = () => {
 
             if (tokenInUrl) {
 
+                localStorage.setItem(storageConstants.NOBOX_TOKEN, tokenInUrl);
+
                 serverCall({
                     serverCallProps: {
                         call: serverCalls.getAuthForeverToken,
@@ -24,12 +26,14 @@ const useTokenHandler = () => {
                         token: tokenInUrl
                     }
                 }).then((response) => {
-                    console.log({ response })
+                    const { success, dataReturned: { token } } = response;
+                    if (success) {
+                        localStorage.setItem(storageConstants.NOBOX_CLIENT_TOKEN, token);
+                        window.location.href = LINKS.internalPages.home
+                        setToken(tokenInUrl);
+                    }
                 });
 
-                localStorage.setItem(storageConstants.NOBOX_CLIENT_TOKEN, tokenInUrl);
-                window.location.href = LINKS.internalPages.home
-                setToken(tokenInUrl);
             }
 
             if (!tokenInUrl) {

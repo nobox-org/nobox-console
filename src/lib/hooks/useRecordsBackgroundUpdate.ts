@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { backgroundUpdate } from '../background-update-record-map';
-import { getProjectRecordMap } from '../get-record-map';
+import { getProjectRecordMap } from '../calls/get-record-map';
 
 export interface UseRecordsBackgroundUpdateProps {
     allProjects: any[];
@@ -27,5 +27,6 @@ export const useRecordsBackgroundUpdate = ({
             }, minute_ms);
             return () => clearInterval(interval);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [allProjects]);
 };

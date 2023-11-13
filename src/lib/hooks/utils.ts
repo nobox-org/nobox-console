@@ -2,6 +2,15 @@ import { serverCall } from "@/servercall/init";
 import { serverCalls } from "@/servercall/store";
 import { storage } from "../localStorage";
 
+export interface CreateProjectInput {
+    description?: string;
+
+    name: string;
+
+    slug: string;
+}
+
+
 export const storeData = async (opts: {
     setData?: any;
     store: ReturnType<typeof storage>;
@@ -122,6 +131,23 @@ export const fetchAllProjectResources = async () => {
     } catch (error) {
         console.error(`get fetch all project resources::`, error);
         throw error;
+    }
+};
+
+export const createProject = async (createProjectInput: CreateProjectInput) => {
+    try {
+        const { dataReturned: data } = await serverCall({
+            serverCallProps: {
+                data: createProjectInput,
+                call: serverCalls.postProject,
+            },
+            authorized: true
+        });
+
+        return { data };
+    } catch (error) {
+        console.error(`Error creating project::`, error);
+        return { error };
     }
 };
 

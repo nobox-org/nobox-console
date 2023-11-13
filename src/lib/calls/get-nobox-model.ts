@@ -3,9 +3,9 @@ import {
     getRowedSchemaCreator,
     getKeyGroupSchemaCreator,
 } from "nobox-client";
-import { findProject, findRecordSpace, createRecordSpaceStructure } from './gen';
+import { findProject, findRecordSpace, createRecordSpaceStructure } from '../gen';
 import { getProjectToken } from './get-project-token';
-import { LINKS } from './links';
+import { LINKS } from '../links';
 
 interface GetNoboxModelArgs {
     projectId: string;

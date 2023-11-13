@@ -27,7 +27,9 @@ export type ServerCallsKeyType =
     | "getGatewayRecordsByRecordspaceId"
     | "postGatewayProjectsAddUser"
     | "postGatewayProjectsRemoveUser"
-    | "getGatewayProjectsUsers";
+    | "getGatewayProjectsUsers"
+    | "postProject";
+
 
 export const serverCalls: ServerCallsType<ServerCallsKeyType> = {
     get: {
@@ -159,8 +161,14 @@ export const serverCalls: ServerCallsType<ServerCallsKeyType> = {
         verb: ServerCallVerbs.Post,
     },
     getGatewayProjectsUsers: {
-        path: "/gateway/*/projects/users/{projectId}",
+        path: (args: { projectId: string }) =>
+            `/gateway/*/projects/users/${args.projectId}`,
         name: "getGatewayProjectsUsers",
         verb: ServerCallVerbs.Get,
+    },
+    postProject: {
+        path: "/gateway/*/project",
+        name: "postProject",
+        verb: ServerCallVerbs.Post,
     },
 };

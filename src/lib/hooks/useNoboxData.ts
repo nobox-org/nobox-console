@@ -1,22 +1,21 @@
 import { useEffect, useState } from 'react';
 import { storageConstants } from '../constants';
 import { storage } from '../localStorage';
-import { serverCall } from '@/servercall/init';
-import { serverCalls } from '@/servercall/store';
 import { fetchAllProjectResources, storeData } from './utils';
 
 interface UseNoboxDataProps {
     fresh?: boolean;
+    freshReloadTime?: Date;
     backgroundOpts?: {
         runInBackground: boolean;
         timeIntervalInSeconds: number;
     }
 }
 
-const useNoboxData = ({ fresh = false, backgroundOpts }: UseNoboxDataProps = {}) => {
+const useNoboxData = ({ fresh = false, freshReloadTime, backgroundOpts }: UseNoboxDataProps = {}) => {
     const [data, setData] = useState([]);
     const [sharedData, setSharedData] = useState([]);
-    const [dataLoadingStatus, setDataLoadingStatus] = useState(true);
+    const [loading, setLoading] = useState(true);
     const store = storage(storageConstants.NOBOX_DATA);
     const sharedStore = storage(storageConstants.NOBOX_SHARED_DATA);
     const tokenStore = storage(storageConstants.NOBOX_SHARED_PROJECT_TOKENS);
@@ -44,7 +43,7 @@ const useNoboxData = ({ fresh = false, backgroundOpts }: UseNoboxDataProps = {})
             fresh: freshCall
         })
 
-        setDataLoadingStatus(false);
+        setLoading(false);
     };
 
 
@@ -60,17 +59,17 @@ const useNoboxData = ({ fresh = false, backgroundOpts }: UseNoboxDataProps = {})
             }, MINUTE_MS);
             return () => clearInterval(interval);
         }
-    }, [])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [freshReloadTime])
 
     return {
         data,
         sharedData,
-        dataLoadingStatus,
         allProjects: [
             ...data,
             ...sharedData
         ],
-        loading: dataLoadingStatus
+        loading
     };
 };
 

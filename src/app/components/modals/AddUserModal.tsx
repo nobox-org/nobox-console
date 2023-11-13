@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import '../../styles/custom-toast.css'
-import { getProjectUsers } from "@/lib/get-project-users";
+import { getProjectUsers } from "@/lib/calls/get-project-users";
 
 export const AddUserModal = ({ projectId }: {
     projectId: string

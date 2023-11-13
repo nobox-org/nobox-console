@@ -1,5 +1,5 @@
 import { storage } from "@/lib/localStorage";
-import { saveRecordMapInLocalStorage } from "./get-record-map";
+import { saveRecordMapInLocalStorage } from "./calls/get-record-map";
 import { storageConstants } from "./constants";
 
 export const backgroundUpdate = async (args: {
@@ -9,7 +9,6 @@ export const backgroundUpdate = async (args: {
     const store = storage(storageConstants.PROJECT_RECORD_MAP);
     const { recordMapCall, projectId } = args;
     recordMapCall().then((recordMap: any) => {
-        // console.log("ran background update")
         saveRecordMapInLocalStorage({
             recordMap,
             projectId,

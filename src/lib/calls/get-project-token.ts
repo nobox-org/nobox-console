@@ -1,5 +1,5 @@
-import { storageConstants } from "./constants";
-import { storage } from "./localStorage";
+import { storageConstants } from "../constants";
+import { storage } from "../localStorage";
 
 export const getProjectToken = (projectId: string) => {
 
