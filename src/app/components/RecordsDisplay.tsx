@@ -1,5 +1,5 @@
 "use client";
-import RecordsTable from "@/app/components/recordsTable/RecordsTable";
+import RecordsTable from "@/app/components/RecordsTable/RecordsTable";
 import RecordsGrid from "@/app/components/RecordsGrid";
 
 type ViewMode = "table" | "grid"
