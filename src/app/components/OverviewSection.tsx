@@ -1,10 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import ProjectCard from "./ProjectCards";
 import AddNewButton from "./AddNewButton";
 import Modal from "./Modal";
 import CreateProject from "./CreateProject";
 import { CreateProjectInput, createProject } from "@/lib/hooks/utils";
+import DataContext from "./dataContext/DataContext";
+import createUIIndication from "@/lib/createUIIndication";
 
 interface OverviewSectionProps<T = unknown> {
     title: string;
@@ -16,8 +18,10 @@ interface OverviewSectionProps<T = unknown> {
 }
 
 export default function OverviewSection({ title, section, loading, dataIsEmpty, data, addNewButton }: OverviewSectionProps) {
+    const { initiateReload } = useContext(DataContext);
 
     const [openModal, setOpenModal] = useState<boolean>(false);
+    const openModalIndicator = createUIIndication(setOpenModal);
 
     if (loading) {
         return (
@@ -47,6 +51,8 @@ export default function OverviewSection({ title, section, loading, dataIsEmpty, 
                             <CreateProject inputKeys={["description", "name", "slug"]} handleSubmit={
                                 async (data: CreateProjectInput) => {
                                     const project = await createProject(data);
+                                    initiateReload();
+                                    openModalIndicator.delayed({ value: false });
                                     return project;
                                 }} />
                         </div>

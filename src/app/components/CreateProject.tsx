@@ -8,7 +8,6 @@ interface CreateProjectProps {
 }
 
 const CreateProject: React.FC<CreateProjectProps> = ({ inputKeys, handleSubmit }) => {
-    const { initiateReload } = useContext(DataContext);
 
     const [inputValues, setInputValues] = useState<{ [key: string]: string }>({});
 
@@ -34,7 +33,6 @@ const CreateProject: React.FC<CreateProjectProps> = ({ inputKeys, handleSubmit }
         }
 
         setSuccess(true);
-        initiateReload();
 
     };
 
