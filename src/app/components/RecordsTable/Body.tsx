@@ -2,8 +2,12 @@
 
 import React from "react";
 import Modal from "../Modal";
-import ReactJson from 'react-json-view';
+import ReactJson  from 'react-json-view';
 import { RecordsTableProps } from "./RecordsTable";
+
+
+const Rcj = ReactJson as any;
+
 
 export const Body = ({ records, headings }: RecordsTableProps) => {
     return <>{records?.map((record, index) => (<DisplayTR headings={headings} record={record} key={index} />))}</>
@@ -51,7 +55,8 @@ const DisplayTR = ({ headings, record }: {
                 setIsOpen={setOpenModal}
                 content={
                     <div className="overflow-x-auto overflow-y-auto" style={{ width: "100%", height: "500px", padding: "10%" }}>
-                        <ReactJson src={record} />
+                        
+                        <Rcj src={record} />
                     </div>
                 } buttonText={'View Data'}
             />

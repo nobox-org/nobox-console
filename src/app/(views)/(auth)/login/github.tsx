@@ -37,4 +37,24 @@ const signUpWithGithub = () => {
   );
 };
 
-export default signUpWithGithub;
+
+
+const SignUpWithGithub = () => {
+
+  const handleButtonClick = () => {
+    window.location.href = LINKS.githubLogin;
+  };
+
+  return (
+    <div className="mb-[12px]">
+      <button
+        onClick={handleButtonClick}
+        className="w-full flex gap-2 text-[16px] justify-center items-center bg-[#24292E] text-white px-[24px] py-[12px] "
+      >
+        <FaGithub className="text-lg" /> Login with GitHub
+      </button>
+    </div>
+  );
+};
+
+export default SignUpWithGithub;
