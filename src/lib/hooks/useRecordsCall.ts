@@ -36,6 +36,7 @@ const useRecordsCall = ({
                 }
             })
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [initiateFreshCall, noboxDataIsLoading])
 
     return {

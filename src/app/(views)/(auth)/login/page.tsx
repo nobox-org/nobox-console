@@ -3,6 +3,9 @@ import Link from "next/link";
 import { useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaGithub } from "react-icons/fa";
 
+import SignUpWithGithub from "./github";
+import SignUpWithGoogle from "./google";
+
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -91,4 +94,33 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+
+
+const OAUthSignIn = () => {
+  return (
+    <div>
+      <div className="bg-white w-[517px] h-[385.53px]  flex items-center justify-center">
+        <div className="w-[441px] h-[289.53px] items-center justify-center flex-col flex">
+          
+          <SignUpWithGithub />
+
+          <SignUpWithGoogle />
+
+
+
+          <div className="text-[#404040] w-[317px] h-[36px] mx-auto text-[12px] font-[400] text-center">
+            <span>By creating an account, you agree to our </span>
+            <Link href={"/docs/terms-and-conditions"} className="text-link font-medium">
+              Terms & Conditions
+            </Link>{" "}
+            <span>and</span>{" "}
+            <Link href={"/"} className="text-link font-medium">
+              Privacy Policy
+            </Link>
+          SignUpWithGoogle</div>
+        </div>
+      </div>
+    </div>
+  )
+}
+export default OAUthSignIn;
