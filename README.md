@@ -1,4 +1,4 @@
 ## Installation
-- Run `nobox-core` locally. Follow the nobox-api readme
+- Run `nobox-core` locally.
 - Run `yarn`
 - Run `yarn dev`
