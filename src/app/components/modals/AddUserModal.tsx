@@ -17,6 +17,7 @@ export const AddUserModal = ({ projectId }: {
 
     useEffect(() => {
         getAndSetProjectUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const getAndSetProjectUsers = () => getProjectUsers({ projectId }).then((data: any) => {

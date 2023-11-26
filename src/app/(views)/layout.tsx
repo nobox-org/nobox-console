@@ -31,7 +31,8 @@ export default function DashboardLayout({
     pathName === "/signup-with-email" ||
     pathName === "/login" ||
     pathName === LINKS.internalPages.login.github ||
-    pathName === LINKS.internalPages.error.main
+    pathName === LINKS.internalPages.error.main ||
+    pathName.startsWith("/docs")
   ) {
     return <>{children}</>
   }
