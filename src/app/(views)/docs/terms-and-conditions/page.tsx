@@ -1,120 +1,67 @@
-// pages/terms.js
 import React from 'react';
 
-const TermsPage = () => {
+const TermsAndConditions = () => {
     return (
-        <div className="container mx-auto p-4">
-            <h1 className="text-3xl font-bold mb-4">Terms and Conditions</h1>
+        <div className="max-w-4xl">
+            <h1 className="text-3xl font-bold mb-4">Terms and Conditions for Nobox</h1>
 
-            <h2 className="text-xl font-semibold mb-2">1. Alpha Testing Purpose</h2>
             <p className="mb-4">
-                We want to make it clear that this product is in Alpha testing, and its primary purpose includes
-            gathering user feedback, identify bugs, test functionalities.
+                <strong>Effective Date:</strong> 25th Nov, 2023
             </p>
 
-            <h2 className="text-xl font-semibold mb-2">2. Limited Liability</h2>
             <p className="mb-4">
-                We disclaim any warranties and limit our liability for any issues or damages arising from
-                the use of the Alpha version.
+                Welcome to Nobox (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;), a service provided by Nobox Labs Limited, based in Nigeria. These Terms and Conditions outline the rules and regulations for the use of our alpha testing phase of the product.
             </p>
 
-            <h2 className="text-xl font-semibold mb-2">3. Data Security</h2>
+            <h2 className="text-2xl font-bold mb-2">1. Acceptance of Terms</h2>
+
             <p className="mb-4">
-                We take data security seriously. Your user data will be handled, stored, and protected in
-                accordance with our data security and privacy policies. We are committed to safeguarding
-                your data.
+                By accessing or using Nobox Alpha, you agree to be bound by these Terms and Conditions. If you disagree with any part of these terms, you may not access or use our product.
             </p>
 
-            <h2 className="text-xl font-semibold mb-2">4. User Feedback</h2>
+            <h2 className="text-2xl font-bold mb-2">2. Alpha Testing Participation</h2>
+
             <p className="mb-4">
-                We encourage users to provide feedback, bug reports, and suggestions to help us improve
-                the product. Your input is invaluable to us.
+                Participation in the alpha testing phase is voluntary. Users may be required to provide personal information for registration and feedback purposes. By participating, you consent to the collection and use of this information.
             </p>
 
-            <h2 className="text-xl font-semibold mb-2">5. Confidentiality</h2>
+            <h2 className="text-2xl font-bold mb-2">3. Feedback and Improvement</h2>
+
             <p className="mb-4">
-                During the Alpha testing phase, we expect users not to disclose or share any confidential
-                information they may access. Your cooperation in maintaining confidentiality is appreciated.
+                Users are encouraged to provide constructive feedback during the alpha testing phase. This feedback will be used to improve and enhance the Nobox Alpha product.
             </p>
 
-            <h2 className="text-xl font-semibold mb-2">6. Termination</h2>
+            <h2 className="text-2xl font-bold mb-2">4. Prohibited Activities</h2>
+
             <p className="mb-4">
-                We reserve the right to terminate a user&apos;s access to the Alpha version at any time and for
-                any reason.
+                Users must not engage in any activities that may disrupt the alpha testing process or violate applicable laws. This includes but is not limited to unauthorized access, data manipulation, or any form of interference.
             </p>
 
-            <h2 className="text-xl font-semibold mb-2">7. Intellectual Property</h2>
+            <h2 className="text-2xl font-bold mb-2">5. Intellectual Property</h2>
+
             <p className="mb-4">
-                We retain ownership of the product and any associated intellectual property rights. Users
-                may not claim ownership of any features or code contributed during Alpha testing.
+                The Nobox Alpha product, including its design, features, and content, is the intellectual property of Nobox Labs Limited. Users may not reproduce, distribute, or create derivative works without explicit permission.
             </p>
 
-            <h2 className="text-xl font-semibold mb-2">8. Changes and Updates</h2>
+            <h2 className="text-2xl font-bold mb-2">6. Termination</h2>
+
             <p className="mb-4">
-                The Alpha version may change, and updates may be applied without notice. Please stay
-                updated with the latest changes.
+                Nobox Labs Limited reserves the right to terminate the alpha testing phase or suspend user participation at any time for any reason, including but not limited to a violation of these Terms and Conditions.
             </p>
 
-            <h2 className="text-xl font-semibold mb-2">9. User Responsibilities</h2>
+            <h2 className="text-2xl font-bold mb-2">7. Changes to Terms</h2>
+
             <p className="mb-4">
-                Users are responsible for providing accurate feedback and must not attempt to hack or
-                misuse the system.
+                Nobox Labs Limited reserves the right to update or modify these Terms and Conditions at any time. Users will be notified of significant changes. Continued use of Nobox Alpha after such modifications constitutes acceptance of the updated Terms and Conditions.
             </p>
 
-            <h2 className="text-xl font-semibold mb-2">10. Duration and Termination</h2>
-            <p className="mb-4">
-                The Alpha phase&apos;s duration is subject to change, and we reserve the right to terminate it
-                at any time.
-            </p>
+            <h2 className="text-2xl font-bold mb-2">8. Contact Information</h2>
 
-            <h2 className="text-xl font-semibold mb-2">11. Support and Communication</h2>
             <p className="mb-4">
-                If you have questions or need support, please contact our support team at{' '}
-                <a href="mailto:support@nobox.cloud">support@nobox.cloud</a>. We will make our best efforts
-                to respond promptly.
-            </p>
-
-            <h2 className="text-xl font-semibold mb-2">12. Acceptance of Terms</h2>
-            <p className="mb-4">
-                Before gaining access to the Alpha version, you must explicitly accept these terms and
-                conditions.
-            </p>
-
-            <h2 className="text-xl font-semibold mb-2">13. Governing Law</h2>
-            <p className="mb-4">
-                These terms are governed by the laws of Nigeria. In case of any legal disputes, the
-                jurisdiction will be in Nigeria.
-            </p>
-
-            <h2 className="text-xl font-semibold mb-2">14. Disclaimers</h2>
-            <p className="mb-4">
-                Please be aware of the potential for bugs, system failures, and data loss during Alpha
-                testing. Use the Alpha version with caution.
-            </p>
-
-            <h2 className="text-xl font-semibold mb-2">15. Future Access and Benefits</h2>
-            <p className="mb-4">
-                Participation in the Alpha phase does not guarantee access to the final product or any
-                future benefits.
-            </p>
-
-            <h2 className="text-xl font-semibold mb-2">16. Feedback Use</h2>
-            <p className="mb-4">
-                We may use user feedback and contributions to improve the product, including the
-                possibility of implementing user-suggested features.
-            </p>
-
-            <h2 className="text-xl font-semibold mb-2">17. Right to Cancel Alpha</h2>
-            <p className="mb-4">
-                We reserve the right to cancel the Alpha phase at any time without liability.
-            </p>
-
-            <h2 className="text-xl font-semibold mb-2">18. User Agreement</h2>
-            <p className="mb-4">
-                By accessing the Alpha version, you agree to abide by these terms and conditions.
+                If you have any questions or concerns about these Terms and Conditions or the alpha testing practices, please contact us at <a href="mailto:nobox.hq@gmail.com" className="text-blue-500">nobox.hq@gmail.com</a>.
             </p>
         </div>
     );
 };
 
-export default TermsPage;
+export default TermsAndConditions;
