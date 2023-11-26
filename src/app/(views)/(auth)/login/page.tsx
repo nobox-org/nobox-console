@@ -19,7 +19,7 @@ const SignIn = () => {
             </div>
             <div className="pt-[24px] mb-[4px]">
               <OAuthBtn link={LINKS.githubLogin} title="Login With Github" name="github" />
-              <OAuthBtn link={LINKS.googleLogin} title="Login With Google" name="google" />
+              {/* <OAuthBtn link={LINKS.googleLogin} title="Login With Google" name="google" /> */}
             </div>
             <div className="text-[#404040] w-[317px] h-[36px] mx-auto mt-[24px] text-[12px] font-[400] text-center">
               <span>By creating an account, you agree to our </span>
