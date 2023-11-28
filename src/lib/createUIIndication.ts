@@ -1,4 +1,4 @@
-interface EndSoonArgs {
+interface StartEndArgs {
     delay?: number;
     startValue?: any;
     endValue?: any;
@@ -14,7 +14,7 @@ const createUIIndication = (stateSet: any) => {
     return {
         start: (startValue: any = true) => stateSet(startValue),
         end: (endValue: any = false) => stateSet(endValue),
-        startEnd: (args: EndSoonArgs) => {
+        startEnd: (args: StartEndArgs) => {
             const { delay = 1500, startValue = true, endValue = false } = args
             stateSet(startValue);
             setTimeout(() => {

@@ -18,8 +18,10 @@ export type ServerCallsKeyType =
     | "getAuthGoogleCallback"
     | "getAuthGithub"
     | "getAuthGithubCallback"
-    | "getAuthForeverToken"
+    | "getAuthConnectionTokenAuthToken"
     | "getAuthAuthCheck"
+    | "postAuthRegister"
+    | "postAuthLogin"
     | "getGatewayProjects"
     | "getGatewaySharedProjects"
     | "getGatewaySharedProjectTokens"
@@ -28,8 +30,10 @@ export type ServerCallsKeyType =
     | "postGatewayProjectsAddUser"
     | "postGatewayProjectsRemoveUser"
     | "getGatewayProjectsUsers"
-    | "postProject";
-
+    | "postGatewayProject"
+    | "postSetInferredStructure"
+    | "postGetInferredStructure"
+    | "postSetStructure";
 
 export const serverCalls: ServerCallsType<ServerCallsKeyType> = {
     get: {
@@ -114,16 +118,26 @@ export const serverCalls: ServerCallsType<ServerCallsKeyType> = {
         name: "getAuthGithubCallback",
         verb: ServerCallVerbs.Get,
     },
-    getAuthForeverToken: {
-        path: (args: { token: string }) =>
-            `/auth/_/forever_token/${args.token}`,
-        name: "getAuthForeverToken",
+    getAuthConnectionTokenAuthToken: {
+        path: (args: { auth_token: string }) =>
+            `/auth/_/connection_token/${args.auth_token}`,
+        name: "getAuthConnectionTokenAuthToken",
         verb: ServerCallVerbs.Get,
     },
     getAuthAuthCheck: {
         path: (args: { token: string }) => `/auth/_/auth_check/${args.token}`,
         name: "getAuthAuthCheck",
         verb: ServerCallVerbs.Get,
+    },
+    postAuthRegister: {
+        path: "/auth/_/register",
+        name: "postAuthRegister",
+        verb: ServerCallVerbs.Post,
+    },
+    postAuthLogin: {
+        path: "/auth/_/login",
+        name: "postAuthLogin",
+        verb: ServerCallVerbs.Post,
     },
     getGatewayProjects: {
         path: "/gateway/*/projects",
@@ -161,14 +175,31 @@ export const serverCalls: ServerCallsType<ServerCallsKeyType> = {
         verb: ServerCallVerbs.Post,
     },
     getGatewayProjectsUsers: {
-        path: (args: { projectId: string }) =>
-            `/gateway/*/projects/users/${args.projectId}`,
+        path: "/gateway/*/projects/users/{projectId}",
         name: "getGatewayProjectsUsers",
         verb: ServerCallVerbs.Get,
     },
-    postProject: {
+    postGatewayProject: {
         path: "/gateway/*/project",
-        name: "postProject",
+        name: "postGatewayProject",
+        verb: ServerCallVerbs.Post,
+    },
+    postSetInferredStructure: {
+        path: (args: { recordSpaceSlug: string; projectSlug: string }) =>
+            `/${args.projectSlug}/${args.recordSpaceSlug}/set-inferred-structure`,
+        name: "postSetInferredStructure",
+        verb: ServerCallVerbs.Post,
+    },
+    postGetInferredStructure: {
+        path: (args: { recordSpaceSlug: string; projectSlug: string }) =>
+            `/${args.projectSlug}/${args.recordSpaceSlug}/get-inferred-structure`,
+        name: "postGetInferredStructure",
+        verb: ServerCallVerbs.Post,
+    },
+    postSetStructure: {
+        path: (args: { recordSpaceSlug: string; projectSlug: string }) =>
+            `/${args.projectSlug}/${args.recordSpaceSlug}/set-structure`,
+        name: "postSetStructure",
         verb: ServerCallVerbs.Post,
     },
 };

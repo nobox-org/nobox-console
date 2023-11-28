@@ -2,8 +2,6 @@
 import React, { useContext } from "react";
 import { copyToClipboard } from "@/lib/copyToClipboard";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import '../styles/custom-toast.css'
 import { OnboardingInfo } from "../components/OnboardingInfo";
 import useTokenHandler from "@/lib/hooks/useTokenHandler";
 import useInfoSkip from "@/lib/hooks/useInfoSkip";

@@ -1,7 +1,5 @@
 "use client";
 import React from "react";
-import "react-toastify/dist/ReactToastify.css";
-import '../styles/custom-toast.css'
 import Box from "@/app/components/Box";
 
 export const RecordSpaceCard = ({ recordSpace, projectId, records }: { recordSpace: any, projectId: string, records: any[] }) => {

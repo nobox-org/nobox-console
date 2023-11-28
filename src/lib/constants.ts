@@ -6,3 +6,7 @@ export const storageConstants = {
     "NOBOX_SHARED_PROJECT_TOKENS": "nobox_shared_project_tokens",
     "PROJECT_RECORD_MAP": "project_record_map"
 };
+
+export const styleConstants = {
+    nYellow: "#fecb00"
+}

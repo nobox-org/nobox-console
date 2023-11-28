@@ -124,3 +124,7 @@ export const moveKeysToEnd = <T>(array: T[], keysToMove: T[]): T[] => {
     array.push(...removedKeys);
     return array;
 };
+
+export function capitalizeFirstLetter(string: string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}

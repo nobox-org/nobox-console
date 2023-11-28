@@ -139,7 +139,7 @@ export const createProject = async (createProjectInput: CreateProjectInput) => {
         const { dataReturned: data } = await serverCall({
             serverCallProps: {
                 data: createProjectInput,
-                call: serverCalls.postProject,
+                call: serverCalls.postGatewayProject,
             },
             authorized: true
         });

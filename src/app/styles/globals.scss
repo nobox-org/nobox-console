@@ -33,6 +33,11 @@
     line-height: 17px;
 
   }
+
+  a.n_link{
+    color: blue;
+    text-decoration: underline;
+  }
 }
 
 :root {
@@ -60,6 +65,7 @@ input {
   outline: none !important;
 }
 
+
 .auth-btn {
   background: linear-gradient(93.49deg,
       #fecb00 59.01%,
@@ -67,7 +73,35 @@ input {
       #fecb00 109.82%);
   color: #0c0c0b;
   font-weight: 500;
+  transition: background 0.3s ease; /* Add transition for smooth color change */
+
+  /* Hover effect */
+  &:hover {
+    background: linear-gradient(93.49deg,
+        #ffdb58 59.01%,  /* Adjust the color for hover effect */
+        #d19500 100.52%,
+        #ffdb58 109.82%);
+  }
+
+  /* Active effect */
+  &:active {
+    opacity: 0.8; /* Adjust opacity for active effect */
+  }
 }
+
+
+.circles-bg{
+    background:
+      radial-gradient(farthest-side,#fecb00 32%,yellow 90% ,purple 93%, purple 96%,transparent) left center/60px 60px,
+      radial-gradient(farthest-side,#d19500 96%,transparent) bottom left/80px 80px,
+      radial-gradient(farthest-side,#fecb00 96%,transparent) top right/80px 80px,
+      radial-gradient(farthest-side,#fecb00 96%,transparent) 100px 50px/100px 100px,
+      radial-gradient(farthest-side,#d19500 96%,transparent) top left/40px 40px,
+      #000;
+
+    background-repeat:no-repeat;
+}
+
 
 .welcome-bg {
   background-image: url("/welcome-bg.svg");

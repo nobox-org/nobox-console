@@ -2,7 +2,7 @@
 
 import React from "react";
 import Modal from "../Modal";
-import ReactJson  from 'react-json-view';
+import ReactJson from 'react-json-view';
 import { RecordsTableProps } from "./RecordsTable";
 
 
@@ -55,7 +55,6 @@ const DisplayTR = ({ headings, record }: {
                 setIsOpen={setOpenModal}
                 content={
                     <div className="overflow-x-auto overflow-y-auto" style={{ width: "100%", height: "500px", padding: "10%" }}>
-                        
                         <Rcj src={record} />
                     </div>
                 } buttonText={'View Data'}

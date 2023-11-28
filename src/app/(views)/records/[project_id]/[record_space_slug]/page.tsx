@@ -8,6 +8,8 @@ import useNoboxData from "@/lib/hooks/useNoboxData";
 import submitRecords from "@/lib/calls/submit-records";
 import Modal from "@/app/components/Modal";
 import { useRecordsBackgroundUpdate } from "@/lib/hooks/useRecordsBackgroundUpdate";
+import FormTitle from "@/app/components/FormTitle";
+import createUIIndication from "@/lib/createUIIndication";
 
 type ViewMode = "table" | "grid";
 
@@ -23,8 +25,10 @@ const Records = (
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
 
+  const submissionIndication = createUIIndication(setSubmitted);
+
   const [viewMode, setViewMode] = useState<ViewMode>("table");
-  const [headings, setHeadings] = useState<{ name: string, type: FieldType }[]>([])
+  const [headings, setHeadings] = useState<{ name: string, type: FieldType, required: boolean }[]>([])
   const [pageIsReady, setPageIsReady] = useState(false);
 
   useRecordsBackgroundUpdate({
@@ -41,16 +45,11 @@ const Records = (
   const { webhooks } = recordSpaceStructure as any;
 
   useEffect(() => {
-    setInterval(() => setSubmitted(!setSubmitted), 2000)
-  }, [submitted])
-
-
-  useEffect(() => {
     if (!loading) {
       const { structure } = recordSpaceStructure as any;
       const headings = Object.keys(structure).map((key) => {
         const eachStructure = structure[key];
-        const name = eachStructure.name;
+        const { name, required } = eachStructure;
         const structureType = eachStructure.type.name;
         const type = structureType === "String"
           ? FieldType.String
@@ -59,7 +58,7 @@ const Records = (
             : structureType === "Array"
               ? FieldType.Array
               : FieldType.Number
-        return { name, type };
+        return { name, type, required };
       });
 
       setHeadings(headings);
@@ -85,15 +84,18 @@ const Records = (
       })
       setInitiateFreshCall(true);
       setSubmitted(true)
+      submissionIndication.startEnd({ delay: 2000 })
+
     } catch (error) {
       console.log({ error })
     }
   }
 
+
   if (allProjects.length > 0) {
     return (
-      <div className="">
-        <div className="w-full sm:pr-[30px] sm:mx-auto bg-[#FAFAFA] overflow-x-auto">
+      <>
+        <div className="w-full sm:pr-[30px] sm:mx-auto bg-[#FAFAFA] overflow-x-auto h-full">
           <RecordsDisplay viewMode={viewMode} headings={headings} records={records} />
           <div className="flex">
             <div className="py-[12px] sm:px-6 lg:px-8">
@@ -115,15 +117,17 @@ const Records = (
           isOpen={openModal}
           setIsOpen={setOpenModal}
           content={
-            <div style={{ width: "600px", padding: "10px", margin: "30px", overflowY: "scroll", height: "700px" }} >
-              {submitted && (<h4 style={{ textAlign: "center", fontWeight: "lighter", padding: "0px 0 20px" }}> Submitted ✅</h4>)}
-              <h3 style={{ textAlign: "center", fontWeight: "lighter" }}> Submit Records to <b><u>{params.record_space_slug}</u></b> </h3>
-              <DynamicInputComponent inputKeys={headings} handleSubmit={handleSubmitRecords} />
+            <div className="space-y-4">
+              <div style={{ width: "600px", padding: "10px", margin: "30px", overflowY: "scroll", height: "700px" }} >
+                <div style={{ textAlign: "center", color: "blue" }}>{submitted && "Submitted Successfully"}</div>
+                <FormTitle title="Create Records" subTitle={`Submit Records to ${params.record_space_slug}`} />
+                <DynamicInputComponent inputKeys={headings} handleSubmit={handleSubmitRecords} />
+              </div>
             </div>
           }
           buttonText={'Copy Text'}
         />
-      </div >
+      </>
     );
   }
 };

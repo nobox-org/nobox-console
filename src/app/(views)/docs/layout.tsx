@@ -88,7 +88,7 @@ export default function DocsLayout({
               <HeaderCrumbSection />
             </div>
           </div>
-          <div className="bg-[#ECEDF3]  min-h-screen w-full">   <div className="flex flex-col w-full  min-h-screen justify-between px-4 py-5 items-center">
+          <div className="bg-[#c8c8e9]  min-h-screen w-full">   <div className="flex flex-col w-full  min-h-screen justify-between px-4 py-5 items-center">
             {children}
           </div>
           </div>

@@ -9,16 +9,19 @@ export const serverCall = createServerCall({
     defaultResponseDataDept: (response: any) => response?.['data'],
     successFieldDept: (response: any) => !!response.data,
     handleServerError: (args: any) => {
-
         const { error } = args;
 
         if (error.message === "Network Error") {
             return window.location.href = LINKS.internalPages.error.main;
         }
 
-        const dataError = error.response.data.error;
+        const { error: dataError, message: dataMessage } = error.response.data;
 
-        const errorMessage = Array.isArray(dataError) ? dataError[0] : dataError;
+        const errorMessage = Array.isArray(dataMessage)
+            ? dataMessage
+            : Array.isArray(dataError)
+                ? dataError[0]
+                : dataError;
 
         if (errorMessage === "Authorization error") {
             return window.location.href = LINKS.internalPages.login.github;

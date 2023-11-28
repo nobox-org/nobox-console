@@ -1,16 +1,20 @@
 import { useState } from 'react';
+import { storage } from '../localStorage';
 
 const useInfoSkip = () => {
     const [skipState, setSkipState] = useState(false);
 
-    const alreadySkipped = localStorage.getItem("skipState");
+    const skipStateLocalStorage = storage("skipState");
+
+    const alreadySkipped = skipStateLocalStorage.getString();
 
     const setSkip = () => {
-        localStorage.setItem("skipState", "true");
+        skipStateLocalStorage.setString("true");
         setSkipState(true);
     }
 
     return { isSkipped: Boolean(alreadySkipped || skipState), skip: setSkip };
+
 };
 
 export default useInfoSkip;

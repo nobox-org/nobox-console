@@ -73,7 +73,7 @@ const Sidebar = () => {
               </svg>
               Overview
             </Link>
-            <a href="https://docs.nobox.cloud" target="_blank">
+            <a href="https://docs.nobox.cloud/install-nobox" target="_blank">
               <div
                 className="flex gap-2 px-2 py-4 items-center hover:bg-[#ECF3FF] hover:text-secondary hover:font-medium cursor-pointer relative"
               >

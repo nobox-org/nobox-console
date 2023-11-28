@@ -20,10 +20,10 @@ const useTokenHandler = () => {
 
                 serverCall({
                     serverCallProps: {
-                        call: serverCalls.getAuthForeverToken,
+                        call: serverCalls.getAuthConnectionTokenAuthToken,
                     },
                     pathArgs: {
-                        token: tokenInUrl
+                        auth_token: tokenInUrl
                     }
                 }).then((response) => {
                     const { success, dataReturned: { token } } = response;
@@ -62,7 +62,7 @@ const useTokenHandler = () => {
                 }
             }
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 

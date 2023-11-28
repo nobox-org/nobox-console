@@ -45,7 +45,7 @@ export default function DashboardLayout({
   return (
     <DataContextProvider>
       <section>
-        <div className="md:flex justify-center ">
+        <div className="h-screen">
           <div className="md:hidden fixed top-0 left-0 w-full bg-white flex pb-2 pt-6 justify-between px-4 items-center border-b border-[#E6E8F9] text-[#1C1B1B]">
             <a href="/">
               <div className="md:px-2 flex gap-2 ">
@@ -71,7 +71,7 @@ export default function DashboardLayout({
                 </button>
               </div>
             </div>
-            <div className="bg-[#ECEDF3]  min-h-screen w-full">{children}</div>
+            <div className="bg-[#c8c8e9] h-screen">{children}</div>
           </div>
         </div>
       </section>

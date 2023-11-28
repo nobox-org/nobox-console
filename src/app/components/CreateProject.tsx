@@ -1,6 +1,8 @@
 import { CreateProjectInput } from '@/lib/hooks/utils';
-import React, { useContext, useState } from 'react';
-import DataContext from './dataContext/DataContext';
+import React, { useState } from 'react';
+import FormInput from './FormInput';
+import FormTitle from './FormTitle';
+import { capitalizeFirstLetter } from '@/lib/gen';
 
 interface CreateProjectProps {
     inputKeys: string[];
@@ -38,31 +40,21 @@ const CreateProject: React.FC<CreateProjectProps> = ({ inputKeys, handleSubmit }
 
     return (
         <div className="space-y-4">
+            <FormTitle title="Create Project" subTitle="Fill In the Form Below" />
             <div style={{ color: "red", textAlign: "center" }}>{error}</div>
             <div style={{ textAlign: "center", color: "blue" }}>{success && "Submitted Successfully"}</div>
-            {inputKeys.map((name, i) => (
-                <div key={i}>
-                    <label htmlFor={name} className="block font-medium">
-                        <div style={{ display: "flex", justifyContent: "space-between" }}>
-                            <span>{name}</span>
-                        </div>
-                    </label>
-                    <input
-                        type="text"
-                        id={name}
-                        className="border rounded px-3 py-2 w-full"
-                        value={inputValues[name]}
-                        onChange={(e) => handleInputChange(name, e.target.value)}
-                    />
-                </div>
-            ))}
-            <button
-                onClick={handleButtonClick}
-                disabled={Object.keys(inputValues).length === 0}
-                className="bg-secondary text-white px-[24px] rounded-lg py-[12px] text-[14px] font-[500] bg-blue-500 active:bg-blue-300 hover:bg-blue-700 py-2 px-4 rounded transition duration-300 ease-in-out w-full"
-            >
-                Submit
-            </button>
+            <form>
+                {inputKeys.map((name, i) => (
+                    <FormInput className="w-full" key={i} name={name} title={capitalizeFirstLetter(name)} type="text" onChange={(e) => handleInputChange(name, e.target.value)} />
+                ))}
+                <button
+                    onClick={handleButtonClick}
+                    disabled={Object.keys(inputValues).length === 0}
+                    className="mt-8 text-white text-[14px] font-[500] bg-blue-500 active:bg-blue-300 hover:bg-blue-700 py-2 px-4 rounded transition duration-300 ease-in-out w-full"
+                >
+                    Submit
+                </button>
+            </form>
         </div>
     );
 };

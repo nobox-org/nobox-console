@@ -2,8 +2,6 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import '../../../styles/custom-toast.css'
 import Modal from "@/app/components/Modal";
 import { AddUserModal } from "@/app/components/modals/AddUserModal";
 import { RecordSpaceCard } from "@/app/components/RecordSpaceCard";
@@ -47,27 +45,53 @@ export default function RecordSpaces({ params }: { params: { project_id: string 
   }
 
   return (
-    <main className="text-[#292D32] bg-[#ECEDF3] overflow-hidden px-[16px]">
+    <main className="text-[#292D32] px-[16px] h-full">
       <ToastContainer toastClassName="custom-toast" />
-      <div className="mt-[30px] mb-[136px]">
-        {
-          !sharedProjectData &&
-          <div className="py-[12px]">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => {
-              setOpenModal(true)
-            }}> Add User</button>
-          </div>
-        }
-        <div className="flex flex-wrap gap-[24px]">
-          {
-            project?.recordSpaces?.length > 0 && projectRecordMap
-              ? project.recordSpaces.map((recordSpace: any) => {
-                return <RecordSpaceCard key={recordSpace._id} recordSpace={recordSpace} projectId={projectId} records={projectRecordMap[recordSpace.slug]} />
-              }) :
-              (<div className="text-center">No RecordSpaces at the moment</div>)
-          }
-        </div>
-      </div>
+      {
+        project?.recordSpaces?.length > 0 && projectRecordMap
+          ?
+          <div className="p-[24px]">
+            <div>
+              {
+                !sharedProjectData &&
+                <div className="py-[12px]">
+                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => {
+                    setOpenModal(true)
+                  }}> Add User To Project</button>
+                </div>
+              }
+            </div>
+            <div className="flex flex-wrap gap-[24px]">
+              {
+                project.recordSpaces.map((recordSpace: any) => {
+                  return <RecordSpaceCard key={recordSpace._id} recordSpace={recordSpace} projectId={projectId} records={projectRecordMap[recordSpace.slug]} />
+                })}
+            </div>
+          </div> :
+          (
+            <>
+              <div className="flex items-center justify-center h-screen">
+                <div className="bg-[#ffffff] p-16">
+                  <div className="text-center mx-10">
+                    <p className="my-2">You have No RecordSpaces at the moment</p>
+                    <p className="my-2">Connect your Website or App to Nobox to see your recordSpaces</p>
+                    <p className="my-2">Follow docs <a href="https://docs.nobox.cloud/integrate-nobox" className="n_link" target="_blank">here</a></p>
+                  </div>
+
+                  <div className="mt-[30px]">
+                    {
+                      !sharedProjectData &&
+                      <div className="py-[12px] text-center">
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => {
+                          setOpenModal(true)
+                        }}> Add User To Project</button>
+                      </div>
+                    }
+                  </div>
+                </div>
+              </div></>
+          )
+      }
       <Modal
         isOpen={openModal}
         setIsOpen={setOpenModal}

@@ -1,8 +1,10 @@
 import { FieldType } from '@/lib/types';
 import React, { useState } from 'react';
+import FormInput from './FormInput';
+import { capitalizeFirstLetter } from '@/lib/gen';
 
 interface DynamicInputProps {
-    inputKeys: { name: string, type: FieldType }[];
+    inputKeys: { name: string, type: FieldType, required: boolean; }[];
     handleSubmit: (values: Record<string, any>) => Promise<void>;
 }
 
@@ -23,47 +25,36 @@ const DynamicInputComponent: React.FC<DynamicInputProps> = ({ inputKeys, handleS
         await handleSubmit(inputValues);
     };
 
+    console.log({ inputKeys })
+
     return (
-        <div className="space-y-4">
-            {inputKeys.map(({ name, type }, i) => (
-                <div key={i}>
-                    <label htmlFor={name} className="block font-medium">
-                        <div style={{ display: "flex", justifyContent: "space-between" }}>
-                            <span>{name}</span>
-                            <code style={{ fontSize: "10px" }}>{type}</code>
-                        </div>
-                    </label>{
-                        type === FieldType.Boolean ? (
-                            <input
-                                type="checkbox"
-                                id={name}
-                                className="border rounded px-3 py-2 w-full"
-                                checked={Boolean(inputValues[name])}
-                                onChange={(e) => handleInputChange(name, e.target.checked, type)}
-                            />) : (
-                            <input
-                                type={
-                                    type === FieldType.Number
-                                        ? "number"
-                                        : "text"}
-                                id={name}
-                                className="border rounded px-3 py-2 w-full"
-                                value={(inputValues[name] || "") as string | number}
-                                onChange={(e) => handleInputChange(name, e.target.value, type)}
-                            />)
-
-                    }
-
-                </div>
-            ))}
+        <>
+            {inputKeys.map(({ name, type, required }, i) => (
+                <FormInput
+                    key={i}
+                    name={name}
+                    className='w-full'
+                    required={required}
+                    title={capitalizeFirstLetter(name)}
+                    type={
+                        type === FieldType.Number
+                            ? "number"
+                            : type === FieldType.Boolean
+                                ? "checkbox" :
+                                "text"}
+                    value={(inputValues[name] || "") as any}
+                    onChange={(e) => handleInputChange(name, e.target.value, type)}
+                />
+            )
+            )}
             <button
                 onClick={handleButtonClick}
                 disabled={Object.keys(inputValues).length === 0}
-                className="bg-secondary text-white px-[24px] rounded-lg py-[12px] text-[14px] font-[500] bg-blue-500 active:bg-blue-300 hover:bg-blue-700 py-2 px-4 rounded transition duration-300 ease-in-out"
+                className="text-white text-[14px] font-[500] bg-blue-500 active:bg-blue-300 hover:bg-blue-700 py-2 my-8 px-4 rounded transition duration-300 ease-in-out"
             >
                 Submit
             </button>
-        </div>
+        </>
     );
 };
 

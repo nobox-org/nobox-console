@@ -1,5 +1,7 @@
 import localFont from "next/font/local";
 import "./styles/globals.scss";
+import "react-toastify/dist/ReactToastify.css";
+import './styles/custom-toast.css'
 
 const Euclid = localFont({
   src: [

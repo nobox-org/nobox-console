@@ -4,8 +4,6 @@ import { serverCall } from "@/servercall/init";
 import { serverCalls } from "@/servercall/store";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import '../../styles/custom-toast.css'
 import { getProjectUsers } from "@/lib/calls/get-project-users";
 
 export const AddUserModal = ({ projectId }: {
@@ -17,7 +15,7 @@ export const AddUserModal = ({ projectId }: {
 
     useEffect(() => {
         getAndSetProjectUsers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const getAndSetProjectUsers = () => getProjectUsers({ projectId }).then((data: any) => {
