@@ -1,7 +1,7 @@
 import React from 'react';
 
 const initValue = {
-    loading: false,
+    loading: true,
     projects: [],
     allProjects: [],
     sharedProjects: [],

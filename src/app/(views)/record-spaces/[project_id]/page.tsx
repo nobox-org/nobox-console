@@ -9,7 +9,9 @@ import { getRecordMap } from "@/lib/calls/get-record-map";
 import DataContext from "@/app/components/dataContext/DataContext";
 
 export default function RecordSpaces({ params }: { params: { project_id: string } }) {
-  const { loading, sharedProjects, allProjects } = useContext(DataContext);
+  const { loading: noboxDataLoading, sharedProjects, allProjects } = useContext(DataContext);
+
+  const [loading, setLoading] = useState(true);
 
   const projectId = String(params.project_id).trim();
 
@@ -21,7 +23,6 @@ export default function RecordSpaces({ params }: { params: { project_id: string 
 
   const [project, setProject] = useState<any>();
 
-
   useEffect(() => {
     if (allProjects.length > 0 && !projectRecordMap) {
       getRecordMap({
@@ -30,7 +31,8 @@ export default function RecordSpaces({ params }: { params: { project_id: string 
         freshCall: true
       }).then(({ projectRecordMap, project }) => {
         setProjectRecordMap(projectRecordMap);
-        setProject(project)
+        setProject(project);
+        setLoading(false);
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
