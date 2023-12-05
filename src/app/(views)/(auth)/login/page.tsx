@@ -13,8 +13,14 @@ const SignIn = () => {
         <div className="py-[48px] px-[24px]">
           <FormTitle title="Sign In" subTitle="Jump back right in" />
           <div className="pt-[8px] mb-[4px]">
-            <EmailLoginForm />
-            <NYellowLine />
+            {
+              Number(process.env.NEXT_PUBLIC_ALLOW_NON_VALIDATED_AUTH) === 1 ?
+                <>
+                  <EmailLoginForm />
+                  <NYellowLine />
+                </> :
+                <></>
+            }
             <OAuthBtn link={LINKS.githubLogin} title="Login With Github" name="github" />
           </div>
           <div className="text-[#404040] w-[317px] h-[36px] mx-auto mt-[24px] text-[12px] font-[400] text-center">

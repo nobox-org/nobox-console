@@ -11,10 +11,16 @@ const SignUpEmail = () => {
     <div>
       <div className="w-[517px] bg-white">
         <div className="py-[48px] px-[24px]">
-          <FormTitle title="Create an account" subTitle="Sign up to Nobox with any option below" />
+          <FormTitle title="Create an account" subTitle="" />
           <div className="pt-[8px] mb-[4px]">
-            <EmailSignUpForm />
-            <NYellowLine />
+            {
+              Number(process.env.NEXT_PUBLIC_ALLOW_NON_VALIDATED_AUTH) === 1 ?
+                <>
+                  <EmailSignUpForm />
+                  <NYellowLine />
+                </> :
+                <></>
+            }
             <OAuthBtn title="Signup With Github" name="github" link={LINKS.githubLogin} />
           </div>
 
