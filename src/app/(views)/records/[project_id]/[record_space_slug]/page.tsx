@@ -10,7 +10,6 @@ import Modal from "@/app/components/Modal";
 import { useRecordsBackgroundUpdate } from "@/lib/hooks/useRecordsBackgroundUpdate";
 import FormTitle from "@/app/components/FormTitle";
 import createUIIndication from "@/lib/createUIIndication";
-import NoSSR from "@/app/components/NoSSR";
 import { MainLoader } from "@/app/components/MainLoader";
 
 type ViewMode = "table" | "grid";
@@ -70,9 +69,7 @@ const Records = (
 
   if (loading || !pageIsReady) {
     return (
-      <main className="text-[#292D32] bg-[#ECEDF3] h-full p-[24px]">
-        Loading
-      </main>
+      <MainLoader />
     );
   }
 
