@@ -1,5 +1,4 @@
 import { mockLocalStorage } from "./mock-local-storage";
-
 export const storage = <K extends string, V extends Record<string, any>>(key: K) => {
     const ls = typeof window === "undefined" ? mockLocalStorage : localStorage;
 

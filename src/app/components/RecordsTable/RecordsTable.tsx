@@ -9,8 +9,6 @@ export interface RecordsTableProps {
     records?: any[];
 };
 
-
-
 const RecordsTable = (
     { headings, records }: RecordsTableProps
 ) => {

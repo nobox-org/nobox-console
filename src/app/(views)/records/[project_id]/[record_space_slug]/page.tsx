@@ -10,6 +10,8 @@ import Modal from "@/app/components/Modal";
 import { useRecordsBackgroundUpdate } from "@/lib/hooks/useRecordsBackgroundUpdate";
 import FormTitle from "@/app/components/FormTitle";
 import createUIIndication from "@/lib/createUIIndication";
+import NoSSR from "@/app/components/NoSSR";
+import { MainLoader } from "@/app/components/MainLoader";
 
 type ViewMode = "table" | "grid";
 
@@ -91,9 +93,8 @@ const Records = (
     }
   }
 
-
-  if (allProjects.length > 0) {
-    return (
+  return allProjects.length > 0
+    ? (
       <>
         <div className="w-full sm:pr-[30px] sm:mx-auto bg-[#FAFAFA] overflow-x-auto h-full">
           <RecordsDisplay viewMode={viewMode} headings={headings} records={records} />
@@ -126,10 +127,9 @@ const Records = (
             </div>
           }
           buttonText={'Copy Text'}
-        />
-      </>
-    );
-  }
+        /></>)
+    : <></>
+
 };
 
 export default Records;

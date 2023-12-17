@@ -7,6 +7,7 @@ import { AddUserModal } from "@/app/components/modals/AddUserModal";
 import { RecordSpaceCard } from "@/app/components/RecordSpaceCard";
 import { getRecordMap } from "@/lib/calls/get-record-map";
 import DataContext from "@/app/components/dataContext/DataContext";
+import { MainLoader } from "@/app/components/MainLoader";
 
 export default function RecordSpaces({ params }: { params: { project_id: string } }) {
   const { loading: noboxDataLoading, sharedProjects, allProjects } = useContext(DataContext);
@@ -39,11 +40,7 @@ export default function RecordSpaces({ params }: { params: { project_id: string 
   }, [allProjects])
 
   if (loading) {
-    return (
-      <main className="text-[#292D32] bg-[#ECEDF3] h-full p-[24px]">
-        Loading
-      </main>
-    );
+    return MainLoader;
   }
 
   return (

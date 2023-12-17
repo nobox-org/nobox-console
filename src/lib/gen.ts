@@ -27,9 +27,9 @@ export const findProject = ({ projects, projectId }: FindProjectArgs) => {
 export const findProjectSlug = ({ projectId }: { projectId: string }) => {
     const projectStore = storage(storageConstants.NOBOX_DATA);
     const sharedProjectStore = storage(storageConstants.NOBOX_SHARED_DATA);
-    const allProjects = [...projectStore.getObject() as any[], ...sharedProjectStore.getObject() as any[]];
+    const allProjects = [...(projectStore.getObject() || []) as any[], ...(sharedProjectStore.getObject() || []) as any[]];
     const project = allProjects?.find(project => project._id === projectId);
-    return project.slug;
+    return project?.slug;
 }
 
 export const findRecordSpace = ({ project, recordSpaceSlug }: any) => {
