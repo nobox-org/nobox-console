@@ -21,7 +21,11 @@ const SignUpEmail = () => {
                 </> :
                 <></>
             }
-            <OAuthBtn title="Signup With Github" name="github" link={LINKS.githubLogin} />
+            {
+              Number(process.env.NEXT_PUBLIC_ALLOW_THIRD_PARTY_AUTH) === 1
+                ? <OAuthBtn title="Signup With Github" name="github" link={LINKS.githubLogin} />
+                : <></>
+            }
           </div>
 
           <div className="text-[#404040] w-[317px] h-[36px] mx-auto mt-[12px] text-[12px] font-[400] text-center">

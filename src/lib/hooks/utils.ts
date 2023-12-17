@@ -1,6 +1,6 @@
 import { serverCall } from "@/servercall/init";
 import { serverCalls } from "@/servercall/store";
-import { storage } from "../localStorage";
+import { storage } from "../utils/local-storage";
 
 export interface CreateProjectInput {
     description?: string;

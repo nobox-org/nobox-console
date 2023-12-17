@@ -46,6 +46,7 @@ const getNoboxModel = async ({
             project: projectSlug,
             token,
             autoCreate: false,
+            mutate: false,
         };
 
         return {

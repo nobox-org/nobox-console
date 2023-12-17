@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { Space, SpaceWebhooks } from 'nobox-client';
 import { CompatibleStructureFieldType, FindProjectArgs, PagePathNames, PageTypes } from './types';
 import { storageConstants } from './constants';
-import { storage } from './localStorage';
+import { storage } from './utils/local-storage';
 
 const convertStringTypeToConstructor = (type: CompatibleStructureFieldType) => {
     switch (type) {

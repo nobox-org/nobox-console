@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { storageConstants } from '../constants';
-import { storage } from '../localStorage';
+import { storage } from '../utils/local-storage';
 import { fetchAllProjectResources, storeData } from './utils';
 
 interface UseNoboxDataProps {

@@ -1,6 +1,6 @@
 import { findProject } from "@/lib/gen";
 import getRecords from "@/lib/calls/get-records";
-import { storage } from "@/lib/localStorage";
+import { storage } from "@/lib/utils/local-storage";
 import { storageConstants } from "@/lib/constants";
 
 interface UseRecordMapArgs {

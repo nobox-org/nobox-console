@@ -1,4 +1,4 @@
-import { storage } from "@/lib/localStorage";
+import { storage } from "@/lib/utils/local-storage";
 import { saveRecordMapInLocalStorage } from "./calls/get-record-map";
 import { storageConstants } from "./constants";
 

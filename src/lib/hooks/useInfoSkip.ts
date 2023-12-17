@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { storage } from '../localStorage';
+import { storage } from '../utils/local-storage';
 
 const useInfoSkip = () => {
     const [skipState, setSkipState] = useState(false);
