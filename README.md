@@ -2,7 +2,7 @@
 A Dashboard for using [nobox-core](https://github.com/nobox-org/nobox-core).
 
 ## Installation
-- Run `nobox-core` locally.
+- Run `nobox-core` from `https://github.com/nobox-org/nobox-core`
 - Run `yarn`
 - Run `yarn dev`
 
