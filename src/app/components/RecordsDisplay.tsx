@@ -8,16 +8,22 @@ interface RecordsDisplayProps {
     viewMode: ViewMode;
     headings: { name: string }[];
     records: any[];
+    handleDeleteRecord: (recordId: string) => Promise<void>
 }
 
 const RecordsDisplay = ({
     viewMode,
     headings,
-    records
+    records,
+    handleDeleteRecord
 }: RecordsDisplayProps) => {
 
     if (viewMode === "table") {
-        return <RecordsTable headings={headings} records={records} />;
+        return <RecordsTable
+            headings={headings}
+            records={records}
+            handleDeleteRecord={(recordId: string) => handleDeleteRecord(recordId)}
+        />;
     }
 
     return <RecordsGrid />;

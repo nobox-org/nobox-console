@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import RecordsDisplay from "@/app/components/RecordsDisplay";
 import useRecordsCall from "@/lib/hooks/useRecordsCall";
-import DynamicInputComponent from "@/app/components/SubmitRecord";
+import { ArrayInputComponent, DynamicInputComponent } from "@/app/components/SubmitRecord";
 import { FieldType } from "@/lib/types";
 import useNoboxData from "@/lib/hooks/useNoboxData";
 import submitRecords from "@/lib/calls/submit-records";
@@ -11,6 +11,7 @@ import { useRecordsBackgroundUpdate } from "@/lib/hooks/useRecordsBackgroundUpda
 import FormTitle from "@/app/components/FormTitle";
 import createUIIndication from "@/lib/createUIIndication";
 import { MainLoader } from "@/app/components/MainLoader";
+import deleteRecords from "@/lib/calls/delete-record";
 
 type ViewMode = "table" | "grid";
 
@@ -19,6 +20,7 @@ const Records = (
 ) => {
 
   const [initiateFreshCall, setInitiateFreshCall] = useState(false);
+  const [uniqueId, setUniqueId] = useState<string>("");
 
   const { allProjects } = useNoboxData();
 
@@ -40,7 +42,8 @@ const Records = (
   const { data: records, loading, recordSpaceStructure } = useRecordsCall({
     projectId: params.project_id,
     recordSpaceSlug: params.record_space_slug,
-    initiateFreshCall
+    initiateFreshCall,
+    uniqueId
   });
 
   const { webhooks } = recordSpaceStructure as any;
@@ -73,9 +76,28 @@ const Records = (
     );
   }
 
+  const handleDeleteRecord = async (recordId: string) => {
+    try {
+      await deleteRecords({
+        recordSpaceSlug: params.record_space_slug,
+        allProjects,
+        projectId: params.project_id,
+        recordId
+      })
+      setInitiateFreshCall(true);
+      setSubmitted(true);
+      setUniqueId(recordId);
+      submissionIndication.startEnd({ delay: 2000 })
+
+    } catch (error) {
+      console.log({ error })
+    }
+  }
+
+
   const handleSubmitRecords = async (record: Record<string, any>) => {
     try {
-      await submitRecords({
+      const responseRecord = await submitRecords({
         recordSpaceSlug: params.record_space_slug,
         allProjects,
         projectId: params.project_id,
@@ -83,6 +105,7 @@ const Records = (
       })
       setInitiateFreshCall(true);
       setSubmitted(true)
+      setUniqueId(responseRecord.records[0].id);
       submissionIndication.startEnd({ delay: 2000 })
 
     } catch (error) {
@@ -94,7 +117,7 @@ const Records = (
     ? (
       <>
         <div className="w-full sm:pr-[30px] sm:mx-auto bg-[#FAFAFA] overflow-x-auto h-full">
-          <RecordsDisplay viewMode={viewMode} headings={headings} records={records} />
+          <RecordsDisplay viewMode={viewMode} headings={headings} records={records} handleDeleteRecord={handleDeleteRecord} />
           <div className="flex">
             <div className="py-[12px] sm:px-6 lg:px-8">
               <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => {
@@ -114,19 +137,40 @@ const Records = (
         <Modal
           isOpen={openModal}
           setIsOpen={setOpenModal}
-          content={
-            <div className="space-y-4">
-              <div style={{ width: "600px", padding: "10px", margin: "30px", overflowY: "scroll", height: "700px" }} >
-                <div style={{ textAlign: "center", color: "blue" }}>{submitted && "Submitted Successfully"}</div>
-                <FormTitle title="Create Records" subTitle={`Submit Records to ${params.record_space_slug}`} />
-                <DynamicInputComponent inputKeys={headings} handleSubmit={handleSubmitRecords} />
-              </div>
-            </div>
-          }
+          content={<RecordInputForm headings={headings} handleSubmitRecords={handleSubmitRecords} params={params} submitted={submitted} />}
           buttonText={'Copy Text'}
         /></>)
     : <></>
 
 };
+
+export const RecordInputForm = ({ headings, handleSubmitRecords, params, submitted }: any) => {
+
+  const activeClassNames = "bg-white text-blue-500 rounded-full px-2 py-0.5";
+  const inActiveClassName = "text-white";
+
+
+  const [inputType, setInputType] = useState<"FIELDS" | "JSON">("FIELDS");
+
+  return (
+    <div className="space-y-4">
+      <div style={{ width: "600px", padding: "10px", margin: "30px" }} >
+        <div style={{ textAlign: "center", color: "blue" }}>{submitted && "Submitted Successfully"}</div>
+        <FormTitle title="Create Records" subTitle={`Submit Records to ${params.record_space_slug}`} />
+        <div className="flex justify-center">
+          {/* <div className="flex items-center justify-between w-40 bg-blue-500 rounded-full px-4 py-2  cursor-pointer">
+            <span className={`${inputType === "FIELDS" ? activeClassNames : inActiveClassName}`} onClick={() => setInputType("FIELDS")}>Fields</span>
+            <span className={`${inputType === "JSON" ? activeClassNames : inActiveClassName}`} onClick={() => setInputType("JSON")}>JSON</span>
+          </div> */}
+        </div>
+
+        {inputType === "FIELDS"
+          ? <DynamicInputComponent inputKeys={headings} handleSubmit={handleSubmitRecords} />
+          : <ArrayInputComponent inputKeys={headings} handleSubmit={handleSubmitRecords} />
+        }
+      </div>
+    </div>
+  )
+}
 
 export default Records;

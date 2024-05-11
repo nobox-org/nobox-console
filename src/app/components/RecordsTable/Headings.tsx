@@ -3,6 +3,7 @@
 import { RecordsTableProps } from "./RecordsTable";
 
 export const Headings = ({ headings }: Pick<RecordsTableProps, "headings">) => {
+
     return <>
         {headings.map((heading, index) => {
             const { name } = heading;

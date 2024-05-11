@@ -4,7 +4,7 @@ interface SubmitRecordsArgs {
     projectId: string;
     recordSpaceSlug: string;
     allProjects: string[];
-    record: Record<string, string>;
+    record: Record<string, string> | Record<string, any>[];
 }
 
 const submitRecords = async ({
@@ -19,9 +19,11 @@ const submitRecords = async ({
         recordSpaceSlug,
     });
 
-    const records = keyGroupModel
-        ? await keyGroupModel.setKeys(record)
-        : await rowedModel?.insertOne(record);
+    const records = Array.isArray(record)
+        ? await rowedModel?.insert(record)
+        : keyGroupModel
+            ? await keyGroupModel.setKeys(record)
+            : await rowedModel?.insertOne(record);
 
     return {
         records: Array.isArray(records) ? records : [records],

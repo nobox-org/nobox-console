@@ -2,9 +2,9 @@ import { useState } from "react";
 
 interface FormInputProps {
   title: string;
-  type: "email" | "password" | "text" | "number" | "checkbox";
+  type: "email" | "password" | "text" | "number" | "checkbox" | "largeText";
   name: string;
-  value?: string | boolean;
+  value?: string | boolean | Record<string, any>;
   className?: string;
   required?: boolean;
   onChange: (e: any) => void
@@ -26,7 +26,9 @@ const FormInput = ({ title, type, name, onChange, className, value, required }: 
           ? <PasswordInput name={name} onChange={onChange} className={className} />
           : type === "checkbox"
             ? <CheckBox name={name} onChange={onChange} className={className} value={value as boolean} />
-            : <Input type={type} name={name} onChange={onChange} className={className} />
+            : type === "largeText"
+              ? <TextArea type={type} name={name} onChange={onChange} className={className} />
+              : <Input type={type} name={name} onChange={onChange} className={className} />
       }
     </div>
   );
@@ -47,6 +49,20 @@ const Input = ({ type, name, onChange, className }: InputProps) => {
     </div>
   )
 }
+
+const TextArea = ({ name, onChange, className }: InputProps) => {
+  return (
+    <div className="relative">
+      <textarea
+        name={name}
+        onChange={onChange}
+        className={`${className} border border-[#DFE5EC] focus:ring-0 rounded-sm w-[550px] h-[320px] pl-[16px] placeholder:text-[16px] mt-[8px] inputBorder resize-none`}
+      />
+      <div className="absolute top-0 right-0 h-full bg-gradient-to-r from-[#00ff00] to-[#ff0000]"></div>
+    </div>
+  )
+}
+
 
 type CheckBoxProps = Omit<FormInputProps, "type" | "title"> & { value: boolean };
 

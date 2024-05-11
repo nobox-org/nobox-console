@@ -1,5 +1,4 @@
 "use client";
-import { moveKeysToEnd } from "@/lib/gen";
 import { Body } from "./Body";
 import { Headings } from "./Headings";
 
@@ -7,24 +6,20 @@ import { Headings } from "./Headings";
 export interface RecordsTableProps {
     headings: { name: string }[];
     records?: any[];
+    handleDeleteRecord: (recordId: string) => Promise<void>;
 };
 
 const RecordsTable = (
-    { headings, records }: RecordsTableProps
+    { headings, records, handleDeleteRecord }: RecordsTableProps
 ) => {
 
-    // Check if 'records' exists and has at least one entry
-    const extractedHeadings = records?.[0]
-        ?
-        // If 'records' exists, proceed with the following steps:
-        moveKeysToEnd(
-            Object.keys(records?.[0]), // Extract keys from the first record
-            ["createdAt", "updatedAt"] // Move these keys to the end of the list
-        ).map(key => ({ name: key })) // Create an array of objects with each key as the 'name' property
-        :
-        // If 'records' doesn't exist or is an empty array, use the 'headings' array as is
-        headings;
-
+    const updatedHeadings = [
+        { name: "Actions" },
+        { name: "id" },
+        ...headings,
+        { name: "createdAt" },
+        { name: "updatedAt" }
+    ];
 
     return (
         <div className="flex flex-col overflow-x-auto">
@@ -34,11 +29,11 @@ const RecordsTable = (
                         <table className="min-w-full text-left text-sm font-light">
                             <thead className="border-b font-medium dark:border-neutral-500">
                                 <tr className="fixed-header">
-                                    <Headings headings={extractedHeadings} />
+                                    <Headings headings={updatedHeadings} />
                                 </tr>
                             </thead>
                             <tbody>
-                                <Body headings={extractedHeadings} records={records} />
+                                <Body headings={updatedHeadings} records={records} handleDeleteRecord={handleDeleteRecord} />
                             </tbody>
                         </table>
                     </div>

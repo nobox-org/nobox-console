@@ -6,12 +6,14 @@ interface FetchRecordsArgs {
     projectId: string;
     recordSpaceSlug: string;
     initiateFreshCall?: boolean;
+    uniqueId?: string;
 }
 
 const useRecordsCall = ({
     projectId,
     recordSpaceSlug,
-    initiateFreshCall
+    initiateFreshCall,
+    uniqueId
 }: FetchRecordsArgs) => {
     const [data, setData] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
@@ -21,6 +23,7 @@ const useRecordsCall = ({
 
     useEffect(() => {
         if (!noboxDataIsLoading || initiateFreshCall) {
+            console.log({ d: initiateFreshCall })
             getRecords({
                 allProjects,
                 projectId,
@@ -29,6 +32,8 @@ const useRecordsCall = ({
             }).then((data) => {
                 const { records, recordSpaceStructure: computedRecordSpaceStructure } = data
 
+                console.log({ records })
+
                 if (records) {
                     setData(records);
                     setRecordSpaceStructure(computedRecordSpaceStructure);
@@ -36,8 +41,7 @@ const useRecordsCall = ({
                 }
             })
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [initiateFreshCall, noboxDataIsLoading])
+    }, [initiateFreshCall, noboxDataIsLoading, uniqueId])
 
     return {
         data, loading, recordSpaceStructure
