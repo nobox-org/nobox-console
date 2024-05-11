@@ -2,11 +2,11 @@ import React, { useEffect } from 'react'
 
 export const Modal = (props: {
     buttonText: string;
-    content: any;
     setIsOpen: any;
     isOpen: any;
+    children?: React.ReactNode
 }) => {
-    const { content, setIsOpen, isOpen } = props
+    const { children, setIsOpen, isOpen } = props
 
     const handleModalToggle = () => {
         setIsOpen(!isOpen)
@@ -34,7 +34,7 @@ export const Modal = (props: {
                         <button className="close-button" onClick={handleModalToggle}>
                             X
                         </button>
-                        {content}
+                        {children}
                     </div>
                 </div>
             </div>

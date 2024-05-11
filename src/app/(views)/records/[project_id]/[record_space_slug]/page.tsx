@@ -2,16 +2,15 @@
 import { useEffect, useState } from "react";
 import RecordsDisplay from "@/app/components/RecordsDisplay";
 import useRecordsCall from "@/lib/hooks/useRecordsCall";
-import { ArrayInputComponent, DynamicInputComponent } from "@/app/components/SubmitRecord";
 import { FieldType } from "@/lib/types";
 import useNoboxData from "@/lib/hooks/useNoboxData";
 import submitRecords from "@/lib/calls/submit-records";
 import Modal from "@/app/components/Modal";
 import { useRecordsBackgroundUpdate } from "@/lib/hooks/useRecordsBackgroundUpdate";
-import FormTitle from "@/app/components/FormTitle";
 import createUIIndication from "@/lib/createUIIndication";
 import { MainLoader } from "@/app/components/MainLoader";
 import deleteRecords from "@/lib/calls/delete-record";
+import { RecordInputForm } from "@/app/components/RecordInputForm";
 
 type ViewMode = "table" | "grid";
 
@@ -137,40 +136,16 @@ const Records = (
         <Modal
           isOpen={openModal}
           setIsOpen={setOpenModal}
-          content={<RecordInputForm headings={headings} handleSubmitRecords={handleSubmitRecords} params={params} submitted={submitted} />}
           buttonText={'Copy Text'}
-        /></>)
+        >
+          <RecordInputForm
+            headings={headings}
+            handleSubmitRecords={handleSubmitRecords}
+            params={params}
+            submitted={submitted} />
+        </Modal></>)
     : <></>
 
 };
-
-export const RecordInputForm = ({ headings, handleSubmitRecords, params, submitted }: any) => {
-
-  const activeClassNames = "bg-white text-blue-500 rounded-full px-2 py-0.5";
-  const inActiveClassName = "text-white";
-
-
-  const [inputType, setInputType] = useState<"FIELDS" | "JSON">("FIELDS");
-
-  return (
-    <div className="space-y-4">
-      <div style={{ width: "600px", padding: "10px", margin: "30px" }} >
-        <div style={{ textAlign: "center", color: "blue" }}>{submitted && "Submitted Successfully"}</div>
-        <FormTitle title="Create Records" subTitle={`Submit Records to ${params.record_space_slug}`} />
-        <div className="flex justify-center">
-          {/* <div className="flex items-center justify-between w-40 bg-blue-500 rounded-full px-4 py-2  cursor-pointer">
-            <span className={`${inputType === "FIELDS" ? activeClassNames : inActiveClassName}`} onClick={() => setInputType("FIELDS")}>Fields</span>
-            <span className={`${inputType === "JSON" ? activeClassNames : inActiveClassName}`} onClick={() => setInputType("JSON")}>JSON</span>
-          </div> */}
-        </div>
-
-        {inputType === "FIELDS"
-          ? <DynamicInputComponent inputKeys={headings} handleSubmit={handleSubmitRecords} />
-          : <ArrayInputComponent inputKeys={headings} handleSubmit={handleSubmitRecords} />
-        }
-      </div>
-    </div>
-  )
-}
 
 export default Records;

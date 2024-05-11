@@ -88,12 +88,12 @@ const DisplayTR = ({ headings, record, handleDelete }: {
             <Modal
                 isOpen={openJSONModal}
                 setIsOpen={setOpenJSONModal}
-                content={
-                    <div className="overflow-x-auto overflow-y-auto" style={{ width: "100%", height: "500px", padding: "10%" }}>
-                        <ReactJson src={record} />
-                    </div>
-                } buttonText={'View Data'}
-            />
+                buttonText={'View Data'}
+            >
+                <div className="overflow-x-auto overflow-y-auto" style={{ width: "100%", height: "500px", padding: "10%" }}>
+                    <ReactJson src={record} />
+                </div>
+            </Modal>
         </tr>
     )
 }

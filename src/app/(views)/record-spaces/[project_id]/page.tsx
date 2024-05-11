@@ -93,11 +93,10 @@ export default function RecordSpaces({ params }: { params: { project_id: string 
       }
       <Modal
         isOpen={openModal}
-        setIsOpen={setOpenModal}
-        content={
-          <AddUserModal projectId={projectId} />
-        } buttonText={'Copy Text'}
-      />
+        setIsOpen={setOpenModal} buttonText={'Copy Text'}
+      >
+        <AddUserModal projectId={projectId} />
+      </Modal>
     </main >
   );
 }

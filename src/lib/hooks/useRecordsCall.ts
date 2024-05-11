@@ -41,7 +41,12 @@ const useRecordsCall = ({
                 }
             })
         }
-    }, [initiateFreshCall, noboxDataIsLoading, uniqueId])
+
+
+    },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [initiateFreshCall, noboxDataIsLoading, uniqueId]
+    )
 
     return {
         data, loading, recordSpaceStructure

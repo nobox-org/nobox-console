@@ -25,7 +25,7 @@ const CreateProject: React.FC<CreateProjectProps> = ({ inputKeys, handleSubmit }
         setSuccess(false);
     }
 
-    const handleButtonClick = async (e) => {
+    const handleButtonClick = async (e: any) => {
         e.preventDefault()
         initErrorAndSuccess()
         const { error } = await handleSubmit(inputValues as any);
