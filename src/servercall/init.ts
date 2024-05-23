@@ -10,6 +10,8 @@ export const serverCall = createServerCall({
     successFieldDept: (response: any) => !!response.data,
     handleServerError: (args: any) => {
         const { error } = args;
+        console.log(error);
+        
 
         if (error.message === "Network Error") {
             return window.location.href = LINKS.internalPages.error.main;

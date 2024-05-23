@@ -24,11 +24,11 @@ export default function Box({
   tooltip
 }: BoxProps) {
   return (
-    <a href={link || ""}>
+    <a className=" cursor-pointer" href={link || ""}>
       <div
         title={tooltip}
         key={id}
-        className="w-full relative md:w-[224px] bg-white rounded-[2px] cursor-pointer hover:ring hover:ring-blue-500 hover:ring-opacity-50 hover:ring-offset-4 hover:rounded-lg py-4 px-4"
+        className="w-full relative md:w-[224px] bg-white shadow-md rounded-lg cursor-pointer hover:ring hover:ring-blue-500 hover:ring-opacity-50 hover:ring-offset-4 hover:rounded-lg py-4 px-4"
         onClick={handleClick}
       >
         <div className="flex justify-between flex-col h-40" >

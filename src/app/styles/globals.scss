@@ -53,6 +53,9 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+body {
+  background-color: #F6F6F9;
+}
 
 .auth {
   color: rgb(var(--foreground-rgb));
@@ -207,5 +210,17 @@ input {
 
   .close-button:hover {
     color: #f00;
+  }
+}
+aside {
+  width: 290px;
+  background: #fff;
+  a {
+    @apply flex gap-2 px-5 py-2 items-center hover:bg-[#ECF3FF] hover:text-secondary hover:font-medium cursor-pointer relative;
+    &.active {
+      @apply bg-[#ECF3FF] text-secondary font-medium items-center;
+      border-right: 2px solid rgb(8, 98, 254);;
+    }
+    font-size: 14px;
   }
 }
