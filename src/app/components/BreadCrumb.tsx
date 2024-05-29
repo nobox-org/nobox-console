@@ -5,7 +5,7 @@ export const Breadcrumb = ({ path }: {
 }) => {
 
     return (
-        <>
+        <div className="text-xs">
             {
                 path.map((pathItem, index) => {
                     const pathName = typeof pathItem === "string" ? pathItem : <Link href={pathItem.link} className="underline color-[blue]">{pathItem.name}</Link>;
@@ -25,7 +25,7 @@ export const Breadcrumb = ({ path }: {
                 }
                 )
             }
-        </>
+        </div>
     )
 
 }

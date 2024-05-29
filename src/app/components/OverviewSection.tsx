@@ -34,10 +34,10 @@ export default function OverviewSection({ title, section, loading, dataIsEmpty, 
     if (!dataIsEmpty) {
         return (
             <>
-                <h6 className="text-[20px] font-[700] text-[#292D32] mt-[16px]">
-                    {title}
+                <h6 className="text-[16px] font-[700] text-[#292D32]">
+                    {title} 
                 </h6>
-                <div className="flex flex-wrap gap-[24px] mt-[8px] mb-[48px]">
+                <div className="flex flex-wrap gap-[24px] mt-[20px] mb-[48px]">
                     {section ?? (data ?? []).map((project, i) => <ProjectCard project={project} key={i} />)}
                     {addNewButton && (<AddNewButton onClickHandler={() => {
                         setOpenModal(true)

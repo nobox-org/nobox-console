@@ -91,9 +91,9 @@ const Sidebar = () => {
             </a> */}
           </div>
         </ul>
-        <ul className="mb-5">
-          <li className="flex items-center">
-            <Link href={"/settings"}>
+        <ul className="mb-5 w-full">
+          <li className="flex items-center w-full">
+            <Link className="w-full" href={"/settings"}>
               <svg
                 width="16"
                 height="16"

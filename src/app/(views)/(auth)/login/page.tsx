@@ -18,7 +18,6 @@ const SignIn = () => {
                 ?
                 <>
                   <EmailLoginForm />
-                  <NYellowLine />
                 </>
                 : <></>
             }{
