@@ -3,6 +3,9 @@ import { FaTimes } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 
 import React from "react";
+import { storageConstants } from "@/lib/constants";
+import { LINKS } from "@/lib/links";
+import router from "next/router";
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -10,6 +13,11 @@ const Sidebar = () => {
   const closeSidebar = () => {
     document.querySelector<HTMLElement>("#sidebar")?.classList.remove("open");
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem(storageConstants.NOBOX_CLIENT_TOKEN);
+    router.push(LINKS.internalPages.login.github);
+  }
 
   return (
     <div>
@@ -47,22 +55,74 @@ const Sidebar = () => {
             <Link className={pathname == "/" ? "active" : ""} href="/">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width={20}
-                height={20}
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
                 fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                className="lucide lucide-home "
               >
-                <path
-                  fill={pathname == "/" ? "#556DFF" : "#838389"}
-                  d="M21.5 10.9V4.1c0-1.5-.64-2.1-2.23-2.1h-4.04C13.64 2 13 2.6 13 4.1v6.8c0 1.5.64 2.1 2.23 2.1h4.04c1.59 0 2.23-.6 2.23-2.1ZM11 13.1v6.8c0 1.5-.64 2.1-2.23 2.1H4.73c-1.59 0-2.23-.6-2.23-2.1v-6.8c0-1.5.64-2.1 2.23-2.1h4.04c1.59 0 2.23.6 2.23 2.1Z"
-                />
-                <path
-                  fill={pathname == "/" ? "#556DFF" : "#838389"}
-                  d="M21.5 19.9v-2.8c0-1.5-.64-2.1-2.23-2.1h-4.04c-1.59 0-2.23.6-2.23 2.1v2.8c0 1.5.64 2.1 2.23 2.1h4.04c1.59 0 2.23-.6 2.23-2.1ZM11 6.9V4.1C11 2.6 10.36 2 8.77 2H4.73C3.14 2 2.5 2.6 2.5 4.1v2.8c0 1.5.64 2.1 2.23 2.1h4.04C10.36 9 11 8.4 11 6.9Z"
-                  opacity={0.4}
-                />
+                <path d="M9.43414 20.803V13.0557C9.43414 12.5034 9.88186 12.0557 10.4341 12.0557H14.7679C15.3202 12.0557 15.7679 12.5034 15.7679 13.0557V20.803M12.0181 3.48798L5.53031 7.9984C5.26145 8.18532 5.10114 8.49202 5.10114 8.81948L5.10117 18.803C5.10117 19.9075 5.9966 20.803 7.10117 20.803H18.1012C19.2057 20.803 20.1012 19.9075 20.1012 18.803L20.1011 8.88554C20.1011 8.55988 19.9426 8.25462 19.6761 8.06737L13.1639 3.49088C12.8204 3.24951 12.3627 3.24836 12.0181 3.48798Z"></path>
               </svg>
-              <p className="pl-5">Overview</p>
+              <p className="pl-5">Projects</p>
             </Link>
+            <div className="border-t mt-5 pt-5"></div>
+            <Link className={pathname == "access-tokens" ? "active" : ""} href="/access-tokens">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                className="lucide lucide-auth "
+              >
+                <path d="M5.24121 15.0674H12.7412M5.24121 15.0674V18.0674H12.7412V15.0674M5.24121 15.0674V12.0674H12.7412V15.0674M15 7.60547V4.60547C15 2.94861 13.6569 1.60547 12 1.60547C10.3431 1.60547 9 2.94861 9 4.60547V7.60547M5.20898 9.60547L5.20898 19.1055C5.20898 20.21 6.10441 21.1055 7.20898 21.1055H16.709C17.8136 21.1055 18.709 20.21 18.709 19.1055V9.60547C18.709 8.5009 17.8136 7.60547 16.709 7.60547L7.20899 7.60547C6.10442 7.60547 5.20898 8.5009 5.20898 9.60547Z"></path>
+              </svg>
+              <p className="pl-5">Access Tokens</p>
+            </Link>
+            <div className="border-t mt-5 pt-5"></div>
+            <Link className={pathname == "docs" ? "active" : ""} href="/">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                className="sbui-icon"
+              >
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+              <p className="pl-5">Guides</p>
+            </Link>
+            <Link className={pathname == "docs" ? "active" : ""} href="/">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                className="sbui-icon"
+              >
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+              <p className="pl-5">API Reference</p>
+            </Link>
+
             {/* <a href="https://docs.nobox.cloud/install-nobox" target="_blank">
               <div
                 className=""
@@ -93,23 +153,24 @@ const Sidebar = () => {
         </ul>
         <ul className="mb-5 w-full">
           <li className="flex items-center w-full">
-            <Link className="w-full" href={"/settings"}>
+            <a className="w-full" href={"/settings"} onClick={handleLogout}>
               <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
                 xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                className="sbui-icon"
               >
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M1.78721 6.128C1.38721 6.312 0.377616 6.9152 0.249616 6.9968C0.172678 7.04454 0.109311 7.11126 0.0655999 7.19055C0.0218892 7.26985 -0.000695413 7.35905 1.63158e-05 7.4496V8.5504C-0.000544094 8.6423 0.0227493 8.73278 0.0676204 8.81298C0.112491 8.89319 0.177405 8.96038 0.256016 9.00799C0.425615 9.11519 1.40961 9.70239 1.79361 9.87679L2.28961 11.0768C2.12961 11.4992 1.84321 12.632 1.80961 12.7792C1.78944 12.8673 1.79208 12.9591 1.81727 13.0459C1.84247 13.1327 1.8894 13.2116 1.95361 13.2752L2.73121 14.0528C2.79498 14.1168 2.87392 14.1635 2.96066 14.1887C3.0474 14.2139 3.1391 14.2167 3.22721 14.1968L3.2474 14.1916C3.48786 14.1301 4.54489 13.8595 4.92961 13.7168L6.12961 14.2128C6.31361 14.6128 6.91681 15.6224 6.99841 15.7504C7.04671 15.8268 7.11356 15.8898 7.19272 15.9334C7.27189 15.977 7.36081 15.9999 7.45121 16H8.55041C8.64231 16.0006 8.73279 15.9773 8.81299 15.9324C8.8932 15.8875 8.96039 15.8226 9.00801 15.744C9.11521 15.5744 9.70241 14.5904 9.87681 14.2064L11.0768 13.7104C11.4992 13.8704 12.632 14.1568 12.7792 14.1904C12.8673 14.2106 12.9591 14.2079 13.0459 14.1827C13.1327 14.1575 13.2116 14.1106 13.2752 14.0464L14.0528 13.2688C14.1168 13.205 14.1635 13.1261 14.1887 13.0393C14.2139 12.9526 14.2167 12.8609 14.1968 12.7728L14.1916 12.7525C14.13 12.512 13.8595 11.4551 13.7168 11.0704L14.2128 9.87039C14.6128 9.68639 15.6224 9.08319 15.7504 9.00159C15.8268 8.95329 15.8898 8.88645 15.9334 8.80728C15.977 8.72811 16 8.63919 16 8.5488V7.4496C15.9999 7.35866 15.9765 7.26927 15.9319 7.18998C15.8874 7.1107 15.8232 7.04418 15.7456 6.9968C15.576 6.8896 14.592 6.3024 14.208 6.128L13.712 4.928C13.872 4.5056 14.1584 3.3728 14.192 3.2256C14.2122 3.1375 14.2095 3.04571 14.1843 2.95892C14.1591 2.87213 14.1122 2.7932 14.048 2.7296L13.2704 1.9472C13.2066 1.88324 13.1277 1.83648 13.041 1.8113C12.9542 1.78612 12.8625 1.78333 12.7744 1.8032L12.7542 1.80837C12.5137 1.86992 11.4567 2.14048 11.072 2.2832L9.87201 1.7872C9.68801 1.3872 9.08481 0.3776 9.00321 0.2496C8.9549 0.173188 8.88806 0.110234 8.80889 0.0665935C8.72972 0.0229535 8.64081 4.52862e-05 8.55041 0H7.44961C7.35867 9.96616e-05 7.26928 0.0235439 7.19 0.0680877C7.11072 0.112631 7.0442 0.176783 6.99681 0.2544C6.88961 0.424 6.30241 1.408 6.12801 1.792L4.92801 2.288C4.50561 2.128 3.37281 1.8416 3.22561 1.808C3.13752 1.78782 3.04573 1.79046 2.95893 1.81566C2.87214 1.84086 2.79321 1.88778 2.72961 1.952L1.94721 2.7296C1.88325 2.79337 1.8365 2.87231 1.81132 2.95905C1.78613 3.04579 1.78335 3.13749 1.80321 3.2256C1.80472 3.23149 1.80645 3.23824 1.80839 3.2458C1.86994 3.48627 2.1405 4.54328 2.28321 4.928L1.78721 6.128ZM8 11.3333C9.84095 11.3333 11.3333 9.84095 11.3333 8C11.3333 6.15905 9.84095 4.66667 8 4.66667C6.15905 4.66667 4.66667 6.15905 4.66667 8C4.66667 9.84095 6.15905 11.3333 8 11.3333Z"
-                  fill="#8E8EA9"
-                />
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
               </svg>
-              settings
-            </Link>
+              <p className="pl-4">Logout</p>
+            </a>
           </li>
         </ul>
       </aside>

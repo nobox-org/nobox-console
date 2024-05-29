@@ -216,12 +216,12 @@ aside {
   width: 290px;
   background: #fff;
   a {
-    @apply flex gap-2 px-5 py-2 items-center hover:bg-[#ECF3FF] hover:text-secondary hover:font-medium cursor-pointer relative;
+    @apply flex px-5 py-1 items-center hover:text-secondary hover:font-medium cursor-pointer relative;
     &.active {
-      @apply bg-[#ECF3FF] text-secondary font-medium items-center;
-      border-right: 2px solid rgb(8, 98, 254);;
+      @apply text-secondary font-medium items-center;
+      border-right: 1px solid rgb(8, 98, 254);;
     }
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 

@@ -10,6 +10,7 @@ import HeaderCrumbSection from "../components/HeaderCrumbSection";
 import DataContextProvider from "../components/dataContext/DataContextAPI";
 import NoSSR from "../components/NoSSR";
 import { MainLoader } from "../components/MainLoader";
+import { Toaster } from "react-hot-toast";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -42,12 +43,6 @@ export default function DashboardLayout({
     )
   }
 
-  const handleLogout = () => {
-    localStorage.removeItem(storageConstants.NOBOX_CLIENT_TOKEN);
-    router.push(LINKS.internalPages.login.github);
-  }
-
-
   return (
     <NoSSR onSSR={<MainLoader />}>
       <DataContextProvider>
@@ -68,15 +63,15 @@ export default function DashboardLayout({
               <Sidebar />
             </div>
             <div className="md:w-[calc(100%-290px)] md:ml-[290px] ">
-              <div className="flex justify-between items-center px-[24px] h-[56px] border-b border-b-[#E6E8F9]">
+              <div className="flex justify-between items-center px-[24px] h-[46px] border-b border-b-[#E6E8F9]">
                 <div className="text-[20px] text-[#292D32]">
                   <HeaderCrumbSection />
                 </div>
-                <div className=" flex items-center text-[16px]">
-                  <button onClick={handleLogout}>
-                    Logout
-                  </button>
-                </div>
+                <Toaster toastOptions={{
+                  style: {
+                    fontSize: '14px',
+                  }
+                }} />
               </div>
               <div className="mx-10">{children}</div>
             </div>

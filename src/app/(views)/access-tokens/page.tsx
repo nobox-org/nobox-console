@@ -7,7 +7,7 @@ import useInfoSkip from "@/lib/hooks/useInfoSkip";
 
 export default function HomePage() {
   const { token } = useTokenHandler();
-  const { isSkipped, skip } = useInfoSkip();
+  const { isSkipped } = useInfoSkip();
 
 
   const handleButtonClick = () => {
@@ -20,7 +20,7 @@ export default function HomePage() {
     <>
       <ToastContainer toastClassName="custom-toast" />
       <div className={`${!isSkipped && "mt-[32px]"} bg-white p-5 mt-10 rounded-md`}>
-        <h6 className="font-[700] text-[#292D32]">Token</h6>
+        <h6 className="font-[500] text-[#292D32]">Token</h6>
         <div className="flex gap-4 py-2">
           <div className="w-[358px] px-[16px] bg-[#FFF] rounded-lg py-[9.5px] text-[#838389] border border-gray-200 ">
             <p className="whitespace-nowrap text-[14px] text-ellipsis overflow-hidden">
