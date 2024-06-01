@@ -23,7 +23,10 @@ const SignIn = () => {
                 : <></>
             }{
               Number(process.env.NEXT_PUBLIC_ALLOW_THIRD_PARTY_AUTH) === 1
-                ? <OAuthBtn link={LINKS.githubLogin} title="Login With Github" name="github" />
+                ? <>
+                  <OAuthBtn link={LINKS.githubLogin} title="Login With Github" name="github" />
+                  <OAuthBtn link={LINKS.googleLogin} title="Login With Google" name="google" />
+                </>
                 : <></>
             }
           </div>

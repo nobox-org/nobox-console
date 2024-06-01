@@ -115,11 +115,13 @@ export const AddUserModal = ({ projectId }: {
                         onChange={onEmailInputChange}
                     />
                     <div>
-                        <button onClick={addProjectUser}
+                        <button
+                            onClick={addProjectUser}
                             style={{ marginLeft: 10 }}
                             className={button()}
                             disabled={!emailIsValid}
-                        >Add User</button>
+                        >Add User
+                        </button>
                     </div>
                 </div>
             </div>

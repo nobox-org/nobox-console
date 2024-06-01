@@ -175,7 +175,8 @@ export const serverCalls: ServerCallsType<ServerCallsKeyType> = {
         verb: ServerCallVerbs.Post,
     },
     getGatewayProjectsUsers: {
-        path: "/gateway/*/projects/users/{projectId}",
+        path: ({ projectId }: { projectId: string }) =>
+            `/gateway/*/projects/users/${projectId}`,
         name: "getGatewayProjectsUsers",
         verb: ServerCallVerbs.Get,
     },

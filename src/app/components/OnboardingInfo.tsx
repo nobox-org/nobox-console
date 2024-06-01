@@ -1,4 +1,5 @@
 import { copyToClipboard } from "@/lib/copyToClipboard";
+import Link from "next/link";
 
 interface OnboardingInfoProps {
     handleSkip: (e: any) => void;
@@ -75,7 +76,7 @@ export const OnboardingInfo = ({ handleSkip, token }: OnboardingInfoProps) => {
                                         />
                                     </svg>
                                 </div>
-                                <div className="">
+                                <div>
                                     <h6 className="font-[700] text-[18px] tracking-[-0.01em] text-[#24242E]">
                                         Read the docs
                                     </h6>
@@ -84,9 +85,13 @@ export const OnboardingInfo = ({ handleSkip, token }: OnboardingInfoProps) => {
                                     </p>
                                 </div>
                             </div>
-                            <button className="border border-secondary text-secondary text-[14px] font-[500] px-[32px] py-[12px]">
+                            <Link
+                                href="https://docs.nobox.cloud"
+                                className="border border-secondary text-secondary text-[14px] font-[500] px-[32px] py-[12px]"
+                                target="_blank"
+                            >
                                 Read the docs
-                            </button>
+                            </Link>
                         </div>
                     </li>
                     <div className="border-b-[0.5px]  border-[#DFE5EC] w-full "></div>

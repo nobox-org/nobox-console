@@ -48,14 +48,16 @@ export default function OverviewSection({ title, section, loading, dataIsEmpty, 
                     setIsOpen={setOpenModal}
                     buttonText={'Copy Text'}
                 >
-                    <div style={{ width: "600px", padding: "10px", margin: "30px", overflowY: "scroll", height: "700px" }} >
-                        <CreateProject inputKeys={["description", "name", "slug"]} handleSubmit={
-                            async (data: CreateProjectInput) => {
-                                const project = await createProject(data);
-                                initiateReload();
-                                openModalIndicator.delayed({ value: false });
-                                return project;
-                            }} />
+                    <div style={{ width: "600px", padding: "10px", margin: "30px", overflow: "auto", height: "700px", scrollbarColor: "transparent transparent" }} >
+                        <div style={{ scrollbarColor: "transparent #ddd" }}>
+                            <CreateProject inputKeys={["description", "name", "slug"]} handleSubmit={
+                                async (data: CreateProjectInput) => {
+                                    const project = await createProject(data);
+                                    initiateReload();
+                                    openModalIndicator.delayed({ value: false });
+                                    return project;
+                                }} />
+                        </div>
                     </div>
                 </Modal>
             </>
