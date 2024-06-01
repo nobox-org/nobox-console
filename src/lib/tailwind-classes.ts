@@ -1,5 +1,5 @@
 export const button = () => {
-    return "bg-secondary text-white px-[24px] rounded-lg text-[14px] font-[500] active:bg-blue-300 hover:bg-blue-700 py-2 px-4 rounded transition duration-300 ease-in-out"
+    return "bg-secondary text-white px-[24px] rounded-lg text-[14px] font-[500]  hover:bg-blue-700 py-2 px-4 rounded transition duration-300 ease-in-out bg-blue-500 hover:bg-blue-700"
 }
 
 export const inputBox = () => {

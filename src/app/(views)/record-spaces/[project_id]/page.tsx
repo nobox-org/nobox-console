@@ -8,6 +8,7 @@ import { RecordSpaceCard } from "@/app/components/RecordSpaceCard";
 import { getRecordMap } from "@/lib/calls/get-record-map";
 import DataContext from "@/app/components/dataContext/DataContext";
 import { MainLoader } from "@/app/components/MainLoader";
+import Link from "next/link";
 
 export default function RecordSpaces({ params }: { params: { project_id: string } }) {
   const { loading: noboxDataLoading, sharedProjects, allProjects } = useContext(DataContext);
@@ -73,8 +74,7 @@ export default function RecordSpaces({ params }: { params: { project_id: string 
                 <div className="bg-[#ffffff] p-16">
                   <div className="text-center mx-10">
                     <p className="my-2">You have No RecordSpaces at the moment</p>
-                    <p className="my-2">Connect your Website or App to Nobox to see your recordSpaces</p>
-                    <p className="my-2">Follow docs <a href="https://docs.nobox.cloud/integrate-nobox" className="n_link" target="_blank">here</a></p>
+                    <Link href="https://docs.nobox.cloud/integrate-nobox" target="_blank" className="my-2 n_link">Integrate Your App/Website to Add recordSpaces</Link>
                   </div>
 
                   <div className="mt-[30px]">
