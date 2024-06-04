@@ -5,8 +5,8 @@ export default function NodeBoxIcon() {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            width={32}
-            height={32}
+            width={30}
+            height={30}
             fill="none"
         >
             <path

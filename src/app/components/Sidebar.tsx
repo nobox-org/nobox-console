@@ -3,6 +3,9 @@ import { FaTimes } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 
 import React from "react";
+import { storageConstants } from "@/lib/constants";
+import { LINKS } from "@/lib/links";
+import router from "next/router";
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -11,9 +14,14 @@ const Sidebar = () => {
     document.querySelector<HTMLElement>("#sidebar")?.classList.remove("open");
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem(storageConstants.NOBOX_CLIENT_TOKEN);
+    router.push(LINKS.internalPages.login.github);
+  }
+
   return (
     <div>
-      <aside className="flex flex-col justify-between gap-4 md:border-r border-[#E6E8F9]">
+      <aside className="flex flex-col h-screen justify-between gap-4 md:border-r border-[#E6E8F9]">
         <ul className=" text-[#496080] font-light">
           <a href="/">
             <div className="h-[56px] mb-[16px] w-full border-b border-[#E6E8F9]">
@@ -33,49 +41,91 @@ const Sidebar = () => {
                     d="M11.726 14.122h-.759L7.99 10.317v3.805h-.871V8.835h.759l2.97 3.797V8.835h.88v5.287Z"
                   />
                 </svg>
-                <h3 className="text-[#1C1B1B] text-[20px] font-[500]">Nobox</h3>
+                <h3 className="text-[#1C1B1B] text-[18px] font-[800]">Nobox</h3>
               </div>
             </div>
           </a>
-          <div
-            id="sidebar"
-            className="px-2 flex h-screen flex-col bg-[#fff] gap-y-2"
-          >
+          <div id="sidebar" className="flex flex-col bg-[#fff] gap-y-2">
             <div
               className="text-lg flex md:hidden justify-end text-primary cursor-pointer font-light my-4"
               onClick={closeSidebar}
             >
               <FaTimes />
             </div>
-            <Link
-              className={
-                pathname == "/"
-                  ? "bg-[#ECF3FF] text-secondary font-medium flex gap-2 px-2 py-4 items-center"
-                  : "flex gap-2 px-2 py-4 items-center hover:bg-[#ECF3FF] hover:text-secondary hover:font-medium"
-              }
-              href="/"
-            >
+            <Link className={pathname == "/" ? "active" : ""} href="/">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width={24}
-                height={24}
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
                 fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                className="lucide lucide-home "
               >
-                <path
-                  fill={pathname == "/" ? "#556DFF" : "#838389"}
-                  d="M21.5 10.9V4.1c0-1.5-.64-2.1-2.23-2.1h-4.04C13.64 2 13 2.6 13 4.1v6.8c0 1.5.64 2.1 2.23 2.1h4.04c1.59 0 2.23-.6 2.23-2.1ZM11 13.1v6.8c0 1.5-.64 2.1-2.23 2.1H4.73c-1.59 0-2.23-.6-2.23-2.1v-6.8c0-1.5.64-2.1 2.23-2.1h4.04c1.59 0 2.23.6 2.23 2.1Z"
-                />
-                <path
-                  fill={pathname == "/" ? "#556DFF" : "#838389"}
-                  d="M21.5 19.9v-2.8c0-1.5-.64-2.1-2.23-2.1h-4.04c-1.59 0-2.23.6-2.23 2.1v2.8c0 1.5.64 2.1 2.23 2.1h4.04c1.59 0 2.23-.6 2.23-2.1ZM11 6.9V4.1C11 2.6 10.36 2 8.77 2H4.73C3.14 2 2.5 2.6 2.5 4.1v2.8c0 1.5.64 2.1 2.23 2.1h4.04C10.36 9 11 8.4 11 6.9Z"
-                  opacity={0.4}
-                />
+                <path d="M9.43414 20.803V13.0557C9.43414 12.5034 9.88186 12.0557 10.4341 12.0557H14.7679C15.3202 12.0557 15.7679 12.5034 15.7679 13.0557V20.803M12.0181 3.48798L5.53031 7.9984C5.26145 8.18532 5.10114 8.49202 5.10114 8.81948L5.10117 18.803C5.10117 19.9075 5.9966 20.803 7.10117 20.803H18.1012C19.2057 20.803 20.1012 19.9075 20.1012 18.803L20.1011 8.88554C20.1011 8.55988 19.9426 8.25462 19.6761 8.06737L13.1639 3.49088C12.8204 3.24951 12.3627 3.24836 12.0181 3.48798Z"></path>
               </svg>
-              Overview
+              <p className="pl-5">Projects</p>
             </Link>
-            <a href="https://docs.nobox.cloud/install-nobox" target="_blank">
+            <div className="border-t mt-5 pt-5"></div>
+            <Link className={pathname === "/access-tokens" ? "active" : ""} href="/access-tokens">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                className="lucide lucide-auth "
+              >
+                <path d="M5.24121 15.0674H12.7412M5.24121 15.0674V18.0674H12.7412V15.0674M5.24121 15.0674V12.0674H12.7412V15.0674M15 7.60547V4.60547C15 2.94861 13.6569 1.60547 12 1.60547C10.3431 1.60547 9 2.94861 9 4.60547V7.60547M5.20898 9.60547L5.20898 19.1055C5.20898 20.21 6.10441 21.1055 7.20898 21.1055H16.709C17.8136 21.1055 18.709 20.21 18.709 19.1055V9.60547C18.709 8.5009 17.8136 7.60547 16.709 7.60547L7.20899 7.60547C6.10442 7.60547 5.20898 8.5009 5.20898 9.60547Z"></path>
+              </svg>
+              <p className="pl-5">Access Tokens</p>
+            </Link>
+            <div className="border-t mt-5 pt-5"></div>
+            <a className={pathname == "docs" ? "active" : ""} target="_blank" href="https://www.docs.nobox.cloud/">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                className="sbui-icon"
+              >
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+              <p className="pl-5">Guides</p>
+            </a>
+            <a className={pathname == "api-ref" ? "active" : ""} target="_blank" href="https://hackmd.io/iX7teLb4RL2cnOH5r2i0Ow">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                className="sbui-icon"
+              >
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+              <p className="pl-5">API Reference</p>
+            </a>
+
+            {/* <a href="https://docs.nobox.cloud/install-nobox" target="_blank">
               <div
-                className="flex gap-2 px-2 py-4 items-center hover:bg-[#ECF3FF] hover:text-secondary hover:font-medium cursor-pointer relative"
+                className=""
               >
                 <div className="flex w-full justify-between items-center relative">
                   <div className="flex space-x-2 flex-1">
@@ -98,8 +148,30 @@ const Sidebar = () => {
                   </div>
                 </div>
               </div>
-            </a>
+            </a> */}
           </div>
+        </ul>
+        <ul className="mb-5 w-full">
+          <li className="flex items-center w-full">
+            <a className="w-full" href={"/settings"} onClick={handleLogout}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                className="sbui-icon"
+              >
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+              <p className="pl-4">Logout</p>
+            </a>
+          </li>
         </ul>
       </aside>
     </div>

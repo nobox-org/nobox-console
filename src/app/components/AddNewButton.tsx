@@ -15,7 +15,7 @@ export default function AddNewButton({ onClickHandler, tooltip }: AddNewButtonPr
         <Link href={""}>
             <div
                 title={tooltip}
-                className="w-full relative md:w-[224px] bg-[#ddd] rounded-[2px] cursor-pointer hover:ring hover:ring-blue-500 hover:ring-opacity-50 hover:ring-offset-4 hover:rounded-lg py-4 px-4"
+                className="w-full relative md:w-[224px] bg-[#fff] rounded-[2px] cursor-pointer hover:ring hover:ring-blue-500 hover:ring-opacity-50 hover:ring-offset-4 hover:rounded-lg py-4 px-4"
                 onClick={onClickHandler}
             >
                 <div className="flex justify-center items-center h-40" >
