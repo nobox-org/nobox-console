@@ -70,7 +70,7 @@ const Sidebar = () => {
               <p className="pl-5">Projects</p>
             </Link>
             <div className="border-t mt-5 pt-5"></div>
-            <Link className={pathname == "access-tokens" ? "active" : ""} href="/access-tokens">
+            <Link className={pathname === "/access-tokens" ? "active" : ""} href="/access-tokens">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -88,7 +88,7 @@ const Sidebar = () => {
               <p className="pl-5">Access Tokens</p>
             </Link>
             <div className="border-t mt-5 pt-5"></div>
-            <Link className={pathname == "docs" ? "active" : ""} href="/">
+            <a className={pathname == "docs" ? "active" : ""} target="_blank" href="https://www.docs.nobox.cloud/">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="14"
@@ -104,8 +104,8 @@ const Sidebar = () => {
                 <polyline points="7 7 17 7 17 17"></polyline>
               </svg>
               <p className="pl-5">Guides</p>
-            </Link>
-            <Link className={pathname == "docs" ? "active" : ""} href="/">
+            </a>
+            <a className={pathname == "api-ref" ? "active" : ""} target="_blank" href="https://hackmd.io/iX7teLb4RL2cnOH5r2i0Ow">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="14"
@@ -121,7 +121,7 @@ const Sidebar = () => {
                 <polyline points="7 7 17 7 17 17"></polyline>
               </svg>
               <p className="pl-5">API Reference</p>
-            </Link>
+            </a>
 
             {/* <a href="https://docs.nobox.cloud/install-nobox" target="_blank">
               <div
