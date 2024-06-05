@@ -7,9 +7,11 @@ export default function AuthLayout({
 }) {
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className="p-8">
-        <h1 className="text-2xl font-bold mb-4 text-center">Welcome to Nobox</h1>
-        {children}
+      <div className="p-4 md:p-8">
+        <div className="max-w-sm mx-auto">
+          <h1 className="text-2xl font-bold mb-4 text-center">Welcome to Nobox</h1>
+          {children}
+        </div>
       </div>
     </div>
   )

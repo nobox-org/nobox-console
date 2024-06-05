@@ -153,7 +153,7 @@ const Sidebar = () => {
         </ul>
         <ul className="mb-5 w-full">
           <li className="flex items-center w-full">
-            <a className="w-full" href={"/settings"} onClick={handleLogout}>
+            <a className="w-full" onClick={handleLogout}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="14"
