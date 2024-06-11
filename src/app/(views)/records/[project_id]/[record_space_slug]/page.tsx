@@ -50,6 +50,7 @@ const Records = (
   useEffect(() => {
     if (!loading) {
       const { structure } = recordSpaceStructure as any;
+      
       const headings = Object.keys(structure).map((key) => {
         const eachStructure = structure[key];
         const { name, required } = eachStructure;
