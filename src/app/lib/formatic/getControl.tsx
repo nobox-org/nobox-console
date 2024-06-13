@@ -1,20 +1,46 @@
-'use client'
-import {Input} from '@/app/components/form/input';
+"use client";
+import Editor from "@/app/components/editor/Editor";
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/app/components/form/form";
+import { Input } from "@/app/components/form/input";
 
 type ControlType = {
-    name: string;
-    type: string;
-    required: boolean;
-    placeholder: string;
-    description: string;
-    default: string;
-}
+  label?: string;
+  name: string;
+  type: string;
+  required?: boolean;
+  placeholder?: string;
+  description?: string;
+  value?: string;
+};
 
-
-export const getControl: any = (props: ControlType) => {
-    const { type, name, required } = props;
-    const FormControls: any = {
-        "input": <Input type='text' title={name} required={required} />,
-    }; 
-    return FormControls[type];
-}
+export const getControl: any = (props: ControlType, formControl: any) => {
+  const { name, placeholder, label } = props;
+  
+  return (
+    <FormField
+      control={formControl}
+      name={name}
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>{label}</FormLabel>
+          <FormControl>
+            <>
+            {props.type === 'editor' &&  <Editor id={props.name} {...field} />}
+            {['text', 'email', 'number', 'checkout'].includes(props.type) && <Input
+              placeholder={placeholder ?? ''}
+              {...field}
+              className="bg-white border border-[#E0E0E0]"
+            />}</>
+          </FormControl>
+          <FormMessage className="text-xs" />
+        </FormItem>
+      )}
+    />
+  );
+};

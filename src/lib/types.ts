@@ -21,3 +21,14 @@ export enum FieldType {
     Boolean = "boolean",
     Array = "array"
 }
+export enum InputTypes {
+    NUMBER = 'number',
+    TEXT = 'text',
+    PASSWORD = 'password',
+    EMAIL = 'email',
+    RADIO = 'radio',
+    CHECKBOX = 'checkbox',
+    SELECT = 'select',
+    DATE = 'date',
+    EDITOR ='editor'
+}

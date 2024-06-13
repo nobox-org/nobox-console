@@ -4,18 +4,18 @@ import ImageIcon from './image';
 import EditorIcon from './editor';
 
 export enum AllowedContentType {
-    TEXT,
-    NUMBER,
-    IMAGE,
-    EDITOR,
-    RICHTEXT,
+    TEXT = 'text',
+    NUMBER = 'number',
+    IMAGE = 'image',
+    EDITOR = 'editor',
+    RICHTEXT = 'richtext',
 }
 export const ContentTypeIcon = (contentType: string) => {
     const icon: any  = {
-        TEXT: TextIcon,
-        NUMBER: NumberIcon,
-        IMAGE: ImageIcon,
-        EDITOR: EditorIcon,
+        text: TextIcon,
+        number: NumberIcon,
+        image: ImageIcon,
+        editor: EditorIcon, 
     };    
     return icon[contentType]();
 }

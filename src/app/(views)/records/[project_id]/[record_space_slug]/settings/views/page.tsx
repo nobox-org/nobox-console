@@ -8,13 +8,13 @@ export default function Dashboard() {
   const defaultViews = [
     {
       name: "Title",
-      type: "TEXT",
+      type: "text",
       required: true,
       placeHolder: "Enter a title",
     },
     {
       name: "Body",
-      type: "NUMBER",
+      type: "number",
       required: true,
       placeHolder: "Enter a number",
     },
@@ -24,7 +24,6 @@ export default function Dashboard() {
   const [defaultValues, setDefaultValues] = useState<any>(null);
   const toggleModal = () => setOpenModal(!openModal);
   const handleSubmit = (data: any) => {
-    console.log(data, "ANOTHER ONE");
     if (data.index || data?.index?.toString() === '0') {
         updateField(data)
     } else {
@@ -36,7 +35,7 @@ export default function Dashboard() {
     const tmp = views;
     tmp.push({
       name: data.name,
-      type: data.inputType.toUpperCase(),
+      type: data.inputType.toLowerCase(),
     });
     setViews(tmp);
     toggleModal();

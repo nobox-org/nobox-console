@@ -50,8 +50,6 @@ export default function AddNewField({
     data
   ) => {
     onSubmit(data);
-    console.log(data);
-
     setOpen();
     reset({
       name: "",
