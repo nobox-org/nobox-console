@@ -27,12 +27,13 @@ export const getControl: any = (props: ControlType, formControl: any) => {
       control={formControl}
       name={name}
       render={({ field }) => (
-        <FormItem>
+        <FormItem key={name}>
           <FormLabel>{label}</FormLabel>
           <FormControl>
             <>
             {props.type === 'editor' &&  <Editor id={props.name} {...field} />}
-            {['text', 'email', 'number', 'checkout'].includes(props.type) && <Input
+            {['text', 'email', 'number', 'checkbox'].includes(props.type) && <Input
+              type={props.type}
               placeholder={placeholder ?? ''}
               {...field}
               className="bg-white border border-[#E0E0E0]"

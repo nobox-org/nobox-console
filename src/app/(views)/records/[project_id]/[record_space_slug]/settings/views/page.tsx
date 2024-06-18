@@ -1,36 +1,35 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.scss";
 import { ContentTypeIcon } from "@/app/components/ContentType";
 import AddNewField from "./components/AddNewField";
+import { useAddRecordViewActions, useGetRecordView } from "../../new/hooks/useRecordView";
 
-export default function Dashboard() {
-  const defaultViews = [
-    {
-      name: "Title",
-      type: "text",
-      required: true,
-      placeHolder: "Enter a title",
-    },
-    {
-      name: "Body",
-      type: "number",
-      required: true,
-      placeHolder: "Enter a number",
-    },
-  ];
-  const [views, setViews] = useState<any[]>(defaultViews);
+interface OwnProps {
+  project_id: string;
+  record_space_slug: string;
+} 
+
+export default function ViewSettingsPage({ params }: { params: OwnProps}) {
+  const { project_id } = params;
+  const { data } = useGetRecordView(project_id, params.project_id);  
+
+  const { addRecordView } = useAddRecordViewActions(project_id);
+  const [views, setViews] = useState<any[]>(data?.data);  
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [defaultValues, setDefaultValues] = useState<any>(null);
+
   const toggleModal = () => setOpenModal(!openModal);
-  const handleSubmit = (data: any) => {
+  const handleSubmit = async (data: any) => {
     if (data.index || data?.index?.toString() === '0') {
         updateField(data)
     } else {
         addNewField(data);
     }
+    await addRecordView(views);
     setDefaultValues(null);
   };
+
   const addNewField = (data: any) => {
     const tmp = views;
     tmp.push({
@@ -40,6 +39,7 @@ export default function Dashboard() {
     setViews(tmp);
     toggleModal();
   }
+
   const updateField = (data: any) => {
     const { index , name, inputType } = data;
     const tmp = [...views];
@@ -60,6 +60,10 @@ export default function Dashboard() {
     });
     toggleModal()
   }
+
+  useEffect(() => {
+    setViews(data?.data);
+  }, [data])
   return (
     <main className="text-[#292D32] h-full p-[24px]">
       <div>
@@ -70,7 +74,7 @@ export default function Dashboard() {
               <div>Type</div>
             </div>
           </li>
-          {views.map((view: any, index: number) => (
+          {views && views.length > 0 && views.map((view: any, index: number) => (
             <li key={index}>
               <div className="flex flex-row items-center">
                 <div className="flex items-center">
