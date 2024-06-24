@@ -228,7 +228,21 @@ aside {
 .btn-primary {
   background-color: #556dff;
   color: #FAFAFA;
-  padding: 16px 32px;
+  &.small {
+    display: inline-flex;
+    align-items: center;
+    padding: 1px 32px;
+    border-radius: 4px;
+    font-size: 12px;
+    height: 27px;
+    background-color: #F0F0FF;
+    color: #4945FF;
+    border: 1px solid #D9D8FF;
+    &:hover {
+      background-color: #D9D8FF;
+      border: 1px solid #4945FF;
+    }
+  }
 }
 
 .form-group {

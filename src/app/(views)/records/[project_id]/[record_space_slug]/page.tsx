@@ -11,13 +11,14 @@ import createUIIndication from "@/lib/createUIIndication";
 import { MainLoader } from "@/app/components/MainLoader";
 import deleteRecords from "@/lib/calls/delete-record";
 import { RecordInputForm } from "@/app/components/RecordInputForm";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
 type ViewMode = "table" | "grid";
 
 const Records = (
   { params }: { params: { project_id: string, record_space_slug: string } }
 ) => {
-
   const [initiateFreshCall, setInitiateFreshCall] = useState(false);
   const [uniqueId, setUniqueId] = useState<string>("");
 
@@ -46,7 +47,8 @@ const Records = (
   });
 
   const { webhooks } = recordSpaceStructure as any;
-
+  const path = usePathname();
+  const router = useRouter();
   useEffect(() => {
     if (!loading) {
       const { structure } = recordSpaceStructure as any;
@@ -117,13 +119,16 @@ const Records = (
     ? (
       <>
         <div className="w-full sm:pr-[30px] sm:mx-auto bg-[#FAFAFA] overflow-x-auto h-full">
+          <div className="my-3">
+            <Link href={`${path}/new`} className="btn-primary small">New</Link>
+          </div>
           <RecordsDisplay viewMode={viewMode} headings={headings} records={records} handleDeleteRecord={handleDeleteRecord} />
           <div className="flex">
-            <div className="py-[12px] sm:px-6 lg:px-8">
+            {/* <div className="py-[12px] sm:px-6 lg:px-8">
               <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => {
                 setOpenModal(true)
               }}> Submit Record</button>
-            </div>
+            </div> */}
             <div className="py-[12px] sm:px-6 lg:px-8">
               {webhooks &&
                 <ul>
@@ -134,7 +139,7 @@ const Records = (
             </div>
           </div>
         </div>
-        <Modal
+        {/* <Modal
           isOpen={openModal}
           setIsOpen={setOpenModal}
           buttonText={'Copy Text'}
@@ -144,7 +149,8 @@ const Records = (
             handleSubmitRecords={handleSubmitRecords}
             params={params}
             submitted={submitted} />
-        </Modal></>)
+        </Modal> */}
+        </>)
     : <></>
 
 };
