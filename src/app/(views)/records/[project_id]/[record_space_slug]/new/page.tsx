@@ -95,7 +95,7 @@ export default function RecordInputPage({
   ]);
 
   return (
-    <div className="bg-red-200">
+    <div className="w-full lg:w-7/12">
       {headings && (
         <Formatic schema={headings} onSubmit={handleSubmitRecords} />
       )}

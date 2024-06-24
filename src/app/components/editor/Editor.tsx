@@ -14,7 +14,7 @@ export default function Editor({ value, onChange, id }: any) {
         holder: id,
         tools: EDITOR_TOOLS,
         data: value,
-        async onChange(api, event) {
+        async onChange(api, _event) {
           const data = await api.saver.save();
           onChange(data);
         },
@@ -29,5 +29,5 @@ export default function Editor({ value, onChange, id }: any) {
     };
   }, []);
 
-  return (<div id={id} className="w-9/12 max-w-full overflow-auto bg-white px-5 py-5 noboxeditor"> </div>);
+  return (<div id={id} className="w-full bg-white overflow-auto px-10 py-5 editorjs-container"> </div>);
 };

@@ -8,7 +8,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, title, ...props }, ref) => {
     return (
       <div className="form-group">
-        <label htmlFor="">{title}</label>
         <input type={type} className={cn("", className)} ref={ref} {...props} />
       </div>
     );

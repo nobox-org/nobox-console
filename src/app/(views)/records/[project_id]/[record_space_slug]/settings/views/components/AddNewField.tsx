@@ -10,10 +10,11 @@ type NewField = {
   setOpen: any;
   defaultValues?: {
     name: string;
-    inputType: "TEXT" | "NUMBER" | "IMAGE" | "EDITOR";
+    inputType: "text" | "number" | "image" | "editor";
     index: number;
   };
 };
+
 export default function AddNewField({
   onSubmit,
   open,
@@ -22,7 +23,7 @@ export default function AddNewField({
 }: NewField) {
   const NewFieldSchema = z.object({
     name: z.string(),
-    inputType: z.enum(["TEXT", "NUMBER", "IMAGE", "EDITOR"]),
+    inputType: z.enum(["text", "number", "image", "editor"]),
     index: z.number().optional(),
   });
 
@@ -72,12 +73,12 @@ export default function AddNewField({
             <label htmlFor="">Field type</label>
             <select {...register("inputType")}>
               <option value=""></option>
-              <option value="TEXT">Text</option>
-              <option value="NUMBER">Number</option>
-              <option value="IMAGE">Image</option>
-              <option value="EDITOR">Rich text</option>
-              <option value="JSON">Json</option>
-              <option value="CODE">Code</option>
+              <option value="text">Text</option>
+              <option value="number">Number</option>
+              <option value="image">Image</option>
+              <option value="editor">Rich text</option>
+              <option value="json">Json</option>
+              <option value="code">Code</option>
             </select>
             {errors.inputType && (
               <small className="text-danger">Input type is required</small>

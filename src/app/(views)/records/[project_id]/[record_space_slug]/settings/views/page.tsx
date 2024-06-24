@@ -3,67 +3,142 @@ import React, { useState, useEffect } from "react";
 import "./style.scss";
 import { ContentTypeIcon } from "@/app/components/ContentType";
 import AddNewField from "./components/AddNewField";
-import { useAddRecordViewActions, useGetRecordView } from "../../new/hooks/useRecordView";
+import {
+  useAddRecordViewActions,
+  useGetRecordView,
+} from "../../new/hooks/useRecordView";
+import { getProjectData, useGetBulkData } from "@/lib/hooks/useBulkData";
+import { useRouter } from "next/navigation";
+import useRecordsCall from "@/lib/hooks/useRecordsCall";
+import toast from "react-hot-toast";
 
 interface OwnProps {
   project_id: string;
   record_space_slug: string;
-} 
+}
 
-export default function ViewSettingsPage({ params }: { params: OwnProps}) {
+export default function ViewSettingsPage({ params }: { params: OwnProps }) {
+  const [projectDetails, setProjectDetails] = useState<any>();
+  const [recordSpace, setRecordSpace] = useState<any>();
+  const { data } = useGetBulkData();
   const { project_id } = params;
-  const { data } = useGetRecordView(project_id, params.project_id);  
-
-  const { addRecordView } = useAddRecordViewActions(project_id);
-  const [views, setViews] = useState<any[]>(data?.data);  
+  const { addRecordView } = useAddRecordViewActions(
+    project_id,
+    recordSpace?._id
+  );
+  const [views, setViews] = useState<any>();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [defaultValues, setDefaultValues] = useState<any>(null);
 
+  const {
+    data: records,
+    loading,
+    recordSpaceStructure,
+  } = useRecordsCall({
+    projectId: params.project_id,
+    recordSpaceSlug: params.record_space_slug,
+    initiateFreshCall: true,
+    uniqueId: "",
+  });
+
   const toggleModal = () => setOpenModal(!openModal);
   const handleSubmit = async (data: any) => {
-    if (data.index || data?.index?.toString() === '0') {
-        updateField(data)
+    if (data.index || data?.index?.toString() === "0") {
+      updateField(data);
     } else {
-        addNewField(data);
+      addNewField(data);
     }
-    await addRecordView(views);
+    toast.success('Saved');
+    await addRecordView({ viewData: views.data, viewId: views._id });
     setDefaultValues(null);
   };
 
   const addNewField = (data: any) => {
-    const tmp = views;
+    const tmp = views?.data;
     tmp.push({
       name: data.name,
       type: data.inputType.toLowerCase(),
     });
-    setViews(tmp);
+    setViews({ ...views, data: tmp });
     toggleModal();
-  }
+  };
 
   const updateField = (data: any) => {
-    const { index , name, inputType } = data;
-    const tmp = [...views];
-    tmp[index].name = name;
-    tmp[index].type = inputType;
+    const { index, name, inputType } = data;
+    const tmp = {...views};
+    tmp.data[index].name = name;
+    tmp.data[index].type = inputType;
     setViews(tmp);
-  }
+  };
   const removeField = (index: number) => {
-    const tmp = [...views];
-    tmp.splice(index, 1);
+    const tmp = {...views};
+    tmp.data.splice(index, 1);
     setViews(tmp);
   };
 
   const openModalForEdit = (data: any) => {
     const { name, inputType, index } = data;
     setDefaultValues({
-        name, inputType, index
+      name,
+      inputType,
+      index,
     });
-    toggleModal()
-  }
+    toggleModal();
+  };
 
   useEffect(() => {
-    setViews(data?.data);
-  }, [data])
+    if (!loading && data) {
+      const { project, recordSpace } = getProjectData(
+        data.getProjects,
+        params.project_id,
+        params.record_space_slug
+      );
+      if (project) {
+        setProjectDetails(project);
+        setRecordSpace(recordSpace);
+      }
+      const { structure } = recordSpaceStructure as any;
+      if (recordSpace.views && recordSpace.views.length) {
+        const thisView = recordSpace.views[0];
+        console.log(thisView);
+
+        setViews(thisView);
+      } else {
+        const headings = Object.keys(structure).map((key) => {
+          const eachStructure = structure[key];
+          const { name, required } = eachStructure;
+          const structureType = eachStructure.type.name;
+
+          const type =
+            structureType === "String"
+              ? "text"
+              : structureType === "Boolean"
+              ? "checkbox"
+              : structureType === "Array"
+              ? "array"
+              : structureType === "Object"
+              ? "editor"
+              : "number";
+          return {
+            name,
+            type,
+            required,
+            label: name,
+          };
+        });
+        const newViews = addRecordView({ viewData: headings });
+        setViews(newViews);
+      }
+    }
+  }, [
+    records,
+    loading,
+    recordSpaceStructure,
+    data,
+    params.project_id,
+    params.record_space_slug,
+    addRecordView,
+  ]);
   return (
     <main className="text-[#292D32] h-full p-[24px]">
       <div>
@@ -74,86 +149,96 @@ export default function ViewSettingsPage({ params }: { params: OwnProps}) {
               <div>Type</div>
             </div>
           </li>
-          {views && views.length > 0 && views.map((view: any, index: number) => (
-            <li key={index}>
-              <div className="flex flex-row items-center">
-                <div className="flex items-center">
-                  <span className=" w-14">{ContentTypeIcon(view.type)}</span>
-                  {view.name}
+          {views &&
+            views?.data &&
+            views?.data.length > 0 &&
+            views?.data.map((view: any, index: number) => (
+              <li key={index}>
+                <div className="flex flex-row items-center">
+                  <div className="flex items-center">
+                    <span className=" w-14">{ContentTypeIcon(view.type)}</span>
+                    {view.name}
+                  </div>
+                  <div className="lowercase">{view.type}</div>
                 </div>
-                <div className="lowercase">{view.type}</div>
-              </div>
-              <div className="flex self-end">
-                <button onClick={() => openModalForEdit({
-                    name: view.name,
-                    inputType: view.type,
-                    index,
-                })}>
-                  <svg
-                    width="33"
-                    height="32"
-                    viewBox="0 0 33 32"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+                <div className="flex self-end">
+                  <button
+                    onClick={() =>
+                      openModalForEdit({
+                        name: view.name,
+                        inputType: view.type,
+                        index,
+                      })
+                    }
                   >
-                    <rect
-                      x="1.125"
-                      y="0.5"
-                      width="31"
-                      height="31"
-                      rx="3.5"
-                      fill="white"
-                    />
-                    <rect
-                      x="1.125"
-                      y="0.5"
-                      width="31"
-                      height="31"
-                      rx="3.5"
-                      stroke="white"
-                    />
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M22.4271 11.757C22.691 12.0209 22.691 12.4367 22.4271 12.7005L21.1158 14.0038L18.6212 11.5092L19.9245 10.1979C20.1883 9.93404 20.6041 9.93404 20.868 10.1979L22.4271 11.757ZM10.625 22V19.5054L17.7251 12.4052L20.2198 14.8999L13.1196 22H10.625Z"
-                      fill="#8E8EA9"
-                    />
-                  </svg>
-                </button>
-                <button onClick={() => removeField(index)}>
-                  <svg
-                    width="33"
-                    height="32"
-                    viewBox="0 0 33 32"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect
-                      x="1.33594"
-                      y="0.5"
-                      width="31"
-                      height="31"
-                      rx="3.5"
-                      fill="white"
-                    />
-                    <rect
-                      x="1.33594"
-                      y="0.5"
-                      width="31"
-                      height="31"
-                      rx="3.5"
-                      stroke="white"
-                    />
-                    <path
-                      d="M12.5724 13.0744C12.4487 13.0744 12.3546 13.1855 12.3751 13.3075L13.8359 22H19.8359L21.2968 13.3075C21.3173 13.1855 21.2232 13.0744 21.0995 13.0744H12.5724ZM21.6359 10.9917C21.7464 10.9917 21.8359 11.0813 21.8359 11.1917V11.7835C21.8359 11.8939 21.7464 11.9835 21.6359 11.9835H12.0359C11.9255 11.9835 11.8359 11.8939 11.8359 11.7835V11.1917C11.8359 11.0813 11.9255 10.9917 12.0359 10.9917H14.6914C15.1414 10.9917 15.5069 10.4468 15.5069 10H18.1649C18.1649 10.4468 18.5299 10.9917 18.9804 10.9917H21.6359Z"
-                      fill="#8E8EA9"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </li>
-          ))}
-          <li
+                    <svg
+                      width="33"
+                      height="32"
+                      viewBox="0 0 33 32"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <rect
+                        x="1.125"
+                        y="0.5"
+                        width="31"
+                        height="31"
+                        rx="3.5"
+                        fill="white"
+                      />
+                      <rect
+                        x="1.125"
+                        y="0.5"
+                        width="31"
+                        height="31"
+                        rx="3.5"
+                        stroke="white"
+                      />
+                      <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M22.4271 11.757C22.691 12.0209 22.691 12.4367 22.4271 12.7005L21.1158 14.0038L18.6212 11.5092L19.9245 10.1979C20.1883 9.93404 20.6041 9.93404 20.868 10.1979L22.4271 11.757ZM10.625 22V19.5054L17.7251 12.4052L20.2198 14.8999L13.1196 22H10.625Z"
+                        fill="#8E8EA9"
+                      />
+                    </svg>
+                  </button>
+                  <button onClick={() => removeField(index)}>
+                    <svg
+                      width="33"
+                      height="32"
+                      viewBox="0 0 33 32"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <rect
+                        x="1.33594"
+                        y="0.5"
+                        width="31"
+                        height="31"
+                        rx="3.5"
+                        fill="white"
+                      />
+                      <rect
+                        x="1.33594"
+                        y="0.5"
+                        width="31"
+                        height="31"
+                        rx="3.5"
+                        stroke="white"
+                      />
+                      <path
+                        d="M12.5724 13.0744C12.4487 13.0744 12.3546 13.1855 12.3751 13.3075L13.8359 22H19.8359L21.2968 13.3075C21.3173 13.1855 21.2232 13.0744 21.0995 13.0744H12.5724ZM21.6359 10.9917C21.7464 10.9917 21.8359 11.0813 21.8359 11.1917V11.7835C21.8359 11.8939 21.7464 11.9835 21.6359 11.9835H12.0359C11.9255 11.9835 11.8359 11.8939 11.8359 11.7835V11.1917C11.8359 11.0813 11.9255 10.9917 12.0359 10.9917H14.6914C15.1414 10.9917 15.5069 10.4468 15.5069 10H18.1649C18.1649 10.4468 18.5299 10.9917 18.9804 10.9917H21.6359Z"
+                        fill="#8E8EA9"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </li>
+            ))}
+            {/* ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+            Upcoming feature, Update record space structure from the View settings 
+            :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/}
+          {false && <li
             onClick={toggleModal}
             className="flex items-center bg-[#F0F0FF] rounded-bl-md rounded-br-md cursor-pointer"
           >
@@ -173,7 +258,7 @@ export default function ViewSettingsPage({ params }: { params: OwnProps}) {
               </svg>
               <p className="pl-3">Add another field</p>
             </div>
-          </li>
+          </li>}
         </ul>
       </div>
       <AddNewField
