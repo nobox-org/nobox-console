@@ -3,7 +3,7 @@ export interface FindProjectArgs {
     projectId: string;
 }
 
-export type CompatibleStructureFieldType = "TEXT" | "NUMBER" | "BOOLEAN" | "ARRAY";
+export type CompatibleStructureFieldType = "TEXT" | "NUMBER" | "BOOLEAN" | "ARRAY" | "OBJECT";
 
 export enum PageTypes {
     recordSpacesList = "record-spaces-list",

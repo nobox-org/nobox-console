@@ -14,6 +14,8 @@ const convertStringTypeToConstructor = (type: CompatibleStructureFieldType) => {
             return Boolean;
         case "ARRAY":
             return Array;
+        case "OBJECT":
+            return Object;
         default:
             return String;
     }
@@ -53,31 +55,32 @@ export const createRecordSpaceStructure = (args: {
     const { fieldDetails, recordSpace } = args;
 
     const recordSpaceStructure: Space<any> = {
-        space: recordSpace.slug,
-        description: recordSpace.description,
+        space: recordSpace?.slug,
+        description: recordSpace?.description,
         structure: {},
-        webhooks: recordSpace.webhooks
+        webhooks: recordSpace?.webhooks
     };
-
-    for (const field of fieldDetails) {
-        const { name, description, type, unique, required, comment, hashed, defaultValue } = field;
-        const unitStructure = _.omitBy(
-            {
-                required,
-                unique,
-                description,
-                comment,
-                hashed,
-                type: convertStringTypeToConstructor(type),
-                name,
-                defaultValue
-            },
-            _.isNil
-        );
-
-        if (name) {
-            (recordSpaceStructure.structure as any)[name] = unitStructure;
-        }
+    if (fieldDetails && fieldDetails.length) {
+        for (const field of fieldDetails) {
+            const { name, description, type, unique, required, comment, hashed, defaultValue } = field;
+            const unitStructure = _.omitBy(
+                {
+                    required,
+                    unique,
+                    description,
+                    comment,
+                    hashed,
+                    type: convertStringTypeToConstructor(type),
+                    name,
+                    defaultValue
+                },
+                _.isNil
+            );
+    
+            if (name) {
+                (recordSpaceStructure.structure as any)[name] = unitStructure;
+            }
+        } 
     }
 
     return recordSpaceStructure;

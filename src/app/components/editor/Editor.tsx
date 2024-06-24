@@ -29,5 +29,5 @@ export default function Editor({ value, onChange, id }: any) {
     };
   }, []);
 
-  return (<div id={id} className="prose max-w-full overflow-auto bg-white px-5 py-5 noboxeditor"> </div>);
+  return (<div id={id} className="w-9/12 max-w-full overflow-auto bg-white px-5 py-5 noboxeditor"> </div>);
 };

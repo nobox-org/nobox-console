@@ -24,6 +24,7 @@ export const getControl: any = (props: ControlType, formControl: any) => {
   
   return (
     <FormField
+      key={name}
       control={formControl}
       name={name}
       render={({ field }) => (
@@ -36,7 +37,7 @@ export const getControl: any = (props: ControlType, formControl: any) => {
               type={props.type}
               placeholder={placeholder ?? ''}
               {...field}
-              className="bg-white border border-[#E0E0E0]"
+              className=""
             />}</>
           </FormControl>
           <FormMessage className="text-xs" />

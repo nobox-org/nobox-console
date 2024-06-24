@@ -23,7 +23,6 @@ const useRecordsCall = ({
 
     useEffect(() => {
         if (!noboxDataIsLoading || initiateFreshCall) {
-            console.log({ d: initiateFreshCall })
             getRecords({
                 allProjects,
                 projectId,
@@ -31,8 +30,6 @@ const useRecordsCall = ({
                 freshCall: initiateFreshCall
             }).then((data) => {
                 const { records, recordSpaceStructure: computedRecordSpaceStructure } = data
-
-                console.log({ records })
 
                 if (records) {
                     setData(records);

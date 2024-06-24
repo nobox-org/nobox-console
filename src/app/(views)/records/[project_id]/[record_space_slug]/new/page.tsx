@@ -1,9 +1,11 @@
 "use client";
 import { Formatic } from "@/app/lib/formatic";
 import submitRecords from "@/lib/calls/submit-records";
-import {getProjectData, useGetBulkData} from "@/lib/hooks/useBulkData";
+import { getProjectData, useGetBulkData } from "@/lib/hooks/useBulkData";
 import useRecordsCall from "@/lib/hooks/useRecordsCall";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function RecordInputPage({
   params,
@@ -13,52 +15,66 @@ export default function RecordInputPage({
   const [headings, setHeadings] = useState<any>();
   const [projectDetails, setProjectDetails] = useState<any>();
   const [recordSpace, setRecordSpace] = useState<any>();
-
+  const router = useRouter();
   const { data } = useGetBulkData();
-
-  const { data: records, loading, recordSpaceStructure } = useRecordsCall({
+  const {
+    data: records,
+    loading,
+    recordSpaceStructure,
+  } = useRecordsCall({
     projectId: params.project_id,
     recordSpaceSlug: params.record_space_slug,
     initiateFreshCall: true,
-    uniqueId: ''
-  });  
+    uniqueId: "",
+  });
 
   async function handleSubmitRecords(values: any) {
     try {
-      const responseRecord = await submitRecords({
+      const savedData = await submitRecords({
         recordSpaceSlug: params.record_space_slug,
         allProjects: data.getProjects,
         projectId: params.project_id,
         record: values,
-      })
-      console.log(responseRecord);
+      });
+      toast.success('Saved');
+      router.push(`/records/${params.project_id}/${params.record_space_slug}`); 
     } catch (error) {
-      console.log({ error })
-    }  }
+      toast.error('An error ocurred.');
+      console.log({ error });
+    }
+  }
 
   useEffect(() => {
     if (!loading && data) {
-      const { project, recordSpace } = getProjectData(data.getProjects, params.project_id, params.record_space_slug);
+      const { project, recordSpace } = getProjectData(
+        data.getProjects,
+        params.project_id,
+        params.record_space_slug
+      );
       if (project) {
         setProjectDetails(project);
         setRecordSpace(recordSpace);
       }
       const { structure } = recordSpaceStructure as any;
       if (recordSpace.views && recordSpace.views.length) {
-        const thisView = recordSpace.views[0].data;        
+        const thisView = recordSpace.views[0].data;
         setHeadings(thisView);
       } else {
         const headings = Object.keys(structure).map((key) => {
           const eachStructure = structure[key];
           const { name, required } = eachStructure;
           const structureType = eachStructure.type.name;
-          const type = structureType === "String"
-            ? 'text'
-            : structureType === "Boolean"
-              ? 'checkbox'
+
+          const type =
+            structureType === "String"
+              ? "text"
+              : structureType === "Boolean"
+              ? "checkbox"
               : structureType === "Array"
-                ? 'array'
-                : 'number'
+              ? "array"
+              : structureType === "Object"
+              ? "editor"
+              : "number";
           return {
             name,
             type,
@@ -69,11 +85,20 @@ export default function RecordInputPage({
         setHeadings(headings);
       }
     }
-  }, [records, loading, recordSpaceStructure, data, params.project_id, params.record_space_slug])
+  }, [
+    records,
+    loading,
+    recordSpaceStructure,
+    data,
+    params.project_id,
+    params.record_space_slug,
+  ]);
 
   return (
-    <div className="space-y-4">
-      {headings && <Formatic schema={headings} onSubmit={handleSubmitRecords} />}
+    <div className="bg-red-200">
+      {headings && (
+        <Formatic schema={headings} onSubmit={handleSubmitRecords} />
+      )}
     </div>
   );
 }
