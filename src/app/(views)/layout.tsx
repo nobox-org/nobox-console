@@ -66,7 +66,6 @@ export default function DashboardLayout({
               <div className="flex justify-between items-center px-[24px] h-[46px] border-b border-b-[#E6E8F9]">
                 <div className="flex w-full flex-nowrap items-center justify-between text-[20px] text-[#292D32]">
                   <HeaderCrumbSection />
-                  <button>New</button>
                 </div>
                 <Toaster toastOptions={{
                   style: {
