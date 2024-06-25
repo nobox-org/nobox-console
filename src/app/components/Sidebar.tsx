@@ -1,3 +1,4 @@
+'use client';
 import Link from "next/link";
 import { FaTimes } from "react-icons/fa";
 import { usePathname } from "next/navigation";
@@ -5,10 +6,11 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import { storageConstants } from "@/lib/constants";
 import { LINKS } from "@/lib/links";
-import router from "next/router";
+import { useRouter } from "next/navigation";
 
 const Sidebar = () => {
   const pathname = usePathname();
+  const router = useRouter();
 
   const closeSidebar = () => {
     document.querySelector<HTMLElement>("#sidebar")?.classList.remove("open");
