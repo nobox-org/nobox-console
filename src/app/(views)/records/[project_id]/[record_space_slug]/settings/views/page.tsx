@@ -1,16 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import "./style.scss";
-import { ContentTypeIcon } from "@/app/components/ContentType";
 import AddNewField from "./components/AddNewField";
-import {
-  useAddRecordViewActions,
-  useGetRecordView,
-} from "../../new/hooks/useRecordView";
-import { getProjectData, useGetBulkData } from "@/lib/hooks/useBulkData";
-import { useRouter } from "next/navigation";
-import useRecordsCall from "@/lib/hooks/useRecordsCall";
+import { useAddRecordViewActions } from "../../new/hooks/useRecordView";
+import { useGetBulkData } from "@/lib/hooks/useBulkData";
 import toast from "react-hot-toast";
+import { ContentTypeIcon } from "@/app/components/ContentType";
+import "./style.scss";
 
 interface OwnProps {
   project_id: string;
@@ -18,28 +13,12 @@ interface OwnProps {
 }
 
 export default function ViewSettingsPage({ params }: { params: OwnProps }) {
-  const [projectDetails, setProjectDetails] = useState<any>();
-  const [recordSpace, setRecordSpace] = useState<any>();
-  const { data } = useGetBulkData();
-  const { project_id } = params;
-  const { addRecordView } = useAddRecordViewActions(
-    project_id,
-    recordSpace?._id
-  );
+  const { data, isLoading } = useGetBulkData(params.project_id, params.record_space_slug);
+  const { addRecordView } = useAddRecordViewActions();
+  
   const [views, setViews] = useState<any>();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [defaultValues, setDefaultValues] = useState<any>(null);
-
-  const {
-    data: records,
-    loading,
-    recordSpaceStructure,
-  } = useRecordsCall({
-    projectId: params.project_id,
-    recordSpaceSlug: params.record_space_slug,
-    initiateFreshCall: true,
-    uniqueId: "",
-  });
 
   const toggleModal = () => setOpenModal(!openModal);
   const handleSubmit = async (data: any) => {
@@ -48,8 +27,13 @@ export default function ViewSettingsPage({ params }: { params: OwnProps }) {
     } else {
       addNewField(data);
     }
-    toast.success('Saved');
-    await addRecordView({ viewData: views.data, viewId: views._id });
+    toast.success("Saved");
+    await addRecordView({
+      viewData: views.data,
+      viewId: views._id,
+      projectId: params.project_id,
+      recordSpaceId: data.recordSpace._id,
+    });
     setDefaultValues(null);
   };
 
@@ -65,13 +49,14 @@ export default function ViewSettingsPage({ params }: { params: OwnProps }) {
 
   const updateField = (data: any) => {
     const { index, name, inputType } = data;
-    const tmp = {...views};
+    const tmp = { ...views };
     tmp.data[index].name = name;
     tmp.data[index].type = inputType;
     setViews(tmp);
   };
+
   const removeField = (index: number) => {
-    const tmp = {...views};
+    const tmp = { ...views };
     tmp.data.splice(index, 1);
     setViews(tmp);
   };
@@ -87,58 +72,19 @@ export default function ViewSettingsPage({ params }: { params: OwnProps }) {
   };
 
   useEffect(() => {
-    if (!loading && data) {
-      const { project, recordSpace } = getProjectData(
-        data.getProjects,
-        params.project_id,
-        params.record_space_slug
-      );
-      if (project) {
-        setProjectDetails(project);
-        setRecordSpace(recordSpace);
-      }
-      const { structure } = recordSpaceStructure as any;
-      if (recordSpace.views && recordSpace.views.length) {
-        const thisView = recordSpace.views[0];
-        console.log(thisView);
-
-        setViews(thisView);
-      } else {
-        const headings = Object.keys(structure).map((key) => {
-          const eachStructure = structure[key];
-          const { name, required } = eachStructure;
-          const structureType = eachStructure.type.name;
-
-          const type =
-            structureType === "String"
-              ? "text"
-              : structureType === "Boolean"
-              ? "checkbox"
-              : structureType === "Array"
-              ? "array"
-              : structureType === "Object"
-              ? "editor"
-              : "number";
-          return {
-            name,
-            type,
-            required,
-            label: name,
-          };
+    if (!isLoading && data) {
+      if (data.thisView) {
+        setViews(data.thisView)
+      } else {        
+        addRecordView({
+          viewData: data?.recordSpace?.headings,
+          projectId: data?.project?._id,
+          recordSpaceId: data?.recordSpace?._id
         });
-        const newViews = addRecordView({ viewData: headings });
-        setViews(newViews);
       }
     }
-  }, [
-    records,
-    loading,
-    recordSpaceStructure,
-    data,
-    params.project_id,
-    params.record_space_slug,
-    addRecordView,
-  ]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, isLoading]);
   return (
     <main className="text-[#292D32] h-full p-[24px]">
       <div>
@@ -235,30 +181,32 @@ export default function ViewSettingsPage({ params }: { params: OwnProps }) {
                 </div>
               </li>
             ))}
-            {/* ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+          {/* ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             Upcoming feature, Update record space structure from the View settings 
             :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/}
-          {false && <li
-            onClick={toggleModal}
-            className="flex items-center bg-[#F0F0FF] rounded-bl-md rounded-br-md cursor-pointer"
-          >
-            <div className="flex items-center">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle cx="12" cy="12" r="12" fill="#D9D8FF" />
-                <path
-                  d="M17 12.5685C17 12.6928 16.8993 12.7935 16.775 12.7935H12.7935V16.775C12.7935 16.8993 12.6928 17 12.5685 17H11.4315C11.3072 17 11.2065 16.8993 11.2065 16.775V12.7935H7.225C7.10074 12.7935 7 12.6928 7 12.5685V11.4315C7 11.3072 7.10074 11.2065 7.225 11.2065H11.2065V7.225C11.2065 7.10074 11.3072 7 11.4315 7H12.5685C12.6928 7 12.7935 7.10074 12.7935 7.225V11.2065H16.775C16.8993 11.2065 17 11.3072 17 11.4315V12.5685Z"
-                  fill="#4945FF"
-                />
-              </svg>
-              <p className="pl-3">Add another field</p>
-            </div>
-          </li>}
+          {false && (
+            <li
+              onClick={toggleModal}
+              className="flex items-center bg-[#F0F0FF] rounded-bl-md rounded-br-md cursor-pointer"
+            >
+              <div className="flex items-center">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle cx="12" cy="12" r="12" fill="#D9D8FF" />
+                  <path
+                    d="M17 12.5685C17 12.6928 16.8993 12.7935 16.775 12.7935H12.7935V16.775C12.7935 16.8993 12.6928 17 12.5685 17H11.4315C11.3072 17 11.2065 16.8993 11.2065 16.775V12.7935H7.225C7.10074 12.7935 7 12.6928 7 12.5685V11.4315C7 11.3072 7.10074 11.2065 7.225 11.2065H11.2065V7.225C11.2065 7.10074 11.3072 7 11.4315 7H12.5685C12.6928 7 12.7935 7.10074 12.7935 7.225V11.2065H16.775C16.8993 11.2065 17 11.3072 17 11.4315V12.5685Z"
+                    fill="#4945FF"
+                  />
+                </svg>
+                <p className="pl-3">Add another field</p>
+              </div>
+            </li>
+          )}
         </ul>
       </div>
       <AddNewField

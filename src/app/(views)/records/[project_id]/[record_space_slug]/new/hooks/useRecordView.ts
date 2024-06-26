@@ -16,20 +16,24 @@ export const useGetRecordView = (projectId: string, recordSpaceId: string) => {
     return { data, isLoading };
 }
 
-export const useAddRecordViewActions = (projectId: string, recordSpaceId: string) => {
+export const useAddRecordViewActions = () => {
     const client = useQueryClient();
     interface AddViewInterface {
         viewData: any;
         viewId?: string;
+        projectId: string;
+        recordSpaceId: string;
     }
     const addRecordView = useMutation<AxiosResponse, any, AddViewInterface>(
         {
-            mutationFn: data => {
-                const { viewData, viewId } = data;
+            mutationFn: async data => {
+                const { viewData, viewId, projectId, recordSpaceId } = data;
                 const url = viewId
                     ? `${LINKS.noboxAPIRootUrl}/gateway/*/views/${viewId}`
                     :`${LINKS.noboxAPIRootUrl}/gateway/*/views/${projectId}/${recordSpaceId}`;
-                return axios.post(url, { data: viewData }, {
+                console.log("RECORD SPACE ID", "ANOTHER BANGA", recordSpaceId);
+                
+                return await axios.post(url, { data: viewData }, {
                     headers: {
                         Authorization: `Bearezr ${localStorage.getItem(storageConstants.NOBOX_TOKEN)}`,
                     }

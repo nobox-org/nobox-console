@@ -16,7 +16,7 @@ export default function RecordInputPage({
   const [projectDetails, setProjectDetails] = useState<any>();
   const [recordSpace, setRecordSpace] = useState<any>();
   const router = useRouter();
-  const { data } = useGetBulkData();
+  const { data } = useGetBulkData(params.project_id, params.record_space_slug);
   const {
     data: records,
     loading,
@@ -30,7 +30,7 @@ export default function RecordInputPage({
 
   async function handleSubmitRecords(values: any) {
     try {
-      const savedData = await submitRecords({
+      await submitRecords({
         recordSpaceSlug: params.record_space_slug,
         allProjects: data.getProjects,
         projectId: params.project_id,
