@@ -30,9 +30,7 @@ export const useAddRecordViewActions = () => {
                 const { viewData, viewId, projectId, recordSpaceId } = data;
                 const url = viewId
                     ? `${LINKS.noboxAPIRootUrl}/gateway/*/views/${viewId}`
-                    :`${LINKS.noboxAPIRootUrl}/gateway/*/views/${projectId}/${recordSpaceId}`;
-                console.log("RECORD SPACE ID", "ANOTHER BANGA", recordSpaceId);
-                
+                    :`${LINKS.noboxAPIRootUrl}/gateway/*/views/${projectId}/${recordSpaceId}`;                
                 return await axios.post(url, { data: viewData }, {
                     headers: {
                         Authorization: `Bearezr ${localStorage.getItem(storageConstants.NOBOX_TOKEN)}`,

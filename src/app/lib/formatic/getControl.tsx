@@ -1,5 +1,8 @@
 "use client";
 import Editor from "@/app/components/editor/Editor";
+import CodeMirror from '@uiw/react-codemirror';
+import { javascript } from '@codemirror/lang-javascript';
+
 import {
   FormField,
   FormItem,
@@ -21,7 +24,7 @@ type ControlType = {
 
 export const getControl: any = (props: ControlType, formControl: any) => {
   const { name, placeholder, label } = props;
-  
+
   return (
     <FormField
       key={name}
@@ -32,13 +35,20 @@ export const getControl: any = (props: ControlType, formControl: any) => {
           <FormLabel>{label}</FormLabel>
           <FormControl>
             <>
-            {props.type === 'editor' &&  <Editor id={props.name} {...field} />}
-            {['text', 'email', 'number', 'checkbox'].includes(props.type) && <Input
-              type={props.type}
-              placeholder={placeholder ?? ''}
-              {...field}
-              className=""
-            />}</>
+              {props.type === "editor" && <Editor id={props.name} {...field} />}
+              {["text", "email", "number", "checkbox"].includes(props.type) && (
+                <Input
+                  type={props.type}
+                  placeholder={placeholder ?? ""}
+                  {...field}
+                />
+              )}
+              {["object", "array"].includes(props.type) && (
+                <div className="form-group">
+                  <CodeMirror height="100px" extensions={[javascript({ jsx: true })]} {...field} />
+                </div>
+              )}
+            </>
           </FormControl>
           <FormMessage className="text-xs" />
         </FormItem>

@@ -1,9 +1,8 @@
 "use client";
 import { Formatic } from "@/app/lib/formatic";
 import submitRecords from "@/lib/calls/submit-records";
-import { getProjectData, useGetBulkData } from "@/lib/hooks/useBulkData";
-import useRecordsCall from "@/lib/hooks/useRecordsCall";
-import { useEffect, useState } from "react";
+import { useGetBulkData } from "@/lib/hooks/useBulkData";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
@@ -12,22 +11,10 @@ export default function RecordInputPage({
 }: {
   params: { project_id: string; record_space_slug: string };
 }) {
-  const [headings, setHeadings] = useState<any>();
-  const [projectDetails, setProjectDetails] = useState<any>();
-  const [recordSpace, setRecordSpace] = useState<any>();
   const router = useRouter();
-  const { data } = useGetBulkData(params.project_id, params.record_space_slug);
-  const {
-    data: records,
-    loading,
-    recordSpaceStructure,
-  } = useRecordsCall({
-    projectId: params.project_id,
-    recordSpaceSlug: params.record_space_slug,
-    initiateFreshCall: true,
-    uniqueId: "",
-  });
 
+  const { data } = useGetBulkData(params.project_id, params.record_space_slug);
+  
   async function handleSubmitRecords(values: any) {
     try {
       await submitRecords({
@@ -45,59 +32,15 @@ export default function RecordInputPage({
   }
 
   useEffect(() => {
-    if (!loading && data) {
-      const { project, recordSpace } = getProjectData(
-        data.getProjects,
-        params.project_id,
-        params.record_space_slug
-      );
-      if (project) {
-        setProjectDetails(project);
-        setRecordSpace(recordSpace);
-      }
-      const { structure } = recordSpaceStructure as any;
-      if (recordSpace.views && recordSpace.views.length) {
-        const thisView = recordSpace.views[0].data;
-        setHeadings(thisView);
-      } else {
-        const headings = Object.keys(structure).map((key) => {
-          const eachStructure = structure[key];
-          const { name, required } = eachStructure;
-          const structureType = eachStructure.type.name;
 
-          const type =
-            structureType === "String"
-              ? "text"
-              : structureType === "Boolean"
-              ? "checkbox"
-              : structureType === "Array"
-              ? "array"
-              : structureType === "Object"
-              ? "editor"
-              : "number";
-          return {
-            name,
-            type,
-            required,
-            label: name,
-          };
-        });
-        setHeadings(headings);
-      }
-    }
   }, [
-    records,
-    loading,
-    recordSpaceStructure,
-    data,
-    params.project_id,
-    params.record_space_slug,
+    data
   ]);
 
   return (
     <div className="w-full lg:w-7/12">
-      {headings && (
-        <Formatic schema={headings} onSubmit={handleSubmitRecords} />
+      {data && data.thisView && (
+        <Formatic schema={data.thisView?.data} onSubmit={handleSubmitRecords} />
       )}
     </div>
   );

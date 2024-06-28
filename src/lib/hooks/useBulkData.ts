@@ -57,8 +57,12 @@ const getHeadings = (structure: any) => {
                     : structureType === "ARRAY"
                         ? "array"
                         : structureType === "OBJECT"
-                            ? "editor"
-                            : "number";
+                            ? "object"
+                            : structureType === "EDITOR"
+                                ? "editor"
+                                : structureType === "NUMBER"
+                                    ? "number"
+                                    : "number";
         return {
             name: field.name,
             type,

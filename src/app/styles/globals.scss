@@ -251,12 +251,16 @@ aside {
   label {
     @apply text-sm pb-2 text-gray-500;
   }
-  input[type='text'], input[type='number'], input[type='email'], select {
+  input[type='text'], input[type='number'], input[type='email'], select, textarea {
     border: 1px solid #DCDCE4;
     border-radius: 4px;
     outline: none;
     width: 100%;
     height: 40px;
+  }
+
+  textarea {
+    height: 200px;
   }
   button {
     background-color: #556dff;

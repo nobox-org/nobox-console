@@ -21,19 +21,19 @@ export default function ViewSettingsPage({ params }: { params: OwnProps }) {
   const [defaultValues, setDefaultValues] = useState<any>(null);
 
   const toggleModal = () => setOpenModal(!openModal);
-  const handleSubmit = async (data: any) => {
-    if (data.index || data?.index?.toString() === "0") {
-      updateField(data);
+  const handleSubmit = async (values: any) => {
+    if (values.index || values?.index?.toString() === "0") {
+      updateField(values);
     } else {
-      addNewField(data);
+      addNewField(values);
     }
-    toast.success("Saved");
     await addRecordView({
       viewData: views.data,
       viewId: views._id,
       projectId: params.project_id,
       recordSpaceId: data.recordSpace._id,
     });
+    toast.success("Saved");    
     setDefaultValues(null);
   };
 

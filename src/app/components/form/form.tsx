@@ -76,7 +76,7 @@ const FormItem = React.forwardRef<
 
   return (
     <FormItemContext.Provider value={{ id }}>
-      <div ref={ref} className={cn("space-y-2", className)} {...props} />
+      <div ref={ref} className={cn("space-y-2 mt-5", className)} {...props} />
     </FormItemContext.Provider>
   )
 })
@@ -90,6 +90,7 @@ const FormLabel = React.forwardRef<
 
   return (
     <Label
+      className="capitalize"
       ref={ref}
       htmlFor={formItemId}
       {...props}

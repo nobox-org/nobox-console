@@ -12,6 +12,7 @@
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0"
   },
   "dependencies": {
+    "@codemirror/lang-javascript": "^6.2.2",
     "@editorjs/checklist": "^1.6.0",
     "@editorjs/code": "^2.9.0",
     "@editorjs/delimiter": "^1.4.0",
@@ -38,6 +39,7 @@
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "@types/react-no-ssr": "^1.1.7",
+    "@uiw/react-codemirror": "^4.22.2",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
     "class-variance-authority": "^0.7.0",
@@ -45,6 +47,7 @@
     "editorjs-html": "^3.4.3",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.1",
+    "json5": "^2.2.3",
     "lodash": "^4.17.21",
     "next": "^13.4.3",
     "nobox-client": "^1.12.12",
