@@ -13,9 +13,12 @@ interface OwnProps {
 }
 
 export default function ViewSettingsPage({ params }: { params: OwnProps }) {
-  const { data, isLoading } = useGetBulkData(params.project_id, params.record_space_slug);
+  const { data, isLoading } = useGetBulkData(
+    params.project_id,
+    params.record_space_slug
+  );
   const { addRecordView } = useAddRecordViewActions();
-  
+
   const [views, setViews] = useState<any>();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [defaultValues, setDefaultValues] = useState<any>(null);
@@ -33,7 +36,7 @@ export default function ViewSettingsPage({ params }: { params: OwnProps }) {
       projectId: params.project_id,
       recordSpaceId: data.recordSpace._id,
     });
-    toast.success("Saved");    
+    toast.success("Saved");
     setDefaultValues(null);
   };
 
@@ -74,16 +77,38 @@ export default function ViewSettingsPage({ params }: { params: OwnProps }) {
   useEffect(() => {
     if (!isLoading && data) {
       if (data.thisView) {
-        setViews(data.thisView)
-      } else {        
+        /** **********************************************************************************
+         *  Check if there is a change in the record and update the views to reflect the change
+         *  Needs more abstraction and refectoring
+         ********************************************************************************** */
+        const fields = data.recordSpace.hydratedRecordFields;
+        const view = data.thisView.data;
+        for (let i = 0; i < fields.length; i++) {
+          const item = fields[i];
+          const isInView = view.find((x: any) => x.name === item.name);
+          if (isInView) {
+            if (isInView.type !== getType(item.type)) {
+              console.log("Different types", isInView.type, getType(item.type));
+              const idx = view.map((e: any) => e.name).indexOf(isInView.name);
+              view[idx] = { ...view[idx], type: getType(item.type) };
+            }
+          }
+        }
+        addRecordView({
+          viewData: view,
+          projectId: data?.project?._id,
+          recordSpaceId: data?.recordSpace?._id,
+        });
+        setViews(data.thisView);
+      } else {
         addRecordView({
           viewData: data?.recordSpace?.headings,
           projectId: data?.project?._id,
-          recordSpaceId: data?.recordSpace?._id
+          recordSpaceId: data?.recordSpace?._id,
         });
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, isLoading]);
   return (
     <main className="text-[#292D32] h-full p-[24px]">

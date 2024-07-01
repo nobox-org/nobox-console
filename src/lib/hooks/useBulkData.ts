@@ -45,24 +45,27 @@ export const getProjectData = (data: any[], projectId: string, recordSpaceSlug: 
         recordSpace,
     }
 }
+// Converts RecordSpace type into HTML input type
+export const convertType = (structureType: string) => {
+    return structureType === "TEXT"
+        ? "text"
+        : structureType === "BOOLEAN"
+            ? "checkbox"
+            : structureType === "ARRAY"
+                ? "array"
+                : structureType === "OBJECT"
+                    ? "object"
+                    : structureType === "EDITOR"
+                        ? "editor"
+                        : structureType === "NUMBER"
+                            ? "number"
+                            : "number";
+}
 
 const getHeadings = (structure: any) => {
     return structure.map((field: any) => {
         const structureType = field.type;
-        const type =
-            structureType === "TEXT"
-                ? "text"
-                : structureType === "BOOLEAN"
-                    ? "checkbox"
-                    : structureType === "ARRAY"
-                        ? "array"
-                        : structureType === "OBJECT"
-                            ? "object"
-                            : structureType === "EDITOR"
-                                ? "editor"
-                                : structureType === "NUMBER"
-                                    ? "number"
-                                    : "number";
+        const type = convertType(structureType);
         return {
             name: field.name,
             type,

@@ -1,7 +1,7 @@
 "use client";
 import { serverCall } from "@/servercall/init";
 import { serverCalls } from "@/servercall/store";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import FormInput from "../../../components/FormInput";
 import { LINKS } from "@/lib/links";
 
