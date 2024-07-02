@@ -23,22 +23,22 @@ const getNoboxModel = async ({
         projectId
     });
 
-    const projectSlug = project.slug;
+    const projectSlug = project?.slug;
     const recordSpace = findRecordSpace({
         project,
         recordSpaceSlug
     });
 
 
-    const recordSpaceType = recordSpace.type;
+    const recordSpaceType = recordSpace?.type;
     const recordSpaceStructure = createRecordSpaceStructure({
-        fieldDetails: recordSpace.hydratedRecordFields,
+        fieldDetails: recordSpace?.hydratedRecordFields,
         recordSpace,
-        projectSlug: project.slug
+        projectSlug: project?.slug
     });
 
 
-    const token = getProjectToken(project._id);
+    const token = getProjectToken(project?._id ?? '');
 
     if (token) {
         const config: Config = {

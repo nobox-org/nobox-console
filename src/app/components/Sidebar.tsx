@@ -62,8 +62,8 @@ const Sidebar = () => {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
+                strokeWidth="1.5"
+                strokeLinecap="round"
                 strokeLinejoin="round"
                 className="lucide lucide-home "
               >
@@ -80,8 +80,8 @@ const Sidebar = () => {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
+                strokeWidth="1.5"
+                strokeLinecap="round"
                 strokeLinejoin="round"
                 className="lucide lucide-auth "
               >
@@ -98,7 +98,7 @@ const Sidebar = () => {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-linecap="round"
+                strokeLinecap="round"
                 strokeLinejoin="round"
                 className="sbui-icon"
               >
@@ -115,7 +115,7 @@ const Sidebar = () => {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-linecap="round"
+                strokeLinecap="round"
                 strokeLinejoin="round"
                 className="sbui-icon"
               >
@@ -163,7 +163,7 @@ const Sidebar = () => {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-linecap="round"
+                strokeLinecap="round"
                 strokeLinejoin="round"
                 className="sbui-icon"
               >

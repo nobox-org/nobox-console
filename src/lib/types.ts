@@ -3,7 +3,7 @@ export interface FindProjectArgs {
     projectId: string;
 }
 
-export type CompatibleStructureFieldType = "TEXT" | "NUMBER" | "BOOLEAN" | "ARRAY";
+export type CompatibleStructureFieldType = "TEXT" | "NUMBER" | "BOOLEAN" | "ARRAY" | "OBJECT";
 
 export enum PageTypes {
     recordSpacesList = "record-spaces-list",
@@ -20,4 +20,15 @@ export enum FieldType {
     String = "string",
     Boolean = "boolean",
     Array = "array"
+}
+export enum InputTypes {
+    NUMBER = 'number',
+    TEXT = 'text',
+    PASSWORD = 'password',
+    EMAIL = 'email',
+    RADIO = 'radio',
+    CHECKBOX = 'checkbox',
+    SELECT = 'select',
+    DATE = 'date',
+    EDITOR ='editor'
 }
