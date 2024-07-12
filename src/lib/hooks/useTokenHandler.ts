@@ -24,7 +24,8 @@ const useTokenHandler = () => {
                     },
                     pathArgs: {
                         auth_token: tokenInUrl
-                    }
+                    },
+                    authorized: true,
                 }).then((response) => {
                     const { success, dataReturned: { token } } = response;
                     if (success) {
