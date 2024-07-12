@@ -68,10 +68,10 @@ const Records = ({
           structureType === "String"
             ? FieldType.String
             : structureType === "Boolean"
-            ? FieldType.Boolean
-            : structureType === "Array"
-            ? FieldType.Array
-            : FieldType.Number;
+              ? FieldType.Boolean
+              : structureType === "Array"
+                ? FieldType.Array
+                : FieldType.Number;
         return { name, type, required };
       });
 
@@ -117,6 +117,8 @@ const Records = ({
       console.log({ error });
     }
   };
+
+  console.log({ path })
 
   return allProjects.length > 0 ? (
     <>

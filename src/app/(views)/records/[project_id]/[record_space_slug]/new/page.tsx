@@ -1,10 +1,11 @@
 "use client";
 import { Formatic } from "@/app/lib/formatic";
 import submitRecords from "@/lib/calls/submit-records";
-import { useGetBulkData } from "@/lib/hooks/useBulkData";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { getHeadings, getRecordSpace } from "@/lib/utils";
+import useNoboxData from "@/lib/hooks/useNoboxData";
 
 export default function RecordInputPage({
   params,
@@ -13,18 +14,21 @@ export default function RecordInputPage({
 }) {
   const router = useRouter();
 
-  const { data } = useGetBulkData(params.project_id, params.record_space_slug);
-  
+  const { allProjects, data: project } = useNoboxData();
+
+  const [headings, setHeadings] = useState([]);
+
   async function handleSubmitRecords(values: any) {
     try {
+      console.log({ values })
       await submitRecords({
         recordSpaceSlug: params.record_space_slug,
-        allProjects: data.getProjects,
+        allProjects,
         projectId: params.project_id,
         record: values,
       });
       toast.success('Saved');
-      router.push(`/records/${params.project_id}/${params.record_space_slug}`); 
+      router.push(`/records/${params.project_id}/${params.record_space_slug}`);
     } catch (error) {
       toast.error('An error ocurred.');
       console.log({ error });
@@ -32,16 +36,21 @@ export default function RecordInputPage({
   }
 
   useEffect(() => {
+    if (project.length) {
+      const { recordSpace } = getRecordSpace({
+        projectId: params.project_id,
+        recordSpaceSlug: params.record_space_slug,
+        project
+      });
+      const headings = getHeadings(recordSpace.hydratedRecordFields);
+      setHeadings(headings);
+    }
+  }, [project]);
 
-  }, [
-    data
-  ]);
 
   return (
     <div className="w-full lg:w-7/12">
-      {data && data.thisView && (
-        <Formatic schema={data.thisView?.data} onSubmit={handleSubmitRecords} />
-      )}
+      <Formatic schema={headings} onSubmit={handleSubmitRecords} />
     </div>
   );
 }

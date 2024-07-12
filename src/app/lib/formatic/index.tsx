@@ -11,15 +11,17 @@ export const Formatic = ({
   onSubmit: (record: any) => void;
 }) => {
   const reFormatValues = (values: any) => {
+    console.log({ values, schema });
     schema.map((field) => {
       if (['object', 'array'].includes(field.type)) {
         const fixed = JSON5.parse(values[field.name]);
-        values[field.name] = fixed;        
+        values[field.name] = fixed;
       }
     });
     onSubmit(values);
   }
   const form = useForm();
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(reFormatValues)}>

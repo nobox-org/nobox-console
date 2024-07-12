@@ -7,13 +7,13 @@ import useTokenHandler from "@/lib/hooks/useTokenHandler";
 import useInfoSkip from "@/lib/hooks/useInfoSkip";
 import OverviewSection from "../components/OverviewSection";
 import DataContext from "./dataContext/DataContext";
+import useNoboxData from "@/lib/hooks/useNoboxData";
 
 export default function HomePage() {
     const { token } = useTokenHandler();
     const { isSkipped, skip } = useInfoSkip();
 
-    const { projects, sharedProjects, loading } = useContext(DataContext);
-
+    const { allProjects, data, loading, sharedData: sharedProjects } = useNoboxData();
 
     if (loading) {
         return (
@@ -28,7 +28,7 @@ export default function HomePage() {
             <ToastContainer toastClassName="custom-toast" />
             {!isSkipped && <OnboardingInfo handleSkip={skip} token={token} />}
             <div className={`${!isSkipped && "mt-[32px]"}`}>
-                <OverviewSection title="Projects" data={projects} addNewButton />
+                <OverviewSection title="Projects" data={allProjects} addNewButton />
                 <OverviewSection title="Shared Projects" dataIsEmpty={sharedProjects?.length <= 0} data={sharedProjects} />
             </div>
         </>

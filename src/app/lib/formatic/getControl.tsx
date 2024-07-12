@@ -12,7 +12,7 @@ import {
 } from "@/app/components/form/form";
 import { Input } from "@/app/components/form/input";
 
-type ControlType = {
+type InputDetails = {
   label?: string;
   name: string;
   type: string;
@@ -22,8 +22,8 @@ type ControlType = {
   value?: string;
 };
 
-export const getControl: any = (props: ControlType, formControl: any) => {
-  const { name, placeholder, label } = props;
+export const getControl: any = (inputDetails: InputDetails, formControl: any) => {
+  const { name, placeholder, label, type } = inputDetails;
 
   return (
     <FormField
@@ -35,15 +35,15 @@ export const getControl: any = (props: ControlType, formControl: any) => {
           <FormLabel>{label}</FormLabel>
           <FormControl>
             <>
-              {props.type === "editor" && <Editor id={props.name} {...field} />}
-              {["text", "email", "number", "checkbox"].includes(props.type) && (
+              {type === "editor" && <Editor id={name} {...field} />}
+              {["text", "email", "number", "checkbox"].includes(type) && (
                 <Input
-                  type={props.type}
+                  type={type}
                   placeholder={placeholder ?? ""}
                   {...field}
                 />
               )}
-              {["object", "array"].includes(props.type) && (
+              {["object", "array"].includes(type) && (
                 <div className="form-group">
                   <CodeMirror height="100px" extensions={[javascript({ jsx: true })]} {...field} />
                 </div>
