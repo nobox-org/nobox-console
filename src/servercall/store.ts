@@ -119,8 +119,7 @@ export const serverCalls: ServerCallsType<ServerCallsKeyType> = {
         verb: ServerCallVerbs.Get,
     },
     getAuthConnectionTokenAuthToken: {
-        path: (args: { auth_token: string }) =>
-            `/auth/_/connection_token/${args.auth_token}`,
+        path: `/auth/_/connection_token`,
         name: "getAuthConnectionTokenAuthToken",
         verb: ServerCallVerbs.Get,
     },
