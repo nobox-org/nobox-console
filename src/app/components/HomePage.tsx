@@ -27,7 +27,8 @@ export default function HomePage() {
         <>
             <ToastContainer toastClassName="custom-toast" />
             {!isSkipped && <OnboardingInfo handleSkip={skip} token={token} />}
-            <div className={`${!isSkipped && "mt-[32px]"}`}>
+            
+            <div className={`${!isSkipped && "space-up"}`}>
                 <OverviewSection title="Projects" data={projects} addNewButton />
                 <OverviewSection title="Shared Projects" dataIsEmpty={sharedProjects?.length <= 0} data={sharedProjects} />
             </div>

@@ -251,6 +251,13 @@ input {
   }
 }
 
+.space-up {
+  margin-top: 100px;
+  @media screen and (max-width: 808px) {
+    margin-top: 300px;
+  }
+}
+
 
 aside {
   width: 290px;
