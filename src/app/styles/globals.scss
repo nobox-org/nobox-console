@@ -162,17 +162,16 @@ input {
   top: 5rem;
   bottom: 0;
   left: 0;
-  right: 0;
+
+  z-index: 1;
 
   transition: translate 200ms ease;
 }
 
-.top-most {
-  z-index: 50;
-}
 
 @media (max-width: 768px) {
   .sidebar {
+    right: 0;
     translate: -100% 0;
   }
 
@@ -190,7 +189,6 @@ input {
     height: 614px;
   }
 }
-
 
 .modal-backdrop {
   position: fixed;
@@ -236,6 +234,24 @@ input {
     color: #f00;
   }
 }
+
+.modal-content {
+  width: 600px;
+  // max-width: 100%;
+  padding-inline: 2rem;
+  padding-block: 2rem 0;
+  
+  overflow: auto;
+  height: 700px;
+  scrollbar-color: transparent transparent;
+
+
+  @media screen and (max-width: 768px) {
+    width: 24rem;
+  }
+}
+
+
 aside {
   width: 290px;
   background: #fff;

@@ -9,5 +9,12 @@ interface ProjectCardProps {
 export default function ProjectCard({ project }: ProjectCardProps) {
     const { name, id, slug, description } = project;
 
-    return <Box link={`/record-spaces/${id}`} id={id} key={id} title={name} tooltip={description} bottomTitle={`[slug: ${slug}]`} />
+    return <Box
+        link={`/record-spaces/${id}`}
+        id={id}
+        key={id}
+        title={name}
+        tooltip={description}
+        bottomTitle={`[slug: ${slug}]`} 
+    />
 }
