@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { copyToClipboard } from "@/lib/copyToClipboard";
-import { ToastContainer } from "react-toastify";
 import useTokenHandler from "@/lib/hooks/useTokenHandler";
 import useInfoSkip from "@/lib/hooks/useInfoSkip";
 import Modal from "@/app/components/Modal";
@@ -44,7 +43,6 @@ export default function HomePage() {
 
   return (
     <>
-      <ToastContainer toastClassName="custom-toast" />
       <div className={`${!isSkipped && "mt-[32px]"} bg-white p-5 mt-10 rounded-md`}>
         <h6 className="font-[500] text-[#292D32]">Token</h6>
         <div className="flex gap-4 py-2">

@@ -41,6 +41,11 @@ export const findRecordSpace = ({ project, recordSpaceSlug }: any) => {
     return recordSpace;
 };
 
+
+export const utcTime = () => {
+    return (new Date()).getTime();
+}
+
 export const createRecordSpaceStructure = (args: {
     fieldDetails: any[];
     recordSpace: {
@@ -76,11 +81,11 @@ export const createRecordSpaceStructure = (args: {
                 },
                 _.isNil
             );
-    
+
             if (name) {
                 (recordSpaceStructure.structure as any)[name] = unitStructure;
             }
-        } 
+        }
     }
 
     return recordSpaceStructure;
@@ -130,4 +135,10 @@ export const moveKeysToEnd = <T>(array: T[], keysToMove: T[]): T[] => {
 
 export function capitalizeFirstLetter(string: string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+export function waitFor(delay: number) {
+    return new Promise(resolve => {
+        setTimeout(resolve, delay);
+    });
 }

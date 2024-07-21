@@ -1,22 +1,17 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import RecordsDisplay from "@/app/components/RecordsDisplay";
 import useRecordsCall from "@/lib/hooks/useRecordsCall";
 import { FieldType } from "@/lib/types";
-import useNoboxData from "@/lib/hooks/useNoboxData";
-import submitRecords from "@/lib/calls/submit-records";
-import Modal from "@/app/components/Modal";
 import { useRecordsBackgroundUpdate } from "@/lib/hooks/useRecordsBackgroundUpdate";
-import createUIIndication from "@/lib/createUIIndication";
 import { MainLoader } from "@/app/components/MainLoader";
 import deleteRecords from "@/lib/calls/delete-record";
-import { RecordInputForm } from "@/app/components/RecordInputForm";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, } from "next/navigation";
+import DataContext from "@/app/components/dataContext/DataContext";
+import { convertStructureToHeadings } from "@/lib/utils";
 
-type ViewMode = "table" | "grid";
-
-const Records = ({
+const RecordsPage = ({
   params,
 }: {
   params: { project_id: string; record_space_slug: string };
@@ -24,18 +19,18 @@ const Records = ({
   const [initiateFreshCall, setInitiateFreshCall] = useState(false);
   const [uniqueId, setUniqueId] = useState<string>("");
 
-  const { allProjects } = useNoboxData();
+  const {
+    allProjects,
+  } = useContext(DataContext);
 
-  const [openModal, setOpenModal] = useState<boolean>(false);
-  const [submitted, setSubmitted] = useState<boolean>(false);
 
-  const submissionIndication = createUIIndication(setSubmitted);
 
-  const [viewMode, setViewMode] = useState<ViewMode>("table");
   const [headings, setHeadings] = useState<
     { name: string; type: FieldType; required: boolean }[]
   >([]);
   const [pageIsReady, setPageIsReady] = useState(false);
+
+  const [records, setRecords] = useState<any[]>([]);
 
   useRecordsBackgroundUpdate({
     allProjects,
@@ -43,7 +38,6 @@ const Records = ({
   });
 
   const {
-    data: records,
     loading,
     recordSpaceStructure,
   } = useRecordsCall({
@@ -51,30 +45,16 @@ const Records = ({
     recordSpaceSlug: params.record_space_slug,
     initiateFreshCall,
     uniqueId,
+    setRecords
   });
+
 
   const { webhooks } = recordSpaceStructure as any;
   const path = usePathname();
-  const router = useRouter();
+
   useEffect(() => {
     if (!loading) {
-      const { structure } = recordSpaceStructure as any;
-
-      const headings = Object.keys(structure).map((key) => {
-        const eachStructure = structure[key];
-        const { name, required } = eachStructure;
-        const structureType = eachStructure.type.name;
-        const type =
-          structureType === "String"
-            ? FieldType.String
-            : structureType === "Boolean"
-              ? FieldType.Boolean
-              : structureType === "Array"
-                ? FieldType.Array
-                : FieldType.Number;
-        return { name, type, required };
-      });
-
+      const headings = convertStructureToHeadings((recordSpaceStructure as any).structure);
       setHeadings(headings);
       setPageIsReady(true);
     }
@@ -93,32 +73,11 @@ const Records = ({
         recordId,
       });
       setInitiateFreshCall(true);
-      setSubmitted(true);
       setUniqueId(recordId);
-      submissionIndication.startEnd({ delay: 2000 });
     } catch (error) {
       console.log({ error });
     }
   };
-
-  const handleSubmitRecords = async (record: Record<string, any>) => {
-    try {
-      const responseRecord = await submitRecords({
-        recordSpaceSlug: params.record_space_slug,
-        allProjects,
-        projectId: params.project_id,
-        record,
-      });
-      setInitiateFreshCall(true);
-      setSubmitted(true);
-      setUniqueId(responseRecord.records[0].id);
-      submissionIndication.startEnd({ delay: 2000 });
-    } catch (error) {
-      console.log({ error });
-    }
-  };
-
-  console.log({ path })
 
   return allProjects.length > 0 ? (
     <>
@@ -127,23 +86,14 @@ const Records = ({
           <Link href={`${path}/new`} className="btn-primary small">
             New
           </Link>
-          {" "}
-          <Link href={`${path}/settings/views`} className="btn-primary small">
-            View settings
-          </Link>
         </div>
         <RecordsDisplay
-          viewMode={viewMode}
+          viewMode={"table"}
           headings={headings}
           records={records}
           handleDeleteRecord={handleDeleteRecord}
         />
         <div className="flex">
-          {/* <div className="py-[12px] sm:px-6 lg:px-8">
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => {
-                setOpenModal(true)
-              }}> Submit Record</button>
-            </div> */}
           <div className="py-[12px] sm:px-6 lg:px-8">
             {webhooks && (
               <ul>
@@ -155,21 +105,10 @@ const Records = ({
           </div>
         </div>
       </div>
-      {/* <Modal
-          isOpen={openModal}
-          setIsOpen={setOpenModal}
-          buttonText={'Copy Text'}
-        >
-          <RecordInputForm
-            headings={headings}
-            handleSubmitRecords={handleSubmitRecords}
-            params={params}
-            submitted={submitted} />
-        </Modal> */}
     </>
   ) : (
     <></>
   );
 };
 
-export default Records;
+export default RecordsPage;

@@ -2,7 +2,7 @@
 
 import Sidebar from "@/app/components/Sidebar";
 import { FiMenu } from "react-icons/fi";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { LINKS } from "@/lib/links";
 import Image from "next/image";
 import HeaderCrumbSection from "../components/HeaderCrumbSection";
@@ -20,7 +20,6 @@ export default function DashboardLayout({
 }: DashboardLayoutProps) {
   const pathName = usePathname();
 
-  const router = useRouter();
 
   const toggleSidebar = () => {
     const sidebar = document?.getElementById("sidebar");

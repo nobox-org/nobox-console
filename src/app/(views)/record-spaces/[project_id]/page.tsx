@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useContext, useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
 import Modal from "@/app/components/Modal";
 import { AddUserModal } from "@/app/components/modals/AddUserModal";
 import { RecordSpaceCard } from "@/app/components/RecordSpaceCard";
@@ -56,7 +55,6 @@ export default function RecordSpaces({
 
   return (
     <main className="text-[#292D32] px-[16px] h-full">
-      <ToastContainer toastClassName="custom-toast" />
       {project?.recordSpaces?.length > 0 && projectRecordMap ? (
         <div className="p-[24px]">
           <div className="mb-8">

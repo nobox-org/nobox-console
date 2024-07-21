@@ -3,7 +3,7 @@ import { button, inputBox } from "@/lib/tailwind-classes";
 import { serverCall } from "@/servercall/init";
 import { serverCalls } from "@/servercall/store";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import { getProjectUsers } from "@/lib/calls/get-project-users";
 
 export const AddUserModal = ({ projectId }: {
@@ -35,20 +35,14 @@ export const AddUserModal = ({ projectId }: {
             authorized: true,
             onSuccess: () => {
                 getAndSetProjectUsers();
-                toast.info(`User: ${email} Added Successfully`, {
-                    className: "toast-message",
-                    autoClose: 2000,
-                });
+                toast.error(`User: ${email} Added Successfully`);
             }
         });
         const { success, error, dataReturned } = response;
 
         if (!success) {
             const errorResponse = error.data.error.join(",");
-            toast.info(errorResponse, {
-                className: "toast-message",
-                autoClose: 2000,
-            });
+            toast.error(errorResponse);
             return;
         }
     }
@@ -66,20 +60,14 @@ export const AddUserModal = ({ projectId }: {
             authorized: true,
             onSuccess: () => {
                 getAndSetProjectUsers();
-                toast.info(`User: ${emailToDelete} Removed Successfully`, {
-                    className: "toast-message",
-                    autoClose: 2000,
-                });
+                toast.success(`User: ${emailToDelete} Removed Successfully`);
             }
         });
         const { success, error, dataReturned } = response;
 
         if (!success) {
             const errorResponse = error.data.error.join(",");
-            toast.info(errorResponse, {
-                className: "toast-message",
-                autoClose: 2000,
-            });
+            toast.success(errorResponse);
             return;
         }
     }

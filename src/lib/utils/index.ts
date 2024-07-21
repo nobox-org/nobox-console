@@ -1,3 +1,7 @@
+import { getProjectRecordMap, saveRecordMapInLocalStorage } from "../calls/get-record-map";
+import { storageConstants } from "../constants";
+import { FieldType } from "../types";
+import { storage } from "./local-storage";
 
 export const getRecordSpace = (args: {
     project: any;
@@ -10,7 +14,7 @@ export const getRecordSpace = (args: {
     return { recordSpace, views: recordSpace?.views };
 }
 
-export const convertType = (structureType: string) => {
+export const convertTypeToViewType = (structureType: string) => {
     return structureType === "TEXT"
         ? "text"
         : structureType === "BOOLEAN"
@@ -24,10 +28,10 @@ export const convertType = (structureType: string) => {
                         : "number";
 }
 
-export const getHeadings = (structure: any) => {
+export const converthydratedRecordFieldsToInputMetaData = (structure: any) => {
     return structure.map((field: any) => {
         const structureType = field.type;
-        const type = convertType(structureType);
+        const type = convertTypeToViewType(structureType);
         return {
             name: field.name,
             type,
@@ -35,4 +39,46 @@ export const getHeadings = (structure: any) => {
             label: field.name,
         };
     });
+};
+
+
+export const convertStructureToHeadings = (structure: any) => {
+
+    console.log({ structure })
+
+    const headings = Object.keys(structure).map((key) => {
+        const eachStructure = structure[key];
+        const { name, required } = eachStructure;
+        const structureType = eachStructure.type.name;
+        const type =
+            structureType === "String"
+                ? FieldType.String
+                : structureType === "Boolean"
+                    ? FieldType.Boolean
+                    : structureType === "Array"
+                        ? FieldType.Array
+                        : FieldType.Number;
+        return { name, type, required };
+    });
+
+    return headings;
+}
+
+export const fetchAndStoreRecords = (args: {
+    allProjects: any;
+    projectId: string;
+}) => {
+    const { allProjects, projectId } = args;
+    const store = storage(storageConstants.PROJECT_RECORD_MAP);
+    getProjectRecordMap({
+        allProjects,
+        projectId,
+    }).then((recordMap: any) => {
+        saveRecordMapInLocalStorage({
+            recordMap,
+            projectId,
+            store
+        })
+        window.dispatchEvent(new Event("RecordUpdate"))
+    })
 };

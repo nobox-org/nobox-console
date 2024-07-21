@@ -1,11 +1,14 @@
 "use client";
 import { Formatic } from "@/app/lib/formatic";
 import submitRecords from "@/lib/calls/submit-records";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { getHeadings, getRecordSpace } from "@/lib/utils";
+import { converthydratedRecordFieldsToInputMetaData, fetchAndStoreRecords, getRecordSpace } from "@/lib/utils";
 import useNoboxData from "@/lib/hooks/useNoboxData";
+import createUIIndication from "@/lib/createUIIndication";
+import React from "react";
+
 
 export default function RecordInputPage({
   params,
@@ -14,19 +17,37 @@ export default function RecordInputPage({
 }) {
   const router = useRouter();
 
-  const { allProjects, data: project } = useNoboxData();
+  const [submitted, setSubmitted] = useState<boolean>(false);
 
-  const [headings, setHeadings] = useState([]);
+  const submissionIndication = createUIIndication(setSubmitted);
+
+  const { allProjects, data: project, loading } = useNoboxData({ source: "RecordInputPage" });
+
+  const [inputMetaData, setInputMetaData] = useState([]);
+
+  const [pageLoading, setPageLoading] = useState<boolean>(true);
+  const loadingIndicator = createUIIndication(setPageLoading);
+
+  const [recordSpace, setRecordSpace] = useState<any>();
+
+  loadingIndicator.delayed({ delay: 500 });
 
   async function handleSubmitRecords(values: any) {
     try {
-      console.log({ values })
+      const { project_id: projectId } = params;
       await submitRecords({
         recordSpaceSlug: params.record_space_slug,
         allProjects,
-        projectId: params.project_id,
+        projectId,
         record: values,
       });
+
+      fetchAndStoreRecords({
+        allProjects,
+        projectId
+      })
+
+      submissionIndication.startEnd({ delay: 1000 });
       toast.success('Saved');
       router.push(`/records/${params.project_id}/${params.record_space_slug}`);
     } catch (error) {
@@ -36,21 +57,32 @@ export default function RecordInputPage({
   }
 
   useEffect(() => {
-    if (project.length) {
+    if (!loading && project?.length) {
       const { recordSpace } = getRecordSpace({
         projectId: params.project_id,
         recordSpaceSlug: params.record_space_slug,
         project
       });
-      const headings = getHeadings(recordSpace.hydratedRecordFields);
-      setHeadings(headings);
+      setRecordSpace(recordSpace);
+      setInputMetaData(converthydratedRecordFieldsToInputMetaData(recordSpace.hydratedRecordFields));
+      setPageLoading(false);
     }
-  }, [project]);
-
+  }, [loading]);
 
   return (
-    <div className="w-full lg:w-7/12">
-      <Formatic schema={headings} onSubmit={handleSubmitRecords} />
+    <div className="mx-auto w-full lg:w-8/12 bg-white p-6">
+      <div className="px-4">
+        <Suspense fallback={<>Loading**</>}>
+          {
+            pageLoading ?
+              <>loading........</>
+              : <>
+                <Formatic schema={inputMetaData} recordSpace={recordSpace} onSubmit={handleSubmitRecords} submissionStatus={submitted} />
+              </>
+          }
+        </Suspense>
+      </div>
+
     </div>
   );
 }
