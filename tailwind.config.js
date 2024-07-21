@@ -28,6 +28,7 @@ module.exports = {
         tableBorderColor: "#CACFF6",
         checkboxBg: "#ECEDF3",
         checkboxText: "#556DFF",
+        danger: '#D02B20',
       },
     },
   },

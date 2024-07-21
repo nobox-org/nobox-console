@@ -3,11 +3,6 @@ import FormTitle from "./FormTitle";
 import { ArrayInputComponent, DynamicInputComponent } from "./SubmitRecord";
 
 export const RecordInputForm = ({ headings, handleSubmitRecords, params, submitted }: any) => {
-
-    const activeClassNames = "bg-white text-blue-500 rounded-full px-2 py-0.5";
-    const inActiveClassName = "text-white";
-
-
     const [inputType, setInputType] = useState<"FIELDS" | "JSON">("FIELDS");
 
     return (
@@ -26,6 +21,7 @@ export const RecordInputForm = ({ headings, handleSubmitRecords, params, submitt
                     ? <DynamicInputComponent inputKeys={headings} handleSubmit={handleSubmitRecords} />
                     : <ArrayInputComponent inputKeys={headings} handleSubmit={handleSubmitRecords} />
                 }
+                another one
             </div>
         </div>
     )

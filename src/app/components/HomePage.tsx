@@ -1,7 +1,6 @@
 "use client";
 import React, { useContext } from "react";
 import { copyToClipboard } from "@/lib/copyToClipboard";
-import { ToastContainer } from "react-toastify";
 import { OnboardingInfo } from "../components/OnboardingInfo";
 import useTokenHandler from "@/lib/hooks/useTokenHandler";
 import useInfoSkip from "@/lib/hooks/useInfoSkip";
@@ -12,10 +11,13 @@ export default function HomePage() {
     const { token } = useTokenHandler();
     const { isSkipped, skip } = useInfoSkip();
 
-    const { projects, sharedProjects, loading } = useContext(DataContext);
+    const {
+        loading: noboxDataLoading,
+        sharedProjects,
+        allProjects,
+    } = useContext(DataContext);
 
-
-    if (loading) {
+    if (noboxDataLoading) {
         return (
             <main className="text-[#292D32] bg-[#ECEDF3] h-full p-[24px]">
                 Loading
@@ -25,10 +27,9 @@ export default function HomePage() {
 
     return (
         <>
-            <ToastContainer toastClassName="custom-toast" />
             {!isSkipped && <OnboardingInfo handleSkip={skip} token={token} />}
             <div className={`${!isSkipped && "mt-[32px]"}`}>
-                <OverviewSection title="Projects" data={projects} addNewButton />
+                <OverviewSection title="Projects" data={allProjects} addNewButton />
                 <OverviewSection title="Shared Projects" dataIsEmpty={sharedProjects?.length <= 0} data={sharedProjects} />
             </div>
         </>

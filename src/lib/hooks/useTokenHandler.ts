@@ -19,13 +19,10 @@ const useTokenHandler = () => {
                 localStorage.setItem(storageConstants.NOBOX_TOKEN, tokenInUrl);
 
                 serverCall({
-                    serverCallProps: {
-                        call: serverCalls.getAuthConnectionTokenAuthToken,
-                    },
-                    pathArgs: {
-                        auth_token: tokenInUrl
-                    },
                     authorized: true,
+                    serverCallProps: {
+                        call: serverCalls.getAuthConnectionToken,
+                    }
                 }).then((response) => {
                     const { success, dataReturned: { token } } = response;
                     if (success) {
@@ -63,7 +60,6 @@ const useTokenHandler = () => {
                 }
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 

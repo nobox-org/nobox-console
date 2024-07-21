@@ -2,8 +2,7 @@
 
 import Sidebar from "@/app/components/Sidebar";
 import { FiMenu } from "react-icons/fi";
-import { usePathname, useRouter } from "next/navigation";
-import { storageConstants } from "@/lib/constants";
+import { usePathname } from "next/navigation";
 import { LINKS } from "@/lib/links";
 import Image from "next/image";
 import HeaderCrumbSection from "../components/HeaderCrumbSection";
@@ -21,7 +20,6 @@ export default function DashboardLayout({
 }: DashboardLayoutProps) {
   const pathName = usePathname();
 
-  const router = useRouter();
 
   const toggleSidebar = () => {
     const sidebar = document?.getElementById("sidebar");
@@ -59,12 +57,12 @@ export default function DashboardLayout({
                 <FiMenu />
               </div>
             </div>
-            <div className="md:w-[350px] w-full fixed top-0 left-0">
+            <div className="md:w-[290px] w-full fixed top-0 left-0">
               <Sidebar />
             </div>
             <div className="md:w-[calc(100%-290px)] md:ml-[290px] ">
               <div className="flex justify-between items-center px-[24px] h-[46px] border-b border-b-[#E6E8F9]">
-                <div className="text-[20px] text-[#292D32]">
+                <div className="flex w-full flex-nowrap items-center justify-between text-[20px] text-[#292D32]">
                   <HeaderCrumbSection />
                 </div>
                 <Toaster toastOptions={{

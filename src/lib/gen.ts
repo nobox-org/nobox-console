@@ -14,6 +14,8 @@ const convertStringTypeToConstructor = (type: CompatibleStructureFieldType) => {
             return Boolean;
         case "ARRAY":
             return Array;
+        case "OBJECT":
+            return Object;
         default:
             return String;
     }
@@ -39,6 +41,11 @@ export const findRecordSpace = ({ project, recordSpaceSlug }: any) => {
     return recordSpace;
 };
 
+
+export const utcTime = () => {
+    return (new Date()).getTime();
+}
+
 export const createRecordSpaceStructure = (args: {
     fieldDetails: any[];
     recordSpace: {
@@ -53,30 +60,31 @@ export const createRecordSpaceStructure = (args: {
     const { fieldDetails, recordSpace } = args;
 
     const recordSpaceStructure: Space<any> = {
-        space: recordSpace.slug,
-        description: recordSpace.description,
+        space: recordSpace?.slug,
+        description: recordSpace?.description,
         structure: {},
-        webhooks: recordSpace.webhooks
+        webhooks: recordSpace?.webhooks
     };
+    if (fieldDetails && fieldDetails.length) {
+        for (const field of fieldDetails) {
+            const { name, description, type, unique, required, comment, hashed, defaultValue } = field;
+            const unitStructure = _.omitBy(
+                {
+                    required,
+                    unique,
+                    description,
+                    comment,
+                    hashed,
+                    type: convertStringTypeToConstructor(type),
+                    name,
+                    defaultValue
+                },
+                _.isNil
+            );
 
-    for (const field of fieldDetails) {
-        const { name, description, type, unique, required, comment, hashed, defaultValue } = field;
-        const unitStructure = _.omitBy(
-            {
-                required,
-                unique,
-                description,
-                comment,
-                hashed,
-                type: convertStringTypeToConstructor(type),
-                name,
-                defaultValue
-            },
-            _.isNil
-        );
-
-        if (name) {
-            (recordSpaceStructure.structure as any)[name] = unitStructure;
+            if (name) {
+                (recordSpaceStructure.structure as any)[name] = unitStructure;
+            }
         }
     }
 
@@ -127,4 +135,10 @@ export const moveKeysToEnd = <T>(array: T[], keysToMove: T[]): T[] => {
 
 export function capitalizeFirstLetter(string: string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+export function waitFor(delay: number) {
+    return new Promise(resolve => {
+        setTimeout(resolve, delay);
+    });
 }

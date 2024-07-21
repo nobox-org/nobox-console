@@ -34,7 +34,7 @@ export default function Box({
         <div className="flex justify-between flex-col h-40" >
           <NodeBoxIcon />
           <div className="flex flex-col gap-[8px] my-[8px]" style={{ textAlign: "center" }}>
-            <h6 className="text-[#292D32] text-[18px] font-[600]">{title}</h6>
+            <h6 className="text-[#292D32] text-[18px] font-[400]">{title}</h6>
             <h6 className="text-[#292D32] text-[12px] font-[300]">
               {subTitle}
             </h6>

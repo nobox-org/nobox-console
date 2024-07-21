@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Modal from "../Modal";
 import { RecordsTableProps } from "./RecordsTable";
 import loadable from '@loadable/component';
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 
 function convertDateFormat(isoDate: string) {
@@ -26,7 +26,6 @@ const ReactJson = loadable(() => import('react-json-view') as any) as any;
 
 export const Body = ({ records, headings, handleDeleteRecord }: RecordsTableProps) => {
     return <>
-        <ToastContainer toastClassName="custom-toast" />
         {records?.map((record, index) => (<DisplayTR handleDelete={handleDeleteRecord} headings={headings} record={record} key={index} />))}
     </>
 }
@@ -61,10 +60,7 @@ const DisplayTR = ({ headings, record, handleDelete }: {
                                     style={{ cursor: "pointer", color: "blue" }}
                                     onClick={() => {
                                         handleDelete(record.id).then(() => {
-                                            toast.info("Record with id: " + record.id + " successfully Deleted", {
-                                                className: "toast-message",
-                                                autoClose: 2000,
-                                            });
+                                            toast.success("Record with id: " + record.id + " successfully Deleted");
                                         })
                                     }}>Delete</a>
                             </td>

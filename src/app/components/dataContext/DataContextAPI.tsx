@@ -17,6 +17,7 @@ function DataContextProvider({ children }: any) {
     const fresh = Boolean(isFirstLoad.current) || freshReload;
 
     const { loading, data: projects, sharedData: sharedProjects, allProjects } = useNoboxData({
+        source: "DataContextProvider",
         fresh,
         freshReloadTime,
         backgroundOpts: {
@@ -31,6 +32,8 @@ function DataContextProvider({ children }: any) {
             isFirstLoad.current = false;
         }
     }, []);
+
+    console.log("DataContext", { projects })
 
     return (
         <DataContext.Provider value={{ loading, projects, sharedProjects, initiateReload, allProjects }}>

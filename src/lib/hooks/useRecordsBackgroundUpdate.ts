@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
-import { backgroundUpdate } from '../background-update-record-map';
-import { getProjectRecordMap } from '../calls/get-record-map';
+import { getProjectRecordMap, saveRecordMapInLocalStorage } from '../calls/get-record-map';
+import { storage } from '../utils/local-storage';
+import { storageConstants } from '../constants';
+import { fetchAndStoreRecords } from '../utils';
 
 export interface UseRecordsBackgroundUpdateProps {
     allProjects: any[];
@@ -9,7 +11,7 @@ export interface UseRecordsBackgroundUpdateProps {
 
 export const useRecordsBackgroundUpdate = ({
     allProjects,
-    projectId
+    projectId,
 }: UseRecordsBackgroundUpdateProps) => {
     useEffect(() => {
         const TIME_INTERVAL_IN_SECONDS = 5;
@@ -17,11 +19,8 @@ export const useRecordsBackgroundUpdate = ({
 
         if (allProjects.length > 0) {
             const interval = setInterval(() => {
-                backgroundUpdate({
-                    recordMapCall: () => getProjectRecordMap({
-                        allProjects,
-                        projectId,
-                    }),
+                fetchAndStoreRecords({
+                    allProjects,
                     projectId
                 });
             }, minute_ms);

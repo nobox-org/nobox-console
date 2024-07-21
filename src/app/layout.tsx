@@ -2,6 +2,7 @@ import localFont from "next/font/local";
 import "./styles/globals.scss";
 import "react-toastify/dist/ReactToastify.css";
 import './styles/custom-toast.css'
+import ReactQueryProvider from "@/lib/providers/ReactQueryProvider";
 
 const Euclid = localFont({
   src: [
@@ -42,7 +43,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning={true} className={Euclid.className}>
-        {children}
+        <ReactQueryProvider>
+          {children}
+        </ReactQueryProvider>
       </body>
     </html >
   );
