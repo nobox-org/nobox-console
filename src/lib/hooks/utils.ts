@@ -126,10 +126,6 @@ export const fetchAllProjectResources = async () => {
             },
             authorized: true,
         });
-
-        console.log(
-            "kolp"
-        )
         return data;
     } catch (error) {
         console.error(`get fetch all project resources::`, error);

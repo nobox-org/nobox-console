@@ -1,13 +1,14 @@
 "use client";
 import { Formatic } from "@/app/lib/formatic";
 import submitRecords from "@/lib/calls/submit-records";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { converthydratedRecordFieldsToInputMetaData, fetchAndStoreRecords, getRecordSpace } from "@/lib/utils";
 import useNoboxData from "@/lib/hooks/useNoboxData";
 import createUIIndication from "@/lib/createUIIndication";
 import React from "react";
+import DataContext from "@/app/components/dataContext/DataContext";
 
 
 export default function RecordInputPage({
@@ -21,7 +22,8 @@ export default function RecordInputPage({
 
   const submissionIndication = createUIIndication(setSubmitted);
 
-  const { allProjects, data: project, loading } = useNoboxData({ source: "RecordInputPage" });
+
+  const { allProjects, projects, loading } = useContext(DataContext);
 
   const [inputMetaData, setInputMetaData] = useState([]);
 
@@ -57,11 +59,11 @@ export default function RecordInputPage({
   }
 
   useEffect(() => {
-    if (!loading && project?.length) {
+    if (!loading && allProjects?.length) {
       const { recordSpace } = getRecordSpace({
         projectId: params.project_id,
         recordSpaceSlug: params.record_space_slug,
-        project
+        allProjects
       });
       setRecordSpace(recordSpace);
       setInputMetaData(converthydratedRecordFieldsToInputMetaData(recordSpace.hydratedRecordFields));

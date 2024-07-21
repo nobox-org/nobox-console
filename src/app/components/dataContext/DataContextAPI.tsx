@@ -33,8 +33,6 @@ function DataContextProvider({ children }: any) {
         }
     }, []);
 
-    console.log("DataContext", { projects })
-
     return (
         <DataContext.Provider value={{ loading, projects, sharedProjects, initiateReload, allProjects }}>
             {children}

@@ -40,7 +40,6 @@ const useRecordsCall = ({
     }
 
     window.addEventListener('RecordUpdate', async () => {
-        console.log("Change to local storage!");
         getAndSetRecords();
     })
 

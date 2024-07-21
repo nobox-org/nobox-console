@@ -4,12 +4,12 @@ import { FieldType } from "../types";
 import { storage } from "./local-storage";
 
 export const getRecordSpace = (args: {
-    project: any;
+    allProjects: any;
     recordSpaceSlug: string;
     projectId: string;
 }) => {
-    const { recordSpaceSlug, project, projectId } = args;
-    const selectedProject = project.filter((x: any) => x._id === projectId)[0];
+    const { recordSpaceSlug, allProjects, projectId } = args;
+    const selectedProject = allProjects.filter((x: any) => x._id === projectId)[0];
     const recordSpace = selectedProject?.recordSpaces.filter((x: any) => x.slug === recordSpaceSlug)[0];
     return { recordSpace, views: recordSpace?.views };
 }
@@ -43,9 +43,6 @@ export const converthydratedRecordFieldsToInputMetaData = (structure: any) => {
 
 
 export const convertStructureToHeadings = (structure: any) => {
-
-    console.log({ structure })
-
     const headings = Object.keys(structure).map((key) => {
         const eachStructure = structure[key];
         const { name, required } = eachStructure;

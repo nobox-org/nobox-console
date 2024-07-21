@@ -14,7 +14,7 @@ export default function HomePage() {
     const {
         loading: noboxDataLoading,
         sharedProjects,
-        allProjects,
+        projects
     } = useContext(DataContext);
 
     if (noboxDataLoading) {
@@ -29,7 +29,7 @@ export default function HomePage() {
         <>
             {!isSkipped && <OnboardingInfo handleSkip={skip} token={token} />}
             <div className={`${!isSkipped && "mt-[32px]"}`}>
-                <OverviewSection title="Projects" data={allProjects} addNewButton />
+                <OverviewSection title="Projects" data={projects} addNewButton />
                 <OverviewSection title="Shared Projects" dataIsEmpty={sharedProjects?.length <= 0} data={sharedProjects} />
             </div>
         </>

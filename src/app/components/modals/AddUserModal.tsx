@@ -35,7 +35,7 @@ export const AddUserModal = ({ projectId }: {
             authorized: true,
             onSuccess: () => {
                 getAndSetProjectUsers();
-                toast.error(`User: ${email} Added Successfully`);
+                toast.success(`User: ${email} Added Successfully`);
             }
         });
         const { success, error, dataReturned } = response;

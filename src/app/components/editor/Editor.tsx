@@ -6,14 +6,12 @@ export default function Editor({ value, onChange, id }: any) {
   const ref = useRef<any>();
 
   useEffect(() => {
-    console.log({ a: ref.current, c: "jj" })
     if (!ref.current) {
       ref.current = new EditorJS({
         holder: id,
         tools: EDITOR_TOOLS,
         data: value,
         async onChange(api, _event) {
-          console.log("bi")
           const data = await api.saver.save();
           onChange(data);
         },

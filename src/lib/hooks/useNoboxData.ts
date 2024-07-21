@@ -14,7 +14,6 @@ interface UseNoboxDataProps {
 }
 
 const useNoboxData = ({ freshReloadTime, backgroundOpts, source }: UseNoboxDataProps = {}) => {
-    console.log({ source })
     const [data, setData] = useState([]);
     const [sharedData, setSharedData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -24,8 +23,6 @@ const useNoboxData = ({ freshReloadTime, backgroundOpts, source }: UseNoboxDataP
 
     const callAndSetAllProjectResources = async () => {
         const data = await fetchAllProjectResources();
-
-        console.log({ data })
 
         storeData({
             setData,
@@ -84,8 +81,6 @@ const useNoboxData = ({ freshReloadTime, backgroundOpts, source }: UseNoboxDataP
             return () => clearInterval(interval);
         }
     }, [freshReloadTime])
-
-    console.log("hey")
 
     return {
         data,
