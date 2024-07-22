@@ -35,7 +35,7 @@ export const Formatic = ({
       const field = schema[i];
       const { name, type, required } = field;
       const value = values[name];
-      if (!value && required) {
+      if (required && (value === undefined && value === null)) {
         toast.error(`${name} is required`);
         return;
       }
