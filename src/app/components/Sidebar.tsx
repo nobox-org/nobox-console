@@ -31,39 +31,8 @@ const Sidebar = () => {
     <aside className="flex flex-col h-screen justify-between gap-4 md:border-r border-[#E6E8F9]">
       <ul className=" text-[#496080] font-light">
 
-        {/* <a href="/">
-          <div className="h-[56px] mb-[16px] w-full border-b border-[#E6E8F9]">
-            <div className="flex gap-[8px] h-full items-center pl-[16px] ">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={19}
-                height={20}
-                fill="none"
-              >
-                <path
-                  fill="#FECB00"
-                  d="M.99 17.372V6.562a1.92 1.92 0 0 1-.693-.607A1.574 1.574 0 0 1 0 5.003V2.628c0-.495.173-.915.52-1.262.346-.346.766-.52 1.261-.52h15.24c.494 0 .915.174 1.26.52.347.347.52.767.52 1.262v2.375c0 .363-.098.68-.296.952a1.92 1.92 0 0 1-.693.606v10.811c0 .495-.173.916-.52 1.262-.346.346-.767.52-1.261.52H2.77c-.495 0-.916-.174-1.262-.52a1.718 1.718 0 0 1-.52-1.262ZM2.474 6.784v10.588c0 .083.029.153.087.21a.285.285 0 0 0 .21.087h13.26a.289.289 0 0 0 .21-.086.289.289 0 0 0 .087-.21V6.783H2.474ZM17.02 5.3a.287.287 0 0 0 .211-.087.285.285 0 0 0 .086-.21V2.628a.289.289 0 0 0-.086-.21.289.289 0 0 0-.21-.087H1.78a.286.286 0 0 0-.21.086.287.287 0 0 0-.087.21v2.376c0 .082.03.152.087.21a.284.284 0 0 0 .21.087h15.24Z"
-                />
-                <path
-                  fill="#FECB00"
-                  d="M11.726 14.122h-.759L7.99 10.317v3.805h-.871V8.835h.759l2.97 3.797V8.835h.88v5.287Z"
-                />
-              </svg>
-              <h3 className="text-[#1C1B1B] text-[18px] font-[800]">Nobox</h3>
-            </div>
-          </div>
-        </a> */}
-
         <div id="sidebar" className="flex flex-col bg-[#fff] gap-y-2">
-          
-          {/* <div
-            className="text-lg flex justify-end text-primary cursor-pointer font-light my-4"
-            onClick={closeSidebar}
-          >
-            <FaTimes />
-          </div> */}
 
-          
           <br/>
 
           <Link className={pathname == "/" ? "active" : ""} href="/">

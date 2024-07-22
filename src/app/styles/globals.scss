@@ -179,6 +179,20 @@ input {
     backdrop-filter: blur(10px);
     translate: 0 0;
   }
+
+  #menuHandle{
+    &>div:last-of-type {
+      display: none;
+    }
+    &[data-active] {
+      &>div:first-of-type {
+        display: none;
+      }
+      &>div:last-of-type {
+        display: block;
+      }
+    }
+  }
 }
 
 @media (min-width: 768px) {

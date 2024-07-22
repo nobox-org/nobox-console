@@ -25,10 +25,13 @@ export default function DashboardLayout({
   const toggleSidebar = () => {
     console.log("toggle")
     const sidebar = document?.getElementById("sidebar");
+    const menuHandle = document?.getElementById("menuHandle");
 
     if (!sidebar) return;
     
     sidebar.classList.toggle('open');
+    menuHandle?.toggleAttribute('data-active');
+
   };
 
   if (
@@ -69,9 +72,16 @@ export default function DashboardLayout({
                 </div>
               </a>
 
-              <div className="md:hidden text-xl top-most" onClick={toggleSidebar}>
-                {/* <FiMenu /> */}
+              <div className="md:hidden text-xl top-most" id="menuHandle" onClick={toggleSidebar}>
+                <div>
+
+                <FiMenu />
+                </div>
+
+                <div>
+
                 <RxCross2 />
+                </div>
               </div>
             </div>
 
