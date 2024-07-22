@@ -43,10 +43,14 @@ const SignUpEmail = () => {
           </div>
         </div>
       </div>
-      <div className="text-[#000] mt-[24px] text-center">
-        Already have an account?{" "}
-        <Link href={"/login"} className="pl-2 italic text-link ">
-          Sign In
+      <div className="text-[#404040] w-[517px] h-[36px] text-[12px] font-[400] text-center">
+        <Link
+          href={"/login"}
+          className="text-md font-[600] text-lg auth-btn py-[16px] mt-[4px] text-white w-full focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 px-5 text-center flex justify-center items-center mr-2 mb-2"
+        >
+          <div>
+            Already Have an Account? Sign In.
+          </div>
         </Link>
       </div>
     </div >
