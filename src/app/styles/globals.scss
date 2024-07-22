@@ -181,6 +181,7 @@ input {
   }
 
   #menuHandle{
+    cursor: pointer;
     &>div:last-of-type {
       display: none;
     }
@@ -268,7 +269,7 @@ input {
 .space-up {
   margin-top: 100px;
   @media screen and (max-width: 808px) {
-    margin-top: 300px;
+    margin-top: 400px;
   }
 }
 
