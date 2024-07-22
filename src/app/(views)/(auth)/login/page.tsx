@@ -48,7 +48,7 @@ const SignIn = () => {
           className="text-md font-[600] text-[16px] auth-btn py-[16px] mt-[4px] text-white w-full focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 text-lg px-5 text-center flex justify-center items-center mr-2 mb-2"
         >
           <div>
-            Don't have an account? Sign Up
+            Don&lsquo;t have an account? Sign Up
           </div>
         </Link>
       </div>
