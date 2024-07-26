@@ -17,6 +17,7 @@ function DataContextProvider({ children }: any) {
     const fresh = Boolean(isFirstLoad.current) || freshReload;
 
     const { loading, data: projects, sharedData: sharedProjects, allProjects } = useNoboxData({
+        source: "DataContextProvider",
         fresh,
         freshReloadTime,
         backgroundOpts: {

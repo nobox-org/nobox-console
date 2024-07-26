@@ -9,7 +9,10 @@ interface CreateProjectProps {
     handleSubmit: (values: CreateProjectInput) => Promise<any>;
 }
 
-const CreateProject: React.FC<CreateProjectProps> = ({ inputKeys, handleSubmit }) => {
+const CreateProject: React.FC<CreateProjectProps> = ({
+    inputKeys,
+    handleSubmit
+}) => {
 
     const [inputValues, setInputValues] = useState<{ [key: string]: string }>({});
 

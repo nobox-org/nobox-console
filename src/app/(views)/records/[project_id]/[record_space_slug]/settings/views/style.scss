@@ -1,0 +1,20 @@
+ul.views {
+    @apply lg:w-5/12 bg-white rounded-md shadow-sm;
+    li {
+        @apply w-full flex justify-between border-b text-sm border-gray-100 py-4 px-5;
+        div {
+            div {
+                &:first-child {
+                    width: 200px;
+                }
+            }
+            
+        }
+        &:first-child {
+            @apply uppercase text-xs text-gray-400;
+        }
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+}

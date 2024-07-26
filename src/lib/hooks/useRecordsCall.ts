@@ -1,48 +1,52 @@
-import { useEffect, useState } from 'react';
-import useNoboxData from './useNoboxData';
+import { useContext, useEffect, useState } from 'react';
 import getRecords from '../calls/get-records';
+import DataContext from '@/app/components/dataContext/DataContext';
 
 interface FetchRecordsArgs {
     projectId: string;
     recordSpaceSlug: string;
     initiateFreshCall?: boolean;
     uniqueId?: string;
+    setRecords: (data: any[]) => void;
 }
 
 const useRecordsCall = ({
     projectId,
     recordSpaceSlug,
     initiateFreshCall,
-    uniqueId
+    uniqueId,
+    setRecords
 }: FetchRecordsArgs) => {
     const [data, setData] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [recordSpaceStructure, setRecordSpaceStructure] = useState({});
 
-    const { loading: noboxDataIsLoading, allProjects } = useNoboxData({});
+    const { loading: noboxDataIsLoading, allProjects } = useContext(DataContext);
+
+    const getAndSetRecords = async () => {
+        const { records, recordSpaceStructure: computedRecordSpaceStructure } = await getRecords({
+            allProjects,
+            projectId,
+            recordSpaceSlug,
+            freshCall: initiateFreshCall
+        });
+
+        if (records) {
+            setData(records);
+            setRecords(records);
+            setRecordSpaceStructure(computedRecordSpaceStructure);
+            setLoading(false);
+        }
+    }
+
+    window.addEventListener('RecordUpdate', async () => {
+        getAndSetRecords();
+    })
 
     useEffect(() => {
         if (!noboxDataIsLoading || initiateFreshCall) {
-            console.log({ d: initiateFreshCall })
-            getRecords({
-                allProjects,
-                projectId,
-                recordSpaceSlug,
-                freshCall: initiateFreshCall
-            }).then((data) => {
-                const { records, recordSpaceStructure: computedRecordSpaceStructure } = data
-
-                console.log({ records })
-
-                if (records) {
-                    setData(records);
-                    setRecordSpaceStructure(computedRecordSpaceStructure);
-                    setLoading(false);
-                }
-            })
+            getAndSetRecords();
         }
-
-
     },
         // eslint-disable-next-line react-hooks/exhaustive-deps
         [initiateFreshCall, noboxDataIsLoading, uniqueId]

@@ -41,7 +41,7 @@ export default function DocsLayout({
             <FiMenu />
           </div>
         </div>
-        <div className="md:w-[350px] w-full fixed top-0 left-0 bg-white">
+        <div className="md:w-[290px] w-full fixed top-0 left-0 bg-white">
           <aside className="flex flex-col justify-between gap-4 md:border-r border-[#E6E8F9]">
             <ul className=" text-[#496080] font-light">
               <a href="/">

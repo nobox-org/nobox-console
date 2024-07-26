@@ -126,7 +126,6 @@ export const fetchAllProjectResources = async () => {
             },
             authorized: true,
         });
-
         return data;
     } catch (error) {
         console.error(`get fetch all project resources::`, error);

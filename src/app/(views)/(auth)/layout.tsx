@@ -6,7 +6,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex items-center justify-center h-screen bg-black">
       <div className="p-4 md:p-8">
           <h1 className="text-2xl font-bold mb-4 text-center">Welcome to Nobox</h1>
           {/* <div className="md:w-[517px] max-w-sm"> */}

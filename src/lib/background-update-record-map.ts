@@ -5,7 +5,9 @@ import { storageConstants } from "./constants";
 export const backgroundUpdate = async (args: {
     recordMapCall: () => any;
     projectId: string;
+    afterEffect: () => any;
 }) => {
+    console.time("beeping")
     const store = storage(storageConstants.PROJECT_RECORD_MAP);
     const { recordMapCall, projectId } = args;
     recordMapCall().then((recordMap: any) => {
@@ -14,6 +16,8 @@ export const backgroundUpdate = async (args: {
             projectId,
             store
         })
+        console.timeEnd("beeping")
+        args.afterEffect();
     })
 }
 

@@ -4,6 +4,7 @@ import { storage } from '../utils/local-storage';
 import { fetchAllProjectResources, storeData } from './utils';
 
 interface UseNoboxDataProps {
+    source?: string;
     fresh?: boolean;
     freshReloadTime?: Date;
     backgroundOpts?: {
@@ -12,7 +13,7 @@ interface UseNoboxDataProps {
     }
 }
 
-const useNoboxData = ({ fresh = false, freshReloadTime, backgroundOpts }: UseNoboxDataProps = {}) => {
+const useNoboxData = ({ freshReloadTime, backgroundOpts, source }: UseNoboxDataProps = {}) => {
     const [data, setData] = useState([]);
     const [sharedData, setSharedData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -20,45 +21,65 @@ const useNoboxData = ({ fresh = false, freshReloadTime, backgroundOpts }: UseNob
     const sharedStore = storage(storageConstants.NOBOX_SHARED_DATA);
     const tokenStore = storage(storageConstants.NOBOX_SHARED_PROJECT_TOKENS);
 
-    const callAndSetAllProjectResources = async ({ freshCall = false }: { freshCall?: boolean } = {}) => {
+    const callAndSetAllProjectResources = async () => {
         const data = await fetchAllProjectResources();
 
         storeData({
             setData,
             store,
             data: data.getProjects,
-            fresh: freshCall
+            fresh: freshReloadTime ? true : false
         });
 
         storeData({
             setData: setSharedData,
             store: sharedStore,
             data: data.getSharedProjects,
-            fresh: freshCall
-        });
+            fresh: freshReloadTime ? true : false
 
+        });
         storeData({
             store: tokenStore,
             data: data.getSharedProjectTokens,
-            fresh: freshCall
-        })
+            fresh: freshReloadTime ? true : false
+        });
+    };
+
+    useEffect(() => {
+        const dataFromLocalStorage = store.getObject();
+
+        if (dataFromLocalStorage) {
+            setData(dataFromLocalStorage as any);
+        };
+
+        const sharedDataFromLocalStorage = sharedStore.getObject();
+        if (sharedDataFromLocalStorage) {
+            setSharedData(sharedDataFromLocalStorage as any);
+        };
+
+        if (!dataFromLocalStorage && !sharedDataFromLocalStorage) {
+            callAndSetAllProjectResources();
+        }
 
         setLoading(false);
-    };
+    }, [])
 
 
     useEffect(() => {
-        callAndSetAllProjectResources({ freshCall: fresh });
+        if (freshReloadTime) {
+            callAndSetAllProjectResources();
+            setLoading(false);
+        }
 
         if (backgroundOpts?.runInBackground) {
             const MINUTE_MS = backgroundOpts.timeIntervalInSeconds * 1000;
 
             const interval = setInterval(() => {
-                callAndSetAllProjectResources({ freshCall: true });
+                callAndSetAllProjectResources();
             }, MINUTE_MS);
+
             return () => clearInterval(interval);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [freshReloadTime])
 
     return {

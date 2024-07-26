@@ -18,7 +18,8 @@ export type ServerCallsKeyType =
     | "getAuthGoogleCallback"
     | "getAuthGithub"
     | "getAuthGithubCallback"
-    | "getAuthConnectionTokenAuthToken"
+    | "getAuthConnectionToken"
+    | "getAuthRefreshConnectionToken"
     | "getAuthAuthCheck"
     | "postAuthRegister"
     | "postAuthLogin"
@@ -28,12 +29,23 @@ export type ServerCallsKeyType =
     | "getGatewayBulkProjectResources"
     | "getGatewayRecordsByRecordspaceId"
     | "postGatewayProjectsAddUser"
+    | "getGatewayViews"
+    | "postGatewayViews"
+    | "getGatewayViews"
+    | "postGatewayViews"
+    | "getGatewayLogs"
     | "postGatewayProjectsRemoveUser"
     | "getGatewayProjectsUsers"
     | "postGatewayProject"
+    | "postGatewayNotifyMail"
+    | "postGatewayNotifySms"
+    | "postGatewayNotifyWhatsapp"
+    | "postGatewayNotifyWhatsappReply"
+    | "getGatewayNotifyWhatsappCallback"
     | "postSetInferredStructure"
     | "postGetInferredStructure"
-    | "postSetStructure";
+    | "postSetStructure"
+    | "postUtilsGetEmbedding";
 
 export const serverCalls: ServerCallsType<ServerCallsKeyType> = {
     get: {
@@ -118,9 +130,14 @@ export const serverCalls: ServerCallsType<ServerCallsKeyType> = {
         name: "getAuthGithubCallback",
         verb: ServerCallVerbs.Get,
     },
-    getAuthConnectionTokenAuthToken: {
-        path: `/auth/_/connection_token`,
-        name: "getAuthConnectionTokenAuthToken",
+    getAuthConnectionToken: {
+        path: "/auth/_/connection_token",
+        name: "getAuthConnectionToken",
+        verb: ServerCallVerbs.Get,
+    },
+    getAuthRefreshConnectionToken: {
+        path: "/auth/_/refresh_connection_token",
+        name: "getAuthRefreshConnectionToken",
         verb: ServerCallVerbs.Get,
     },
     getAuthAuthCheck: {
@@ -168,6 +185,21 @@ export const serverCalls: ServerCallsType<ServerCallsKeyType> = {
         name: "postGatewayProjectsAddUser",
         verb: ServerCallVerbs.Post,
     },
+    getGatewayViews: {
+        path: "/gateway/*/views/{id}",
+        name: "getGatewayViews",
+        verb: ServerCallVerbs.Get,
+    },
+    postGatewayViews: {
+        path: "/gateway/*/views/{id}",
+        name: "postGatewayViews",
+        verb: ServerCallVerbs.Post,
+    },
+    getGatewayLogs: {
+        path: "/gateway/*/logs",
+        name: "getGatewayLogs",
+        verb: ServerCallVerbs.Get,
+    },
     postGatewayProjectsRemoveUser: {
         path: "/gateway/*/projects/remove-user",
         name: "postGatewayProjectsRemoveUser",
@@ -183,6 +215,31 @@ export const serverCalls: ServerCallsType<ServerCallsKeyType> = {
         path: "/gateway/*/project",
         name: "postGatewayProject",
         verb: ServerCallVerbs.Post,
+    },
+    postGatewayNotifyMail: {
+        path: "/gateway/*/notify/mail",
+        name: "postGatewayNotifyMail",
+        verb: ServerCallVerbs.Post,
+    },
+    postGatewayNotifySms: {
+        path: "/gateway/*/notify/sms",
+        name: "postGatewayNotifySms",
+        verb: ServerCallVerbs.Post,
+    },
+    postGatewayNotifyWhatsapp: {
+        path: "/gateway/*/notify/whatsapp",
+        name: "postGatewayNotifyWhatsapp",
+        verb: ServerCallVerbs.Post,
+    },
+    postGatewayNotifyWhatsappReply: {
+        path: "/gateway/*/notify/whatsapp/reply",
+        name: "postGatewayNotifyWhatsappReply",
+        verb: ServerCallVerbs.Post,
+    },
+    getGatewayNotifyWhatsappCallback: {
+        path: "/gateway/*/notify/whatsapp/callback",
+        name: "getGatewayNotifyWhatsappCallback",
+        verb: ServerCallVerbs.Get,
     },
     postSetInferredStructure: {
         path: (args: { recordSpaceSlug: string; projectSlug: string }) =>
@@ -200,6 +257,11 @@ export const serverCalls: ServerCallsType<ServerCallsKeyType> = {
         path: (args: { recordSpaceSlug: string; projectSlug: string }) =>
             `/${args.projectSlug}/${args.recordSpaceSlug}/set-structure`,
         name: "postSetStructure",
+        verb: ServerCallVerbs.Post,
+    },
+    postUtilsGetEmbedding: {
+        path: "/utils/*/get-embedding",
+        name: "postUtilsGetEmbedding",
         verb: ServerCallVerbs.Post,
     },
 };
