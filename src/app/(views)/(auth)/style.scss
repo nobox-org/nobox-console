@@ -1,3 +1,5 @@
+@import '../../styles/mixins';
+
 .inputBorder:focus {
   border: 1.5px solid;
   border-image: linear-gradient(
@@ -9,4 +11,17 @@
     1;
   border-radius: 2px;
   border-image-slice: 1;
+}
+
+
+.auth_box {
+  // background-color: red;
+  // width: 417px;
+  // max-width: 100%;
+  // max-width: 24rem;
+  margin-inline: auto;
+  
+  @include media(990px) {
+    max-width: 24rem;
+  }
 }

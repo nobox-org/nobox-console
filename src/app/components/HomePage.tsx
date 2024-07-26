@@ -19,16 +19,17 @@ export default function HomePage() {
 
     if (noboxDataLoading) {
         return (
-            <main className="text-[#292D32] bg-[#ECEDF3] h-full p-[24px]">
+            <div className="text-[#292D32] bg-[#ECEDF3] h-full p-[24px]">
                 Loading
-            </main>
+            </div>
         );
     }
 
     return (
         <>
             {!isSkipped && <OnboardingInfo handleSkip={skip} token={token} />}
-            <div className={`${!isSkipped && "mt-[32px]"}`}>
+            
+            <div className={`${!isSkipped && "space-up"}`}>
                 <OverviewSection title="Projects" data={projects} addNewButton />
                 <OverviewSection title="Shared Projects" dataIsEmpty={sharedProjects?.length <= 0} data={sharedProjects} />
             </div>

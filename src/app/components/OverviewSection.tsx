@@ -37,7 +37,8 @@ export default function OverviewSection({ title, section, loading, dataIsEmpty, 
                 <h6 className="text-[16px] font-[700] text-[#292D32]">
                     {title} 
                 </h6>
-                <div className="flex flex-wrap gap-[24px] mt-[20px] mb-[48px]">
+
+                <div className="flex flex-wrap items-stretch gap-[24px] mt-[20px] mb-[48px]">
                     {section ?? (data ?? []).map((project, i) => <ProjectCard project={project} key={i} />)}
                     {addNewButton && (<AddNewButton onClickHandler={() => {
                         setOpenModal(true)
@@ -48,16 +49,14 @@ export default function OverviewSection({ title, section, loading, dataIsEmpty, 
                     setIsOpen={setOpenModal}
                     buttonText={'Copy Text'}
                 >
-                    <div style={{ width: "600px", padding: "10px", margin: "30px", overflow: "auto", height: "700px", scrollbarColor: "transparent transparent" }} >
-                        <div style={{ scrollbarColor: "transparent #ddd" }}>
-                            <CreateProject inputKeys={["description", "name", "slug"]} handleSubmit={
-                                async (data: CreateProjectInput) => {
-                                    const project = await createProject(data);
-                                    initiateReload();
-                                    openModalIndicator.delayed({ value: false });
-                                    return project;
-                                }} />
-                        </div>
+                    <div style={{ scrollbarColor: "transparent #ddd" }}>
+                        <CreateProject inputKeys={["description", "name", "slug"]} handleSubmit={
+                            async (data: CreateProjectInput) => {
+                                const project = await createProject(data);
+                                initiateReload();
+                                openModalIndicator.delayed({ value: false });
+                                return project;
+                            }} />
                     </div>
                 </Modal>
             </>

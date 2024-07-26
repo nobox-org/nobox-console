@@ -132,7 +132,6 @@ input {
   position: sticky;
   top: 0;
   background-color: white;
-  z-index: 10;
 }
 
 .modal-overlay::before {
@@ -146,14 +145,53 @@ input {
   z-index: 2;
 }
 
+
+.header {
+  // background-color: red;
+  position: sticky;
+  top: 0rem;
+  height: 5rem;
+  z-index: 10;
+}
+
+
+.sidebar {
+  // background-color: red;
+  position: fixed;
+  top: 5rem;
+  bottom: 0;
+  left: 0;
+
+  z-index: 2;
+
+  transition: translate 200ms ease;
+}
+
+
 @media (max-width: 768px) {
-  #sidebar {
-    display: none;
-    width: 100% !important;
+  .sidebar {
+    right: 0;
+    translate: -100% 0;
   }
 
-  #sidebar.open {
-    display: block;
+  .sidebar:has(#sidebar.open) {
+    backdrop-filter: blur(10px);
+    translate: 0 0;
+  }
+
+  #menuHandle{
+    cursor: pointer;
+    &>div:last-of-type {
+      display: none;
+    }
+    &[data-active] {
+      &>div:first-of-type {
+        display: none;
+      }
+      &>div:last-of-type {
+        display: block;
+      }
+    }
   }
 }
 
@@ -165,7 +203,6 @@ input {
     height: 614px;
   }
 }
-
 
 .modal-backdrop {
   position: fixed;
@@ -212,6 +249,31 @@ input {
     color: #f00;
   }
 }
+
+.modal-content {
+  width: 600px;
+  // max-width: 100%;
+  padding-inline: 2rem;
+  padding-block: 2rem 0;
+  
+  overflow: auto;
+  height: 700px;
+  scrollbar-color: transparent transparent;
+
+
+  @media screen and (max-width: 768px) {
+    width: 24rem;
+  }
+}
+
+// .space-up {
+//   margin-top: 100px;
+//   @media screen and (max-width: 808px) {
+//     margin-top: 400px;
+//   }
+// }
+
+
 aside {
   width: 290px;
   background: #fff;
@@ -269,4 +331,11 @@ aside {
     height: 40px;
     border-radius: 4px;
   }
+}
+
+.display-box {
+  width: 20rem;
+  max-width: 80%;
+
+  min-height: 10rem;
 }
