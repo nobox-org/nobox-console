@@ -9,7 +9,7 @@ export default function Editor({ value, onChange, id }: any) {
     if (!ref.current) {
       ref.current = new EditorJS({
         holder: id,
-        tools: EDITOR_TOOLS,
+        tools: EDITOR_TOOLS as any,
         data: value,
         async onChange(api, _event) {
           const data = await api.saver.save();
@@ -23,6 +23,7 @@ export default function Editor({ value, onChange, id }: any) {
         ref.current.destroy();
       }
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (<div id={id} ref={ref} className="w-full bg-white overflow-auto px-10 py-5 editorjs-container"> </div>);
