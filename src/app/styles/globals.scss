@@ -171,7 +171,7 @@ input {
 @media (max-width: 768px) {
   .sidebar {
     right: 0;
-    translate: -100% 0;
+    translate: -300% 0;
   }
 
   .sidebar:has(#sidebar.open) {
@@ -338,4 +338,10 @@ aside {
   max-width: 80%;
 
   min-height: 10rem;
+
+  @media screen and (max-width: 500px) {
+    width: 40rem;
+    height: fit-content;
+    max-width: 100%;
+  }
 }

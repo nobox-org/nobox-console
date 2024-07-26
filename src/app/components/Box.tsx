@@ -37,14 +37,14 @@ export default function Box({
           <NodeBoxIcon />
 
           <div className="flex flex-col gap-[8px] my-[8px]" style={{ textAlign: "center" }}>
-            <h6 className="text-[#292D32] text-[18px] font-[400]">{title}</h6>
-            <h6 className="text-[#292D32] text-[12px] font-[300]">
+            <h6 className="text-[#292D32] text-[18px] font-[400] w-full overflow-hidden whitespace-wrap text-ellipsis">{title}</h6>
+            <h6 className="text-[#292D32] tNoboxext-[12px] font-[300]">
               {subTitle}
             </h6>
           </div>
 
           <div className="flex justify-between">
-            <span className="text-[12px]"> {bottomTitle}</span>
+            <span className="text-[12px] w-[90%] overflow-hidden whitespace-nowrap text-ellipsis">{bottomTitle}</span>
             <FaArrowRight />
           </div>
       </div>

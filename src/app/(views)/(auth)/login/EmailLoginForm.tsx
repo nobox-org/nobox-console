@@ -84,7 +84,7 @@ const EmailLoginForm = () => {
         className="w-full"
       />
       <div className="mt-5">
-        <button className="btn-primary w-full">Login</button>
+        <button className="btn-primary w-full py-3">Login</button>
       </div>
     </form>
   );
