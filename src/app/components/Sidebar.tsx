@@ -28,7 +28,7 @@ const Sidebar = () => {
 
   return (
     
-    <aside className="flex flex-col h-screen justify-between gap-4 md:border-r border-[#E6E8F9]">
+    <aside className="flex flex-col h-full justify-between gap-4 md:border-r border-[#E6E8F9]">
       <ul className=" text-[#496080] font-light">
 
         <div id="sidebar" className="flex flex-col bg-[#fff] gap-y-2 pt-5">

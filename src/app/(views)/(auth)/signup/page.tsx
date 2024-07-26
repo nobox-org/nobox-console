@@ -28,13 +28,13 @@ const SignUpEmail = () => {
             : <></>
         }
       </div>
-      <div className="text-[#404040] w-[517px] h-[36px] text-[12px] font-[400] text-center">
+      <div className="text-[#404040] h-[36px] text-[12px] font-[400] text-center">
         <Link
           href={"/login"}
-          className="text-md font-[600] text-lg auth-btn py-[16px] mt-[4px] text-white w-full focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 px-5 text-center flex justify-center items-center mr-2 mb-2"
+          className="text-md font-[400] text-[16px] py-[16px] mt-[4px] text-black w-full focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 px-5 text-center flex justify-center items-center mr-2 mb-2"
         >
           <div>
-            Already Have an Account? Sign In.
+            Already Have an Account? <br/>Sign In
           </div>
         </Link>
       </div>
