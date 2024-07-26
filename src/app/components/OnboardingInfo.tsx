@@ -13,7 +13,7 @@ export const OnboardingInfo = ({ handleSkip, token }: OnboardingInfoProps) => {
     };
 
     return (
-        <div className="lg:flex h-[348px] mb-10">
+        <div className="lg:flex mb-10">
 
             <div className="bg-[#FAFAFA]  overflow-y-hidden">
                 <div className=" p-[24px] ">

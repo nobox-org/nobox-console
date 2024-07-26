@@ -52,66 +52,63 @@ export default function DashboardLayout({
   return (
     <NoSSR onSSR={<MainLoader />}>
       <DataContextProvider>
-        <section>
-          <div>
+        <main>
+          <header
+            className="header w-full flex justify-between px-4 items-center border-b border-[#E6E8F9] text-[#1C1B1B] bg-[#fff]"
+          >
+            <a href="/">
+              <div className="md:px-2 flex gap-2 ">
+                <Image
+                  src="/logo.svg"
+                  className="w-full"
+                  alt=""
+                  width={100} 
+                  height={100}
+                />
+                
+                <p className="text-xl font-medium">Nobox</p>
+              </div>
+            </a>
 
-            <div
-              className="header w-full flex justify-between px-4 items-center border-b border-[#E6E8F9] text-[#1C1B1B] bg-[#fff]"
+            <div className="md:hidden text-xl top-most" id="menuHandle" onClick={toggleSidebar}>
+              <div>
+
+              <FiMenu />
+              </div>
+
+              <div>
+
+              <RxCross2 />
+              </div>
+            </div>
+          </header>
+
+          <section className="sidebar">
+            <Sidebar />
+          </section>
+
+          <section className="md:w-[calc(100%-290px)] md:ml-[290px] ">
+            <section
+              className="flex justify-between items-center px-[24px] h-[46px] border-b border-b-[#E6E8F9]"
             >
-              <a href="/">
-                <div className="md:px-2 flex gap-2 ">
-                  <Image
-                    src="/logo.svg"
-                    className="w-full"
-                    alt=""
-                    width={100} 
-                    height={100}
-                  />
-                  
-                  <p className="text-xl font-medium">Nobox</p>
-                </div>
-              </a>
 
-              <div className="md:hidden text-xl top-most" id="menuHandle" onClick={toggleSidebar}>
-                <div>
-
-                <FiMenu />
-                </div>
-
-                <div>
-
-                <RxCross2 />
-                </div>
-              </div>
-            </div>
-
-            <div className="sidebar">
-              <Sidebar />
-            </div>
-
-            <div className="md:w-[calc(100%-290px)] md:ml-[290px] ">
-              <div
-                className="flex justify-between items-center px-[24px] h-[46px] border-b border-b-[#E6E8F9]"
-              >
-
-                <div className="text-[20px] text-[#292D32]">
-                  <HeaderCrumbSection />
-                </div>
-
-                <Toaster toastOptions={{
-                  style: {
-                    fontSize: '14px',
-                  }
-                }} />
-
+              <div className="text-[20px] text-[#292D32]">
+                <HeaderCrumbSection />
               </div>
 
-              <div className="mx-5">
-                {children}
-              </div>
-            </div>
-          </div>
-        </section>
+              <Toaster toastOptions={{
+                style: {
+                  fontSize: '14px',
+                }
+              }} />
+
+            </section>
+
+            <section className="mx-5">
+              {children}
+            </section>
+          </section>
+        </main>
       </DataContextProvider>
     </NoSSR>
   );

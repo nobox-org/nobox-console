@@ -34,7 +34,10 @@ export const Modal = (props: {
                         <button className="close-button" onClick={handleModalToggle}>
                             X
                         </button>
-                        {children}
+
+                        <div className="modal-content">
+                            {children}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -31,9 +31,7 @@ const Sidebar = () => {
     <aside className="flex flex-col h-screen justify-between gap-4 md:border-r border-[#E6E8F9]">
       <ul className=" text-[#496080] font-light">
 
-        <div id="sidebar" className="flex flex-col bg-[#fff] gap-y-2">
-
-          <br/>
+        <div id="sidebar" className="flex flex-col bg-[#fff] gap-y-2 pt-5">
 
           <Link className={pathname == "/" ? "active" : ""} href="/">
             <svg

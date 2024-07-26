@@ -38,7 +38,7 @@ export default function OverviewSection({ title, section, loading, dataIsEmpty, 
                     {title} 
                 </h6>
 
-                <div className="flex flex-wrap gap-[24px] mt-[20px] mb-[48px]">
+                <div className="flex flex-wrap items-stretch gap-[24px] mt-[20px] mb-[48px]">
                     {section ?? (data ?? []).map((project, i) => <ProjectCard project={project} key={i} />)}
                     {addNewButton && (<AddNewButton onClickHandler={() => {
                         setOpenModal(true)
@@ -49,16 +49,14 @@ export default function OverviewSection({ title, section, loading, dataIsEmpty, 
                     setIsOpen={setOpenModal}
                     buttonText={'Copy Text'}
                 >
-                    <div className="modal-content">
-                        <div style={{ scrollbarColor: "transparent #ddd" }}>
-                            <CreateProject inputKeys={["description", "name", "slug"]} handleSubmit={
-                                async (data: CreateProjectInput) => {
-                                    const project = await createProject(data);
-                                    initiateReload();
-                                    openModalIndicator.delayed({ value: false });
-                                    return project;
-                                }} />
-                        </div>
+                    <div style={{ scrollbarColor: "transparent #ddd" }}>
+                        <CreateProject inputKeys={["description", "name", "slug"]} handleSubmit={
+                            async (data: CreateProjectInput) => {
+                                const project = await createProject(data);
+                                initiateReload();
+                                openModalIndicator.delayed({ value: false });
+                                return project;
+                            }} />
                     </div>
                 </Modal>
             </>

@@ -24,26 +24,29 @@ export default function Box({
   tooltip
 }: BoxProps) {
   return (
-    <a className="cursor-pointer" href={link || ""}>
+    <a
+      href={link || ""}
+      title={tooltip}
+      key={id}
+      className="w-full relative display-box bg-white shadow-md border rounded-lg cursor-pointer hover:ring hover:ring-blue-500 hover:ring-opacity-50 hover:ring-offset-4 hover:rounded-lg py-4 px-4 cursor-pointer"
+      onClick={handleClick}
+    >
       <div
-        title={tooltip}
-        key={id}
-        className="w-full relative md:w-[224px] bg-white shadow-md border rounded-lg cursor-pointer hover:ring hover:ring-blue-500 hover:ring-opacity-50 hover:ring-offset-4 hover:rounded-lg py-4 px-4"
-        onClick={handleClick}
+        className="flex justify-between flex-col h-40" 
       >
-        <div className="flex justify-between flex-col h-40" >
           <NodeBoxIcon />
+
           <div className="flex flex-col gap-[8px] my-[8px]" style={{ textAlign: "center" }}>
             <h6 className="text-[#292D32] text-[18px] font-[600]">{title}</h6>
             <h6 className="text-[#292D32] text-[12px] font-[300]">
               {subTitle}
             </h6>
           </div>
+
           <div className="flex justify-between">
             <span className="text-[12px]"> {bottomTitle}</span>
             <FaArrowRight />
           </div>
-        </div>
       </div>
     </a>
   );

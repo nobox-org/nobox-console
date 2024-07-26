@@ -133,7 +133,6 @@ input {
   position: sticky;
   top: 0;
   background-color: white;
-  z-index: 10;
 }
 
 .modal-overlay::before {
@@ -153,6 +152,7 @@ input {
   position: sticky;
   top: 0rem;
   height: 5rem;
+  z-index: 10;
 }
 
 
@@ -163,7 +163,7 @@ input {
   bottom: 0;
   left: 0;
 
-  z-index: 1;
+  z-index: 2;
 
   transition: translate 200ms ease;
 }
@@ -266,12 +266,12 @@ input {
   }
 }
 
-.space-up {
-  margin-top: 100px;
-  @media screen and (max-width: 808px) {
-    margin-top: 400px;
-  }
-}
+// .space-up {
+//   margin-top: 100px;
+//   @media screen and (max-width: 808px) {
+//     margin-top: 400px;
+//   }
+// }
 
 
 aside {
@@ -291,4 +291,12 @@ aside {
   background-color: #556dff;
   color: #FAFAFA;
   padding: 16px 32px;
+}
+
+
+.display-box {
+  width: 20rem;
+  max-width: 80%;
+
+  min-height: 10rem;
 }
