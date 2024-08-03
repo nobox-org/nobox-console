@@ -11,10 +11,12 @@ export const serverCall = createServerCall({
     handleServerError: (args: any) => {
         const { error } = args;
         console.log(error);
-        
+
 
         if (error.message === "Network Error") {
-            return window.location.href = LINKS.internalPages.error.main;
+            console.log(error)
+            // return window.location.href = LINKS.internalPages.error.main;
+            return;
         }
 
         const { error: dataError, message: dataMessage } = error.response.data;
