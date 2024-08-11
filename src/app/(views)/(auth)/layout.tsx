@@ -6,14 +6,8 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex items-center justify-center h-screen bg-black p-4 md:p-8">
-      <div>
-        <h1 className="text-2xl font-bold mb-4 text-center">Welcome to Nobox</h1>
-
-        <div className="auth_box bg-white py-[48px] px-[24px]">
+    <div className="w-full flex flex-col bg-[#121212] bg-noboxbg min-h-screen bg-contain bg-top">
           {children}
-        </div>
-      </div>
     </div>
   )
 }
